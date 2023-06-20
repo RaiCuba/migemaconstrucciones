@@ -1,0 +1,91 @@
+
+@extends('layouts.menupricipal')
+@section('Contenido')
+  
+
+<!-- mostrar mensaje de registro -->
+@if (session("Correcto"))
+
+<div class="alert alert-success">{{session("Correcto")}}</div>
+  
+@endif
+@if (session("Error"))
+
+<div class="alert alert-danger">{{session("Error")}}</div>
+  
+@endif
+  
+
+
+
+<a href="{{ route("formulariopersona") }}"><button type="sudmit" class="btn btn-outline-dark">Nueva Persona</button> </a>
+
+
+
+
+<div class="col-12 col-xl-8" >
+  <div class="card" >
+      <div class="card-header">
+          <h4>Gestionar Datos de persona</h4>
+      </div>
+          <div class="table-responsive">
+
+              <table class="table table-hover table-lg">
+                  <thead>
+                      <tr> 
+                        <th>Id persona</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Ci</th>
+                        <th>teléfono</th>
+                        <th>Correo</th>
+                        <th>Fecha de nacimiento</th>
+                         <th>Modificar</th>
+                        <th>Eliminar</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ( $datos as $items)
+                      <tr>
+                        <td class="col-auto">
+                          <p class=" mb-0">{{$items->id_per }}</p>
+                      </td>
+                        <td class="col-auto">
+                            <p class=" mb-0">{{$items->nombre }}</p>
+                        </td>
+                        <td class="col-auto">
+                          <p class=" mb-0">{{$items->ape }}</p>
+                      </td>
+                          <td class="col-auto">
+                              <p class=" mb-0">{{$items->ci}}</p>
+                          </td>
+                          <td class="col-auto">
+                            <p class=" mb-0">{{$items->tel }}</p>
+                        </td>
+                          <td class="col-auto">
+                            <p class=" mb-0">{{$items->correo }}</p>
+                        </td>
+                        <td class="col-auto">
+                          <p class=" mb-0">{{$items->fecha_nac }}</p>
+                      </td>
+ 
+                        <div>
+                          <td><a href="{{route("modificarpersona", $items->id_per)}}"><button type="sudmit" class="btn btn-outline-dark">Modificar</button> </a> </td>
+                       
+                          <td><a href="{{route("persona.delete", $items->id_per)}}"><button type="sudmit" class="btn btn-outline-dark">Eliminar</button> </a> </td>
+                        </div>
+                      </tr>
+                    @endforeach
+                  </tbody>
+              </table>
+              <div class="row">
+                <div >
+                  {{ $datos->links() }}
+                </div>
+              </div>
+              
+          </div>
+      
+</div>
+
+@endsection

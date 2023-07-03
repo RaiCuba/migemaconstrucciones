@@ -1,4 +1,4 @@
-@extends('layouts.iniciologin')
-@section('login')
-    @include('usuario.login')
+@extends('layouts.menunavbar')
+@section('clientes')
+    @include('cliente.index')
 @endsection

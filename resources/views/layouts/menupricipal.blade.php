@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Gema</title>
+    <link rel="shortcut icon" href="../public/images/logo/logo1.png">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -19,18 +20,34 @@
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
     
     <script src="{{ asset('js/axios.min.js') }}"></script>
+    <style>
+    #footer {
+        position:fixed;
+        left:0px;
+        bottom:0px;
+        height:30px;
+        width:100%;
+        background:#999;
+     }
+    </style>
   
 
 </head>
 @auth
 <body>
+    
+    
+
+
+
+
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href=""><img src="" srcset=""></a>
+                            <a href=""><img src="../public/images/logo/logo1.png" alt="Logo" srcset=""></a>
                         </div>
                         <div >
                             <a>Mi Gema Construcciones</a>
@@ -40,6 +57,17 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
@@ -63,15 +91,9 @@
                                 <li class="submenu-item ">
                                     <a href="{{ route('empcar') }}">Asignar Cargo de Empleado</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="{{ route('act') }}">Actividades</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="">Asignar Actividad a Empleado</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{ route('tipoact') }}">Tipo de Actividades</a>
-                                </li>
+                               
+                               
+                               
                                 <li class="submenu-item ">
                                     <a href="{{ route('tipoemp') }}">Tipo de Empleado</a>
                                 </li>
@@ -91,7 +113,23 @@
                                 
                             </ul>
                         </li>
-
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Actividades</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{{ route('act') }}">Actividades</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="">Asignar Actividad a Empleado</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{{ route('tipoact') }}">Tipo de Actividades</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
@@ -119,13 +157,63 @@
                                 <span>Asistencia</span>
                             </a>
                             <ul class="submenu ">
+                                
                                 <li class="submenu-item ">
-                                    <a href="{{ route('asistencia') }}">Asistencia</a>
+                                    <a href="{{ route('asistencia.formulario') }}">Registrar Asistencia</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{{ route('asistencia') }}">Ver Asistencia</a>
                                 </li>
                                
                                 <li class="submenu-item ">
-                                    <a href="">Reporte</a>
+                                    <a href="">Asistencia en Map</a>
                                 </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Material </span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{{ route('material') }}">Material</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{{ route('lugarext') }}">Lugar de Extración</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{{ route('proveedor') }}">Proveedor</a>
+                                </li>
+                               
+                                <li class="submenu-item ">
+                                    <a href="{{ route('ventas') }}">ventas</a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+                        <li class="sidebar-title">Datos Informe</li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-bar-chart-fill"></i>
+                                <span>Reportes</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="./home">Asitencia</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="./home">Actividades</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="./home">Productos</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="./home">Ventas</a>
+                                </li>
+                               
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
@@ -150,57 +238,6 @@
                         </li>
 
                         <li class="sidebar-title">Registros &amp; admin</li>
-
-                       
-                       
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Material </span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{ route('material') }}">Material</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{ route('lugarext') }}">Lugar de Extración</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{ route('proveedor') }}">Proveedor</a>
-                                </li>
-                               
-                                <li class="submenu-item ">
-                                    <a href="{{ route('ventas') }}">ventas</a>
-                                </li>
-                               
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Datos Informe</li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Reportes</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="./home">Asitencia</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="./home">Actividades</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="./home">Productos</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="./home">Ventas</a>
-                                </li>
-                               
-                            </ul>
-                        </li>
-
                        
 
                         <li class="sidebar-item  has-sub">
@@ -271,36 +308,55 @@
         </div>
         <div id="main">
             <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
+             
+                <div class="col-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-body py-4 px-5">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <img src="" alt="">
+                                </div>
+                                <div class="ms-3 name">
+                                    <h5 class="font-bold">Bienvenido</h5>
+                                    <h6 class="text-muted mb-0">{{ auth()->user()->name ?? auth()->user()->username }}</h6>
+                                    <h6 class="font-bold"><a href="./logout" >Cerrar sección</a></h6>
+                                </div>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+
             </header>
 
             <div class="page-heading">
-                <h3>Panel de control</h3>
-               
+                <h3>Panel de controlvvvv</h3>
+                
             </div>
             <div class="page-content">
                 
-                <section class="row">
-                    <div class="col-12  col-lg-9">
-                                @yield('Contenido')
-                       
+                <section class="row col-12 col-lg-12"> 
+                    <div class="col-12  col-lg-12">
+                        @yield('Contenido')
+               
                     </div>
                    
-                </section>
+                </section> 
             </div>
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2023 &copy; Cuba</p>
+            
+           <div>
+            <!-- footer-->
+                <footer id="footer">
+                    <div class="footer clearfix mb-0 text-muted">
+                        <div class="float-start">
+                            <p>2023 &copy; Cuba</p>
+                        </div>
+                        <div class="float-end">
+                            <p>Cuba <span class="text-danger"><i class="bi bi-forward-fill"></i></span> by <a href="">Rai</a></p>
+                        </div>
                     </div>
-                    <div class="float-end">
-                        <p>Cuba <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="">Rai</a></p>
-                    </div>
-                </div>
-            </footer>
+                </footer>
+           </div>
            
         </div>
         
@@ -313,6 +369,10 @@
     <script src="assets/js/pages/dashboard.js"></script>
 
     <script src="assets/js/main.js"></script>
+    <div>
+        @yield('scripts')
+    </div>
+
 </body>
 @endauth
 @guest

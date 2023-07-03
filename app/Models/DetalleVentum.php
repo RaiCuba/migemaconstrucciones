@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DetalleVentum extends Model
 {
+	// para el grafico
+	//
 	protected $table = 'detalle_venta';
 	protected $primaryKey = 'id_det_ven';
 	public $timestamps = false;
@@ -60,4 +62,15 @@ class DetalleVentum extends Model
 	{
 		return $this->belongsTo(Ventum::class, 'id_ven');
 	}
+
+
+	//seleccionar ventas 
+	public function ventasporMes()
+	{
+		return $this->selectRaw('MONTH(fecha) as mes, SUM(precio) as total')
+		->groupBy('mes')
+		->orderBy('mes')
+		->get();
+	}
+
 }

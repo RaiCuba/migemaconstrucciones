@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $id_emp
  * @property int|null $id_log
  * @property int|null $id_ent_sal
+ * @property int|null $latitud
+ * @property int|null $longitud
  * @property Carbon|null $fecha
  * 
  * @property Empleado|null $empleado
@@ -33,8 +35,8 @@ class Asistencium extends Model
 	protected $casts = [
 		'id_emp' => 'int',
 		'id_ent_sal' => 'int',
-		'latitud' =>'decimal',
-		'longitud' => 'decimal',
+		//'latitud' =>'decimal',
+		//'longitud' => 'decimal',
 		'fecha' => 'datetime'
 	];
 

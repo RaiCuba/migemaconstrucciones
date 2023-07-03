@@ -49,10 +49,14 @@ Route::get('/formulario1', [OperacionesController::class, 'formularioopera1'])->
 Route::get('/obtener-texto/{opcion}', 'OperacionesController@obtenerTexto');
 
 //ASISTENCIA
-Route::get('/as', [AsistenciaController::class, 'ubi'])->name('ubi');
-Route::get('/asistencia', [AsistenciaController::class, 'index'])->name('asistencia');
+//ver formulario de registro de asistencia
+Route::get('/asistencia-registrar', [AsistenciaController::class, 'Verformregistrar'])->name('asistencia.formulario');
 
-Route::post('/registrar', [AsistenciaController::class, 'registrarAsistencia'])->name('asistencia.registrar');
+Route::get('/asistencia', [AsistenciaController::class, 'index'])->name('asistencia');
+//registrar asistencia con coordenadas
+Route::post('/registrar-asistencia', [AsistenciaController::class, 'store'])->name('registrar.asistencia');
+//ver ubicacion en map
+Route::get('/ubicacion/{id}', [AsistenciaController::class, 'verubicacion'])->name('verasistenciamap');
 
 Route::post('/guardar-ubicacion', [OperacionesController::class, 'guardarUbicacion'])->name('guardar.ubicacion');
 Route::post('/registrar-ubicacion', [OperacionesController::class, 'registrarUbicacion'])->name('ubicacion1');

@@ -1,56 +1,35 @@
 @extends('layouts.menupricipal')
 @section('Contenido')
     
-@endsection
+<input type="text" id="latitud" name="latitud" readonly value="{{ $asis->latitud }}">
+<input type="text" id="longitud" name="longitud" readonly value="{{ $asis->longitud }}"> 
 
-<!-- Cargar la API de Google Maps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzeP_8JAdrEQZ1T16yc03DVRhqm3SjZNA&callback=initMap" async defer></script>
+<div id="map" style="height: 400px; width: 100%;  margin: 0; padding: 0;" ></div>
 
-<!-- Div para mostrar el mapa -->
-{{-- <div id="map"></div> --}}
-
-<!-- Script para inicializar el mapa -->
-{{-- <script>
-    function initMap() {
-        // Obtener las coordenadas de la asistencia
-        var latitud = {{ $asistencia->latitud }};
-        var longitud = {{ $asistencia->longitud }};
-
-        // Crear un objeto LatLng con las coordenadas
-        var myLatLng = {lat: latitud, lng: longitud};
-
-        // Crear un mapa centrado en las coordenadas
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 14,
-            center: myLatLng
-        });
-
-        // Agregar un marcador en las coordenadas
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'Ubicación de la asistencia'
-        });
-    }
-</script> --}}
-
-<div id="map"></div>
-
-<script>
-    function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 0, lng: 0},
-            zoom: 8
-        });
-
-        @foreach($coordenadas as $coordenada)
-            var marker = new google.maps.Marker({
-                position: {lat: {{ $coordenada->latitud }}, lng: {{ $coordenada->longitud }}},
-                map: map,
-                title: 'Coordenadas'
+    <script>
+        function initMap() {
+            // Crear un mapa
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 0, lng: 0},
+                zoom: 8
             });
-        @endforeach
-    }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzeP_8JAdrEQZ1T16yc03DVRhqm3SjZNA&callback=initMap" async defer></script>
+
+            // Recorrer las coordenadas y mostrar los marcadores en el mapa
+            let variable;
+if (variable == null) {
+  console.log("es null");
+} else {
+  console.log("No es null");
+}
+
+                var marker = new google.maps.Marker({
+                    position: {lat: {{ $asis->latitud }}, lng: {{ $asis->longitud }}},
+                    map: map,
+                    title: 'Ubicación'
+                });
+        }
+    </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8zRQX9l73FPPSaDe95eYDSnC-v7PgEH4&callback=initMap" async defer></script>
+
 @endsection

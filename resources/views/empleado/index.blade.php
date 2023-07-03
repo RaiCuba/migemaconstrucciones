@@ -23,14 +23,14 @@
 
 
 
-<div class="col-12 col-xl-8" >
+<div class="col-12 col-xl-12" >
   <div class="card" >
       <div class="card-header">
           <h4>Gestionar Empleados</h4>
       </div>
           <div class="table-responsive">
 
-              <table class="table table-hover table-lg">
+              <table class="table table-dark table-hover">
                   <thead>
                       <tr> 
                         <th >Id empleado</th>
@@ -65,9 +65,9 @@
                             <p class=" mb-0">{{$items->fecha}}</p>
                         </td>
                         <div>
-                          <td><a href="{{route('modificarempleado',$items->id_emp)}}"><button type="sudmit" class="btn btn-outline-dark">Modificar</button> </a> </td>
+                          <td><a href="{{route('modificarempleado',$items->id_emp)}}"><button type="sudmit" class="btn btn-secondary">Modificar</button> </a> </td>
                        
-                          <td><a href="{{route("empleado.delete", $items->id_emp)}}"><button type="sudmit" class="btn btn-outline-dark">Eliminar</button> </a> </td>
+                          <td><a href="{{route("empleado.delete", $items->id_emp)}}"><button type="sudmit" class="btn btn-secondary">Eliminar</button> </a> </td>
                         </div>
                       </tr>
                     @endforeach

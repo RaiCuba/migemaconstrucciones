@@ -15,8 +15,9 @@ class OperacionesController extends Controller
     public function coordenadas(){
         return view('asistencia.coordenadas');
     }
+    
     public function registrarUbicacion(Request $request)
-{
+    {
     // Obtener los valores de latitud y longitud del cuerpo de la petición
     $latitud = $request->input('latitud');
     $longitud = $request->input('longitud');
@@ -29,7 +30,7 @@ class OperacionesController extends Controller
     $ubicacion->save();
 
     return response()->json(['success' => true]);
-}
+    }
 
     public function formulario(){
         return view('ventas.operaciones');

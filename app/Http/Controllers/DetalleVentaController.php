@@ -19,6 +19,8 @@ class DetalleVentaController extends Controller
            // $datos = DB::select("select * from pais");
             //return view("pais.index")->with("datos", $datos);
         }
+      
+
         public function getDatos(Request $request)
         {
             $paisId = $request->input('pais_id');

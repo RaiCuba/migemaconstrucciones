@@ -19,7 +19,7 @@
 
 
 
-<a href="{{ route("formulariociudad") }}"><button type="sudmit" class="btn btn-outline-dark">Nueva Ciudad</button> </a>
+<a href="{{ route("formulariociudad") }}"><button type="sudmit" class="btn btn-secondary">Nueva Ciudad</button> </a>
 
 
 
@@ -31,7 +31,7 @@
       </div>
           <div class="table-responsive">
 
-              <table class="table table-hover table-lg">
+              <table class="table table-dark table-hover">
                   <thead>
                       <tr>
                         <th>id ciudad</th>  
@@ -58,9 +58,9 @@
                             <p class=" mb-0">{{ $items->nombre}}</p>
                         </td>
                         <div>
-                          <td><a href="{{route("modificarciudad", $items->id_ciu)}}"><button type="sudmit" class="btn btn-outline-dark">Modificar</button> </a> </td>
+                          <td><a href="{{route("modificarciudad", $items->id_ciu)}}"><button type="sudmit" class="btn btn-secondary">Modificar</button> </a> </td>
                        
-                          <td><a href="{{route("ciudad.delete", $items->id_ciu)}}"><button type="sudmit" class="btn btn-outline-dark">Eliminar</button> </a> </td>
+                          <td><a href="{{route("ciudad.delete", $items->id_ciu)}}"><button type="sudmit" class="btn btn-secondary">Eliminar</button> </a> </td>
                         </div>
                       </tr>
                     @endforeach

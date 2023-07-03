@@ -24,7 +24,7 @@
       </div>
           <div class="table-responsive">
 
-              <table class="table table-hover table-lg">
+              <table class="table table-dark table-hover">
                   <thead>
                       <tr>
                           <th>Id</th>
@@ -47,9 +47,9 @@
                           <p class=" mb-0">{{ $items->descrip}}</p>
                       </td>
                         <div>
-                          <td><a href="{{route('modificarcategoria', $items->id_cat)}}"><button type="sudmit" class="btn btn-outline-dark">Modificar</button> </a> </td>
+                          <td><a href="{{route('modificarcategoria', $items->id_cat)}}"><button type="sudmit" class="btn btn-secondary">Modificar</button> </a> </td>
                        
-                          <td><a href="{{route("categoria.delete", $items->id_cat)}}"><button type="sudmit" class="btn btn-outline-dark">Eliminar</button> </a> </td>
+                          <td><a href="{{route("categoria.delete", $items->id_cat)}}"><button type="sudmit" class="btn btn-secondary">Eliminar</button> </a> </td>
                         </div>
                       </tr>
                     @endforeach

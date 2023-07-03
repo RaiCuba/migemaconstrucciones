@@ -1,36 +1,83 @@
 @extends('layouts.menupricipal')
 @section('Contenido')
     
+<div class="container">
+   
+<div class="col-12 col-xl-12" >
+   <div class="card" >
+       <div class="card-header">
+           <h4>Gestionar Asistencias</h4>
+       </div>
+           <div class="table-responsive">
+ 
+               <table class="table table-dark table-hover">
+                   <thead>
+                       <tr>
+                           <th>Id Asistencia</th>
+                           <th>Id emp</th>
+                           <th>Nombre</th>
+                           <th>Apellido</th>
+                           <th>Entrada</th>
+                           <th>Salida</th>
+                           <th>Fecha</th>
+                           <th>Lat</th>
+                           <th>Lon</th>
+                           <th>Ver Ubicación de Asistencia</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                     @foreach ( $datos as $items)
+                       <tr>
+                        <td class="col-auto">
+                           <p class=" mb-0">{{$items->id_asi }}</p>
+                       </td>
+                           <td class="col-auto">
+                               <p class=" mb-0">{{$items->id_emp }}</p>
+                           </td>
+                           <td class="col-auto">
+                             <p class=" mb-0">{{ $items->nombre }}</p>
+                         </td>
+                         <td class="col-auto">
+                           <p class=" mb-0">{{ $items->ape}}</p>
+                       </td>
+                         <td class="col-auto">
+                           <p class=" mb-0">{{ $items->hora_ent}}</p>
+                       </td>
+                       <td class="col-auto">
+                        <p class=" mb-0">{{ $items->hora_sal}}</p>
+                        </td>
 
-<form id="coordenadasForm" method="POST">
-    <label for="latitud">Latitud:</label>
-    <input type="text" id="latitud" name="latitud">
-    <label for="longitud">Longitud:</label>
-    <input type="text" id="longitud" name="longitud">
-    <button type="submit">Guardar coordenadas</button>
-</form>
+
+                        <td class="col-auto">
+                           <p class=" mb-0">{{ $items->fecha}}</p>
+                        </td>
+                        <td class="col-auto">
+                           <p class=" mb-0">{{ $items->latitud}}</p>
+                        </td>
+                        <td class="col-auto">
+                           <p class=" mb-0">{{ $items->longitud}}</p>
+                        </td>
+
+                         <div>
+                           <td><a href="{{route('verasistenciamap', $items->id_asi)}}"><button type="sudmit" class="btn btn-secondary">Google Map</button> </a> </td>
+                        
+                          </div>
+                       </tr>
+                     @endforeach
+                   </tbody>
+               </table>
+               <div class="row">
+                 <div >
+                   {{-- {{ $datos->links() }} --}}
+                 </div>
+               </div>
+               
+           </div>
+       
+ </div>
+</div>
 
 <script>
-    document.getElementById('coordenadasForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Evita el envío del formulario por defecto
 
-        // Obtener los valores de latitud y longitud
-        var latitud = document.getElementById('latitud').value;
-        var longitud = document.getElementById('longitud').value;
-
-        // Enviar una solicitud POST al controlador de Laravel para guardar las coordenadas
-        axios.post('{{ route('asis1') }}', {
-            latitud: latitud,
-            longitud: longitud
-        })
-        .then(function(response) {
-            // Éxito en la solicitud AJAX
-            console.log(response.data);
-        })
-        .catch(function(error) {
-            // Error en la solicitud AJAX
-            console.error(error);
-        });
-    });
 </script>
 @endsection

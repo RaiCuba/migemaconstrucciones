@@ -4,26 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TipoAct;
+use Exception;
+
 class TipoActController extends Controller
 {
     //
     public function index()
     {
-        $datos = TipoAct ::orderby('nombre','asc')->paginate(5);
-        return view('tipo_act.index',compact('datos'));
-    
+        $datos = TipoAct::orderby('nombre', 'asc')->paginate(5);
+        return view('tipo_act.index', compact('datos'));
     }
     public function verform()
     {
-        $tipoact = TipoAct::all(); 
+        $tipoact = TipoAct::all();
         return view("tipo_act.registrar", compact('tipoact'));
-       
     }
     public function formmodificar($iddep)
     {
-        $tipoact = TipoAct ::find($iddep);
-        return view(" tipo_act.modificar",compact('tipoact'));
-    
+        $tipoact = TipoAct::find($iddep);
+        return view(" tipo_act.modificar", compact('tipoact'));
     }
 
     /**
@@ -31,16 +30,29 @@ class TipoActController extends Controller
      */
     public function create(Request $request)
     {
-        print_r('se registro tipo actividad');
-        $tipoact = new TipoAct ();
-        $tipoact->nombre=$request->post('texttipoact');
-        $tipoact->descrip=$request->post('textdescrip');
-        $tipoact->estado='1';
-        $tipoact->save();
+        $request->validate(
+            [
+                'texttipoact' => ['required', 'max:30'],
+                'textdescrip' => ['required', 'max:100'],
+            ],
+            [
+                'required' => 'Los campo con (*) es obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres'
+            ]
+        );
 
-        return redirect()->route('tipoact')->with('seccess','Se modifico correctamente');
+        try {
 
+            $tipoact = new TipoAct();
+            $tipoact->nombre = $request->post('texttipoact');
+            $tipoact->descrip = $request->post('textdescrip');
+            $tipoact->estado = '1';
+            $tipoact->save();
 
+            return redirect()->route('tipoact')->with('Correcto', 'Se registro correctamente');
+        } catch (Exception $e) {
+            return redirect()->route('tipoact')->with('Error', 'Error al registrar ');
+        }
     }
 
     /**
@@ -73,12 +85,12 @@ class TipoActController extends Controller
     public function update(Request $request, $id)
     {
         $tipoact = TipoAct::find($id);
-        $tipoact->id_tip_act =$request->post('textid');
-        $tipoact->nombre=$request->post('texttipoact');
-        $tipoact->descrip=$request->post('textdescrip');
-        $tipoact->estado='1';
+        $tipoact->id_tip_act = $request->post('textid');
+        $tipoact->nombre = $request->post('texttipoact');
+        $tipoact->descrip = $request->post('textdescrip');
+        $tipoact->estado = '1';
         $tipoact->save();
-        return redirect()->route('tipoact')->with('seccess','Se modifico correctamente');
+        return redirect()->route('tipoact')->with('seccess', 'Se modifico correctamente');
     }
 
     /**
@@ -88,6 +100,6 @@ class TipoActController extends Controller
     {
         $tipoact = TipoAct::find($id);
         $tipoact->delete();
-        return redirect()->route('tipoact')->with('success','Se Elimino  correctamente el registro');
+        return redirect()->route('tipoact')->with('success', 'Se Elimino  correctamente el registro');
     }
 }

@@ -8,16 +8,18 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function show(){
-        if(Auth::check()){
+    public function show()
+    {
+        if (Auth::check()) {
             return redirect('/home');
         }
         return view('usuario.login');
     }
-    public function login(LoginRequest $request){
+    public function login(LoginRequest $request)
+    {
         $credentials = $request->getCredentials();
-        
-        if(!Auth::validate($credentials)){
+
+        if (!Auth::validate($credentials)) {
             return redirect()->to('/login')->withErrors('Verifique su usuario y contraseña ');
         }
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
@@ -26,8 +28,8 @@ class LoginController extends Controller
 
         return $this->authenticated($request, $user);
     }
-    public function authenticated(Request $request, $user){
-            return redirect('/home');
+    public function authenticated(Request $request, $user)
+    {
+        return redirect('/home');
     }
 }
-

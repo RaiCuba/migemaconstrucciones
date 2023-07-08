@@ -5,29 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Actividad;
 use App\Models\TipoAct;
+use PhpParser\Node\Stmt\TryCatch;
+use Exception;
 
 class ActividadController extends Controller
 {
     //
     public function index()
     {
-        $datos = Actividad ::orderby('id_act','asc')->paginate(5);
-        return view('actividad.index',compact('datos'));
-    
+        $datos = Actividad::orderby('id_act', 'asc')->paginate(5);
+        return view('actividad.index', compact('datos'));
     }
     public function verform()
     {
         $tipoact = TipoAct::all();
-        return view("actividad.registrar",compact('tipoact'));
-       
+        return view("actividad.registrar", compact('tipoact'));
     }
     public function formmodificar($iddep)
     {
         $tipoact = TipoAct::all();
 
-        $act = Actividad ::find($iddep);
-        return view(" actividad.modificar",compact('act','tipoact'));
-    
+        $act = Actividad::find($iddep);
+        return view(" actividad.modificar", compact('act', 'tipoact'));
     }
 
     /**
@@ -35,20 +34,36 @@ class ActividadController extends Controller
      */
     public function create(Request $request)
     {
-        $act = new Actividad ();
-        $act->id_tip_act=$request->post('texttipoactividad');
-        $act->nombre=$request->post('textnombre');
-        $act->dia=$request->post('textdia');
-        $act->mes=$request->post('textmes');
-        $act->anio=$request->post('textanio');
-        $act->descrip=$request->post('textdescrip');
-        $act->lugar=$request->post('textlugar');
-        $act->estado='1';
-        $act->save();
 
-        return redirect()->route('act')->with('seccess','Se modifico correctamente');
+        $request->validate(
+            [
+                'textnombre' => ['required', 'max:50'],
+                'textdia' => ['required', 'date'],
+                'textdescrip' => ['required', 'max:200'],
+                'textlugar' => ['required', 'max:30'],
+            ],
+            [
+                'required' => 'Este campo obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres',
+                'alpha' => 'El campo solo acepta letras',
+                'unique' => 'El nombre y/o dato del cargo ya existe'
+            ]
+        );
 
+        try {
+            $act = new Actividad();
+            $act->id_tip_act = $request->post('texttipoactividad');
+            $act->nombre = $request->post('textnombre');
+            $act->dia = $request->post('textdia');
+            $act->descrip = $request->post('textdescrip');
+            $act->lugar = $request->post('textlugar');
+            $act->estado = '1';
+            $act->save();
 
+            return redirect()->route('act')->with('Correcto', 'Se Registro correctamente');
+        } catch (Exception $e) {
+            return redirect()->route('act')->with('Error', 'Error al registrar');
+        }
     }
 
     /**
@@ -82,16 +97,16 @@ class ActividadController extends Controller
     {
 
         $act = Actividad::find($id);
-        $act->id_tip_act=$request->post('texttipoactividad1');
-        $act->nombre=$request->post('textnombre');
-        $act->dia=$request->post('textdia');
-        $act->mes=$request->post('textmes');
-        $act->anio=$request->post('textanio');
-        $act->descrip=$request->post('textdescrip');
-        $act->lugar=$request->post('textlugar');
-        $act->estado='1';
+        $act->id_tip_act = $request->post('texttipoactividad1');
+        $act->nombre = $request->post('textnombre');
+        $act->dia = $request->post('textdia');
+        $act->mes = $request->post('textmes');
+        $act->anio = $request->post('textanio');
+        $act->descrip = $request->post('textdescrip');
+        $act->lugar = $request->post('textlugar');
+        $act->estado = '1';
         $act->save();
-        return redirect()->route('act')->with('seccess','Se modifico correctamente');
+        return redirect()->route('act')->with('seccess', 'Se modifico correctamente');
     }
 
     /**
@@ -101,6 +116,6 @@ class ActividadController extends Controller
     {
         $act = Actividad::find($id);
         $act->delete();
-        return redirect()->route('act')->with('success','Se Elimino  correctamente el registro');
+        return redirect()->route('act')->with('success', 'Se Elimino  correctamente el registro');
     }
 }

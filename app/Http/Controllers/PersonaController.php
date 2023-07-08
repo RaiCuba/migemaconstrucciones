@@ -5,47 +5,69 @@ namespace App\Http\Controllers;
 use App\Models\Persona;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Exception;
 
 class PersonaController extends Controller
 {
     //
     public function index()
     {
-        $datos = Persona ::orderby('nombre','asc')->paginate(5);
-        return view('persona.index',compact('datos'));
-    
+        $datos = Persona::orderby('nombre', 'asc')->paginate(10);
+        return view('persona.index', compact('datos'));
     }
     public function verform()
     {
         return view("persona.registrar");
-       
     }
-    public function formmodificar($iddep)
+    public function formmodificar($id)
     {
-        $persona = Persona ::find($iddep);
-        return view(" persona.modificar",compact('persona'));
-    
+        $persona = Persona::find($id);
+        return view(" persona.modificar", compact('persona'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create(Request $request)
     {
-        $fecha = Carbon::now();
-        $persona = new Persona ();
-        $persona->nombre=$request->post('textnombre');
-        $persona->ape=$request->post('textape');
-        $persona->ci=$request->post('textci');
-        $persona->tel=$request->post('texttel');
-        $persona->correo=$request->post('textcorreo');
-        $persona->fecha_nac=$request->post('textfecha');
-        $persona->fecha_reg=$fecha->format('d-m-Y');
-        $persona->save();
+        $request->validate(
+            [
+                'textnombre' => ['required', 'max:15', 'unique:persona,nombre'],
+                'textape' => ['required', 'max:25'],
+                'textci' => ['required', 'max:11', 'unique:persona,ci'],
+                'texttel' => ['required', 'max:13'],
+                'textcorreo' => ['email', 'max:200', 'unique:persona,correo'],
+                'textfecha' => ['required', 'date'],
+            ],
+            [
+                'required' => 'Los campo con (*) es obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres',
+                'alpha' => 'El campo solo acepta letras',
+                'unique' => 'El nombre y/o dato del cargo ya existe'
+            ]
+        );
+        try {
 
-        return redirect()->route('persona')->with('seccess','Se modifico correctamente');
 
+            $fecha = Carbon::now();
 
+            $persona = new Persona();
+            $persona->nombre = $request->post('textnombre');
+            $persona->ape = $request->post('textape');
+            $persona->ci = $request->post('textci');
+            $persona->tel = $request->post('texttel');
+            $persona->correo = $request->post('textcorreo');
+            $persona->fecha_nac = $request->post('textfecha');
+            $persona->fecha_reg = $fecha->format('d-m-Y');
+            $sql = $persona->save();
+
+            return redirect()->route('persona')->with('Correcto', 'Se registro correctamente');
+        } catch (Exception $e) {
+
+            return redirect()->route('persona')->with('Error', 'Error al registrar');
+        }
     }
 
     /**
@@ -78,19 +100,18 @@ class PersonaController extends Controller
     public function update(Request $request, $id)
     {
 
-        $persona = Persona::find($id);
-        $persona->nombre=$request->post('textnombre');
-        $persona->ape=$request->post('textape');
-        $persona->ci=$request->post('textci');
-        $persona->tel=$request->post('texttel');
-        $persona->correo=$request->post('textcorreo');
-        $persona->fecha_nac=$request->post('textfecha');
-       
+        $persona = Persona::find($request->post('pers'));
+        $persona->nombre = $request->post('textnombre');
+        $persona->ape = $request->post('textape');
+        $persona->ci = $request->post('textci');
+        $persona->tel = $request->post('texttel');
+        $persona->correo = $request->post('textcorreo');
+        $persona->fecha_nac = $request->post('textfecha');
+
         $persona->save();
 
-        return redirect()->route('persona')->with('seccess','Se modifico correctamente');
-
-        }
+        return redirect()->route('persona')->with('seccess', 'Se modifico correctamente');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -99,6 +120,6 @@ class PersonaController extends Controller
     {
         $persona = Persona::find($id);
         $persona->delete();
-        return redirect()->route('persona')->with('success','Se Elimino  correctamente el registro');
+        return redirect()->route('persona')->with('success', 'Se Elimino  correctamente el registro');
     }
 }

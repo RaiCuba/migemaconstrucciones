@@ -12,36 +12,40 @@ use Illuminate\Support\Facades\Redirect;
 class OperacionesController extends Controller
 {
 
-    public function coordenadas(){
+    public function coordenadas()
+    {
         return view('asistencia.coordenadas');
     }
-    
+
     public function registrarUbicacion(Request $request)
     {
-    // Obtener los valores de latitud y longitud del cuerpo de la petición
-    $latitud = $request->input('latitud');
-    $longitud = $request->input('longitud');
+        // Obtener los valores de latitud y longitud del cuerpo de la petición
+        $latitud = $request->input('latitud');
+        $longitud = $request->input('longitud');
 
-    // Guardar las coordenadas en la base de datos
-    // Puedes usar tu modelo de base de datos correspondiente y el método save() o create()
-    $ubicacion = new Asistencium();
-    $ubicacion->latitud = $latitud;
-    $ubicacion->longitud = $longitud;
-    $ubicacion->save();
+        // Guardar las coordenadas en la base de datos
+        // Puedes usar tu modelo de base de datos correspondiente y el método save() o create()
+        $ubicacion = new Asistencium();
+        $ubicacion->latitud = $latitud;
+        $ubicacion->longitud = $longitud;
+        $ubicacion->save();
 
-    return response()->json(['success' => true]);
+        return response()->json(['success' => true]);
     }
 
-    public function formulario(){
+    public function formulario()
+    {
         return view('ventas.operaciones');
     }
-    public function getproductos(){
+    public function getproductos()
+    {
         $productos = Producto::all();
-        return view('ventas.opera1',compact('productos'));
+        return view('ventas.opera1', compact('productos'));
     }
-    public function formularioopera1(){
+    public function formularioopera1()
+    {
         $product = Producto::all();
-        return view('ventas.opera1',compact('product'));
+        return view('ventas.opera1', compact('product'));
     }
     public function obtenerDescripcion($id)
     {
@@ -54,24 +58,23 @@ class OperacionesController extends Controller
     }
 
     public function getDatos(Request $request)
-        {
-            //$paisId = $request->input('pais_id');
-            //$pro = Producto::where('id_cos_pro', $paisId)->get();
-           // return response()->json($pro);
-            $paisId = $request->input('pais_id');
-            $pro = CostoPro::where('id_cos_pro', $paisId)->get();
-            return response()->json($pro);
-          
-        }
+    {
+        //$paisId = $request->input('pais_id');
+        //$pro = Producto::where('id_cos_pro', $paisId)->get();
+        // return response()->json($pro);
+        $paisId = $request->input('pais_id');
+        $pro = CostoPro::where('id_cos_pro', $paisId)->get();
+        return response()->json($pro);
+    }
     public function getDatos1(Request $request)
-        {
-            $paisId = $request->input('pais_id');
-            $pro = Producto::where('id_cos_pro', $paisId)->get();
-            return response()->json($pro);
-         
-                // $datos = DB::select("select * from pais");
-            //return view("pais.index")->with("datos", $datos);
-        }
+    {
+        $paisId = $request->input('pais_id');
+        $pro = Producto::where('id_cos_pro', $paisId)->get();
+        return response()->json($pro);
+
+        // $datos = DB::select("select * from pais");
+        //return view("pais.index")->with("datos", $datos);
+    }
     public function calcular(Request $request)
     {
         // Obtener los valores enviados en el formulario

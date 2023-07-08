@@ -243,6 +243,9 @@ text-align: center;}
     padding: 32px;
     background-color: #fff;
     box-shadow: var(--shadow);
+    text-align: justify;;
+    
+
 }
 
 .service h5 {

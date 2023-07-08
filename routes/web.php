@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\ActEmpController;
 use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\CostoProdController;
 use App\Http\Controllers\DepartamentoController;
@@ -15,10 +17,13 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AsistenciaController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\DetalleVentaController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\LugarExtController;
@@ -64,16 +69,40 @@ Route::post('/registrar-ubicacion', [OperacionesController::class, 'registrarUbi
 Route::get('/', function () {
     return view('welcome');
 });
+//CLIENTES
+//VER PAGINA  INDEX
+Route::get('/index', [ClienteController::class, 'index'])->name('cliente.index');
+//VER PAGINA  EMPRESA
+Route::get('/empresa', [ClienteController::class, 'empresa'])->name('cliente.empresa');
+//VER PAGINA  PROYECTOS
+Route::get('/proyectos', [ClienteController::class, 'proyecto'])->name('cliente.proyecto');
+//REGISTRAR USUARIO
+Route::get('/register', [RegisterController::class, 'show']);
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-Route::get('/register',[RegisterController::class,'show'] );
-Route::post('/register',[RegisterController::class,'register'] );
+//REGISTRAR CONTACTO
+Route::post('/contactos', [ContactosController::class, 'create'])->name('contacto.create');
+//VER CONTACTO
+Route::get('/ver-contactos', [ContactosController::class, 'index'])->name('contacto.mostrar');
+//ELIMINAR CONTACTO
+Route::get('/eliminar-contacto-{id}', [ContactosController::class, "delete"])->name("contacto.delete");
+//ENVIAR RESPUESTA DE CONTACTO
+Route::post('/send-email', [ContactosController::class, 'sendEmail'])->name('send.email');
+//FORMULARIO DE RESPUESTA DE CONTACTO
+Route::post('/contact/{id}/reply', [ContactController::class, 'reply'])->name('contact.reply');
 
-Route::get('/login',[LoginController::class,'show'] );
-Route::post('/login',[LoginController::class,'login'] );
+Route::get('/login', [LoginController::class, 'show']);
+Route::post('/login', [LoginController::class, 'login']);
 
-Route::get('/home',[HomeController::class,'index'] );
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/logout',[LogoutController::class,'logout'] );
+Route::get('/logout', [LogoutController::class, 'logout']);
+//INDEX 
+Route::get('/verfotosimages', [ImagenController::class, 'index'])->name('imagens.index');
+//REGISTRAR IMAGEN
+Route::post('/registrarimages', [ImagenController::class, 'store'])->name('imagen.store');
+//VER FORMULARIO DE REGISTRO DE IMAGENES
+Route::get('/nuevaimages', [ImagenController::class, 'verformimg'])->name('imagen.nuevo');
 
 //EMPLEADO
 Route::get('/empleado', [EmpleadoController::class, "index"])->name("empleado");
@@ -82,7 +111,7 @@ Route::put('/modificar-empleado/{id}', [EmpleadoController::class, "update"])->n
 Route::get('/eliminar-empleado-{id}', [EmpleadoController::class, "delete"])->name("empleado.delete");
 
 Route::get('/nuevoempleado', [EmpleadoController::class, "verform"])->name("formularioempleado");
-Route::get('/modificarempleado/{id}',[EmpleadoController::class, "formmodificar"])->name("modificarempleado");
+Route::get('/modificarempleado/{id}', [EmpleadoController::class, "formmodificar"])->name("modificarempleado");
 //ACTIVIDAD
 Route::get('/act', [ActividadController::class, "index"])->name("act");
 Route::post('/registrar-act', [ActividadController::class, "create"])->name("act.create");
@@ -90,7 +119,15 @@ Route::put('/modificar-act/{id}', [ActividadController::class, "update"])->name(
 Route::get('/eliminar-act-{id}', [ActividadController::class, "delete"])->name("act.delete");
 
 Route::get('/nuevoact', [ActividadController::class, "verform"])->name("formularioact");
-Route::get('/modificaract/{id}',[ActividadController::class, "formmodificar"])->name("modificaract");
+Route::get('/modificaract/{id}', [ActividadController::class, "formmodificar"])->name("modificaract");
+//ASIGNACION DE ACTIVIDADES A EMPLEADOS
+Route::get('/actemp', [ActEmpController::class, "index"])->name("actemp");
+Route::post('/registrar-actemp', [ActEmpController::class, "create"])->name("actemp.create");
+Route::put('/modificar-actemp/{id}', [ActEmpController::class, "update"])->name("actemp.update");
+Route::get('/eliminar-actemp-{id}', [ActEmpController::class, "delete"])->name("actemp.delete");
+
+Route::get('/nuevoactemp', [ActEmpController::class, "verform"])->name("formularioactemp");
+Route::get('/modificaractemp/{id}', [ActEmpController::class, "formmodificar"])->name("modificaractemp");
 //PERSONA
 Route::get('/persona', [PersonaController::class, "index"])->name("persona");
 Route::post('/registrar-persona', [PersonaController::class, "create"])->name("persona.create");
@@ -98,7 +135,7 @@ Route::put('/modificar-persona/{id}', [PersonaController::class, "update"])->nam
 Route::get('/eliminar-persona-{id}', [PersonaController::class, "delete"])->name("persona.delete");
 
 Route::get('/nuevopersona', [PersonaController::class, "verform"])->name("formulariopersona");
-Route::get('/modificarperson/{id}',[PersonaController::class, "formmodificar"])->name("modificarpersona");
+Route::get('/modificarperson/{id}', [PersonaController::class, "formmodificar"])->name("modificarpersona");
 
 
 //CARGO
@@ -108,7 +145,7 @@ Route::put('/modificar-cargo/{id}', [CargoController::class, "update"])->name("c
 Route::get('/eliminar-cargo-{id}', [CargoController::class, "delete"])->name("cargo.delete");
 
 Route::get('/nuevocargo', [CargoController::class, "verform"])->name("formulariocargo");
-Route::get('/modificarcar/{id}',[CargoController::class, "formmodificar"])->name("modificarcargo");
+Route::get('/modificarcar/{id}', [CargoController::class, "formmodificar"])->name("modificarcargo");
 
 //CATEGORIA DE PRODUCTO
 Route::get('/categoria', [CategoriaController::class, "index"])->name("categoria");
@@ -117,7 +154,7 @@ Route::put('/modificar-categoria/{id}', [CategoriaController::class, "update"])-
 Route::get('/eliminar-categoria-{id}', [CategoriaController::class, "delete"])->name("categoria.delete");
 
 Route::get('/nuevocategoria', [CategoriaController::class, "verform"])->name("formulariocategoria");
-Route::get('/modificarcategori/{id}',[CategoriaController::class, "formmodificar"])->name("modificarcategoria");
+Route::get('/modificarcategori/{id}', [CategoriaController::class, "formmodificar"])->name("modificarcategoria");
 //CIUDAD
 Route::get('/ciudad', [CiudadController::class, "index"])->name("ciudad");
 Route::post('/registrar-ciudad', [CiudadController::class, "create"])->name("ciudad.create");
@@ -126,9 +163,9 @@ Route::get('/eliminar-ciudad-{id}', [CiudadController::class, "delete"])->name("
 
 Route::get('/nuevaciudad', [CiudadController::class, "obtenerpais"])->name("formulariociudad");
 
-Route::get('/modificar/{id}',[CiudadController::class, "formmodificar"])->name("modificarciudad11");
+Route::get('/modificar/{id}', [CiudadController::class, "formmodificar"])->name("modificarciudad11");
 
-route::resource('departamento1',CiudadController::class);
+route::resource('departamento1', CiudadController::class);
 //COSTO DE PRODUCTO
 Route::get('/costoprod', [CostoProdController::class, "index"])->name("costoprod");
 Route::post('/registrar-costoprod', [CostoProdController::class, "create"])->name("costoprod.create");
@@ -136,10 +173,10 @@ Route::put('/modificar-costoprod/{id}', [CostoProdController::class, "update"])-
 Route::get('/eliminar-costoprod-{id}', [CostoProdController::class, "delete"])->name("costoprod.delete");
 
 Route::get('/nuevocostoprod', [CostoProdController::class, "verform"])->name("formulariocostoprod");
-Route::get('/modificarcostopro/{id}',[CostoProdController::class, "formmodificar"])->name("modificarcostoprod");
+Route::get('/modificarcostopro/{id}', [CostoProdController::class, "formmodificar"])->name("modificarcostoprod");
 
 //OPTENER DATOSDE COSTOPRO
-Route::post('/getcostopro',[DetalleVentaController::class, 'getCostoPro'])->name("getcostopro");
+Route::post('/getcostopro', [DetalleVentaController::class, 'getCostoPro'])->name("getcostopro");
 
 //PROVEEDOR
 Route::get('/proveedor', [ProveedorController::class, "index"])->name("proveedor");
@@ -148,7 +185,7 @@ Route::put('/modificar-proveedor/{id}', [ProveedorController::class, "update"])-
 Route::get('/eliminar-proveedor-{id}', [ProveedorController::class, "delete"])->name("proveedor.delete");
 
 Route::get('/nuevoproveedor', [ProveedorController::class, "verform"])->name("formularioproveedor");
-Route::get('/modificarproveedo/{id}',[ProveedorController::class, "formmodificar"])->name("modificarproveedor");
+Route::get('/modificarproveedo/{id}', [ProveedorController::class, "formmodificar"])->name("modificarproveedor");
 
 //DEPARTAMENTO
 Route::get('/departamento', [DepartamentoController::class, "index"])->name("departamento");
@@ -157,7 +194,7 @@ Route::put('/modificar-departamento/{id}', [DepartamentoController::class, "upda
 Route::get('/eliminar-departamento-{id}', [DepartamentoController::class, "delete"])->name("departamento.delete");
 
 Route::get('/nuevodepartamento', [DepartamentoController::class, "verform"])->name("formulariodepartamento");
-Route::get('/modificar/{id}',[DepartamentoController::class, "formmodificar"])->name("modificardepartamento");
+Route::get('/modificar/{id}', [DepartamentoController::class, "formmodificar"])->name("modificardepartamento");
 //ASIGNACION DE CARGO A EMPLEADO EMP_CAR
 Route::get('/empcar', [EmpCarController::class, "index"])->name("empcar");
 Route::post('/registrar-empcar', [EmpCarController::class, "create"])->name("empcar.create");
@@ -165,7 +202,7 @@ Route::put('/modificar-empcar/{id}', [EmpCarController::class, "update"])->name(
 Route::get('/eliminar-empcar-{id}', [EmpCarController::class, "delete"])->name("empcar.delete");
 
 Route::get('/nuevoempcar', [EmpCarController::class, "verform"])->name("formularioempcar");
-Route::get('/modificaremp/{id}',[EmpCarController::class, "formmodificar"])->name("modificarempcar");
+Route::get('/modificaremp/{id}', [EmpCarController::class, "formmodificar"])->name("modificarempcar");
 
 //HORA ASIGNACION DE EMPLEADO HORA_ASIG
 Route::get('/horaasig', [HoraAsigController::class, "index"])->name("horaasig");
@@ -174,7 +211,7 @@ Route::put('/modificar-horaasig/{id}', [HoraAsigController::class, "update"])->n
 Route::get('/eliminar-horaasig-{id}', [HoraAsigController::class, "delete"])->name("horaasig.delete");
 
 Route::get('/nuevohoraasig', [HoraAsigController::class, "verform"])->name("formulariohoraasig");
-Route::get('/modificarhoraasi/{id}',[HoraAsigController::class, "formmodificar"])->name("modificarhoraasig");
+Route::get('/modificarhoraasi/{id}', [HoraAsigController::class, "formmodificar"])->name("modificarhoraasig");
 //LUGAR DE PRODUCTO
 Route::get('/lugar', [LugarController::class, "index"])->name("lugar");
 Route::post('/registrar-lugar', [LugarController::class, "create"])->name("lugar.create");
@@ -182,7 +219,7 @@ Route::put('/modificar-lugar/{id}', [LugarController::class, "update"])->name("l
 Route::get('/eliminar-lugar-{id}', [LugarController::class, "delete"])->name("lugar.delete");
 
 Route::get('/nuevolugar', [LugarController::class, "verform"])->name("formulariolugar");
-Route::get('/modificarlugar/{id}',[LugarController::class, "formmodificar"])->name("modificarlugar");
+Route::get('/modificarlugar/{id}', [LugarController::class, "formmodificar"])->name("modificarlugar");
 //LUGAR DE EXTRACCION
 Route::get('/lugarext', [LugarExtController::class, "index"])->name("lugarext");
 Route::post('/registrar-lugarext', [LugarExtController::class, "create"])->name("lugarext.create");
@@ -190,7 +227,7 @@ Route::put('/modificar-lugarext/{id}', [LugarExtController::class, "update"])->n
 Route::get('/eliminar-lugarext-{id}', [LugarExtController::class, "delete"])->name("lugarext.delete");
 
 Route::get('/nuevolugarext', [LugarExtController::class, "verform"])->name("formulariolugarext");
-Route::get('/modificarlugarex/{id}',[LugarExtController::class, "formmodificar"])->name("modificarlugarext");
+Route::get('/modificarlugarex/{id}', [LugarExtController::class, "formmodificar"])->name("modificarlugarext");
 //DETALLE_VENTA //VENTAS
 Route::get('/ventas', [DetalleVentaController::class, "index"])->name("ventas");
 Route::post('/registrar-ventas', [DetalleVentaController::class, "create"])->name("ventas.create");
@@ -198,7 +235,7 @@ Route::put('/modificar-ventas/{id}', [DetalleVentaController::class, "update"])-
 Route::get('/eliminar-ventas-{id}', [DetalleVentaController::class, "delete"])->name("ventas.delete");
 
 Route::get('/nuevoventas', [DetalleVentaController::class, "verform"])->name("formularioventas");
-Route::get('/modificarventa/{id}',[DetalleVentaController::class, "formmodificar"])->name("modificarventas");
+Route::get('/modificarventa/{id}', [DetalleVentaController::class, "formmodificar"])->name("modificarventas");
 
 
 //MATERIAL
@@ -208,7 +245,7 @@ Route::put('/modificar-material/{id}', [MaterialController::class, "update"])->n
 Route::get('/eliminar-material-{id}', [MaterialController::class, "delete"])->name("material.delete");
 
 Route::get('/nuevomaterial', [MaterialController::class, "verform"])->name("formulariomaterial");
-Route::get('/modificarmateria/{id}',[MaterialController::class, "formmodificar"])->name("modificarmaterial");
+Route::get('/modificarmateria/{id}', [MaterialController::class, "formmodificar"])->name("modificarmaterial");
 
 //CRUD PAIS 
 Route::get('/pais', [PaisController::class, "index"])->name("pais");
@@ -217,12 +254,12 @@ Route::put('/modificar-pais/{id}', [PaisController::class, "update"])->name("pai
 Route::get('/eliminar-pais-{id}', [PaisController::class, "delete"])->name("pais.delete");
 
 Route::get('/nuevopais', [PaisController::class, "verform"])->name("formulariopais");
-Route::get('/modificar/{id}',[PaisController::class, "formmodificar"])->name("modificarpais");
+Route::get('/modificar/{id}', [PaisController::class, "formmodificar"])->name("modificarpais");
 //OPTENER DEPARTAMENTO A PARTIR DEL PAIS
-Route::post('/getDepartamentos',[PaisController::class, 'getDepartamento'])->name("getDepartamentos");
+Route::post('/getDepartamentos', [PaisController::class, 'getDepartamento'])->name("getDepartamentos");
 
-Route::post('/getDatos',[OperacionesController::class, 'getDatos'])->name("getDatos");
-Route::post('/getDatos1',[OperacionesController::class, 'getDatos1'])->name("getDatos1");
+Route::post('/getDatos', [OperacionesController::class, 'getDatos'])->name("getDatos");
+Route::post('/getDatos1', [OperacionesController::class, 'getDatos1'])->name("getDatos1");
 
 //PRODUCTO
 Route::get('/producto', [ProductoController::class, "index"])->name("producto");
@@ -231,7 +268,7 @@ Route::put('/modificar-producto/{id}', [ProductoController::class, "update"])->n
 Route::get('/eliminar-producto-{id}', [ProductoController::class, "delete"])->name("producto.delete");
 
 Route::get('/nuevoproducto', [ProductoController::class, "verform"])->name("formularioproducto");
-Route::get('/modificarproduct/{id}',[ProductoController::class, "formmodificar"])->name("modificarproducto");
+Route::get('/modificarproduct/{id}', [ProductoController::class, "formmodificar"])->name("modificarproducto");
 //CRUD ROL
 Route::get('/rol', [RolController::class, "index"])->name("rol");
 Route::post('/registrar-rol', [RolController::class, "create"])->name("rol.create");
@@ -239,7 +276,7 @@ Route::put('/modificar-rol/{id}', [RolController::class, "update"])->name("rol.u
 Route::get('/eliminar-rol-{id}', [RolController::class, "delete"])->name("rol.delete");
 
 Route::get('/nuevorol', [RolController::class, "verform"])->name("formulariorol");
-Route::get('/modificarro/{id}',[RolController::class, "formmodificar"])->name("modificarrol");
+Route::get('/modificarro/{id}', [RolController::class, "formmodificar"])->name("modificarrol");
 //TIPO ACTIVIDAD
 Route::get('/tipoact', [TipoActController::class, "index"])->name("tipoact");
 Route::post('/registrar-tipoact', [TipoActController::class, "create"])->name("tipoact.create");
@@ -247,7 +284,7 @@ Route::put('/modificar-tipoact/{id}', [TipoActController::class, "update"])->nam
 Route::get('/eliminar-tipoact-{id}', [TipoActController::class, "delete"])->name("tipoact.delete");
 
 Route::get('/nuevotipoact', [TipoActController::class, "verform"])->name("formulariotipoact");
-Route::get('/modificartipoact/{id}',[TipoActController::class, "formmodificar"])->name("modificartipoact");
+Route::get('/modificartipoact/{id}', [TipoActController::class, "formmodificar"])->name("modificartipoact");
 
 //TIPO EMP
 Route::get('/tipoemp', [TipoEmpController::class, "index"])->name("tipoemp");
@@ -256,4 +293,4 @@ Route::put('/modificar-tipoemp/{id}', [TipoEmpController::class, "update"])->nam
 Route::get('/eliminar-tipoemp-{id}', [TipoEmpController::class, "delete"])->name("tipoemp.delete");
 
 Route::get('/nuevotipoemp', [TipoEmpController::class, "verform"])->name("formulariotipoemp");
-Route::get('/modificartipoemp/{id}',[TipoEmpController::class, "formmodificar"])->name("modificartipoemp");
+Route::get('/modificartipoemp/{id}', [TipoEmpController::class, "formmodificar"])->name("modificartipoemp");

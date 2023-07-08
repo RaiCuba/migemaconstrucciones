@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Ciudad;
 use App\Models\Pai;
 use App\models\Depertamento;
-
+use Exception;
 use Illuminate\Http\Request;
 
 class CiudadController extends Controller
@@ -13,27 +14,24 @@ class CiudadController extends Controller
 
     public function index()
     {
-         $datos = Ciudad::orderby('nombre','asc')->paginate(5);
-         return view('ciudad.index',compact('datos'));
-      
+        $datos = Ciudad::orderby('nombre', 'asc')->paginate(5);
+        return view('ciudad.index', compact('datos'));
     }
     public function obtenerpais()
     {
-         $datos = Pai::all();
-         return view('ciudad.registrar',compact('datos'));
-    } 
+        $datos = Pai::all();
+        return view('ciudad.registrar', compact('datos'));
+    }
 
     public function verform()
     {
         $ciudad = Ciudad::all();
         return view("ciudad.registrar", compact('ciudad'));
-       
     }
     public function formmodificar($iddep)
     {
         $ciudad = Ciudad::find($iddep);
-        return view(" ciudad.modificar",compact('ciudad'));
-    
+        return view(" ciudad.modificar", compact('ciudad'));
     }
 
     /**
@@ -41,14 +39,27 @@ class CiudadController extends Controller
      */
     public function create(Request $request)
     {
-        $ciudad = new Ciudad();
-        $ciudad->id_dep=$request->post('ciudad_id');
-        $ciudad->nombre=$request->post('textciudad');
-        $ciudad->save();
+        $request->validate(
+            [
+                'textciudad' => ['required', 'max:15'],
+            ],
+            [
+                'required' => 'Este campo obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres',
+            ]
+        );
 
-        return redirect()->route('ciudad')->with('seccess','Se modifico correctamente');
+        try {
 
+            $ciudad = new Ciudad();
+            $ciudad->id_dep = $request->post('ciudad_id');
+            $ciudad->nombre = $request->post('textciudad');
+            $ciudad->save();
 
+            return redirect()->route('ciudad')->with('Correcto', 'Se Registro correctamente');
+        } catch (Exception $e) {
+            return redirect()->route('ciudad')->with('Error', 'Error al registrar');
+        }
     }
 
     /**
@@ -81,10 +92,10 @@ class CiudadController extends Controller
     public function update(Request $request, $id)
     {
         $ciudad = Ciudad::find($id);
-        $ciudad->id_dep=$request->post('textdepartemento');
-        $ciudad->nombre=$request->post('textciudad');
+        $ciudad->id_dep = $request->post('textdepartemento');
+        $ciudad->nombre = $request->post('textciudad');
         $ciudad->save();
-        return redirect()->route('ciudad')->with('seccess','Se modifico correctamente');
+        return redirect()->route('ciudad')->with('seccess', 'Se modifico correctamente');
     }
 
     /**
@@ -94,6 +105,6 @@ class CiudadController extends Controller
     {
         $ciudad = Ciudad::find($id);
         $ciudad->delete();
-        return redirect()->route('ciudad')->with('success','Se Elimino  correctamente el registro');
+        return redirect()->route('ciudad')->with('success', 'Se Elimino  correctamente el registro');
     }
 }

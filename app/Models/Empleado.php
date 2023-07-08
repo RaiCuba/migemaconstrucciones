@@ -54,6 +54,8 @@ class Empleado extends Model
 		'observaciones'
 	];
 
+
+
 	public function persona()
 	{
 		return $this->belongsTo(Persona::class, 'id_per');

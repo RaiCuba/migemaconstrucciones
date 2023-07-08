@@ -9,6 +9,7 @@ use App\Models\Cargo;
 use App\Models\EmpCar;
 use App\Models\Empleado;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,27 +17,24 @@ class EmpleadoController extends Controller
 {
     public function index()
     {
-        $datos = Empleado ::orderby('id_emp','asc')->paginate(5);
-        return view('empleado.index',compact('datos'));
-    
+        $datos = Empleado::orderby('id_emp', 'asc')->paginate(5);
+        return view('empleado.index', compact('datos'));
     }
     public function verform()
     {
-        $personas = Persona::all(); 
+        $personas = Persona::all();
         $tipoemp = TipoEmp::all();
         $horatra = HoraAsig::all();
         $cargos = Cargo::all();
-        return view("empleado.registrar", compact('personas','tipoemp','horatra','cargos'));
-       
+        return view("empleado.registrar", compact('personas', 'tipoemp', 'horatra', 'cargos'));
     }
     public function formmodificar($iddep)
     {
-        $personas = Persona::all(); 
+        $personas = Persona::all();
         $tipoemp = TipoEmp::all();
         $horatra = HoraAsig::all();
-        $empleado = Empleado ::find($iddep);
-        return view(" empleado.modificar",compact('empleado','personas','tipoemp','horatra'));
-    
+        $empleado = Empleado::find($iddep);
+        return view(" empleado.modificar", compact('empleado', 'personas', 'tipoemp', 'horatra'));
     }
 
     /**
@@ -44,31 +42,44 @@ class EmpleadoController extends Controller
      */
     public function create(Request $request)
     {
-        $fecha = Carbon::now(); 
-        $empleado = new Empleado ();
-        $empleado->id_per=$request->post('textpersona');
-        $empleado->id_tip_emp=$request->post('texttipoemp');
-        $empleado->id_hor_asi=$request->post('texthoratra');
-        $empleado->estado='1';
-        $empleado->observaciones=$request->post('textobservaciones');
-        $empleado->fecha = $fecha;
-        
-        $empleado->save();
+        $request->validate(
+            [
+                'textobservaciones' => ['required', 'max:100'],
+                'textdescrip' => ['required', 'max:300'],
+            ],
+            [
+                'required' => 'Este campo obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres'
+            ]
+        );
+        try {
+
+            $fecha = Carbon::now();
+            $empleado = new Empleado();
+            $empleado->id_per = $request->post('textpersona');
+            $empleado->id_tip_emp = $request->post('texttipoemp');
+            $empleado->id_hor_asi = $request->post('texthoratra');
+            $empleado->estado = '1';
+            $empleado->observaciones = $request->post('textobservaciones');
+            $empleado->fecha = $fecha;
+
+            $empleado->save();
 
 
-        //registrar con el empleado registraso el cargo de empleado;   
-        $idEmpMax = DB::table('empleado')->max('id_emp'); 
-        
-        $empcar = new EmpCar();
-        $empcar->id_emp= $idEmpMax;
-        $empcar->id_car=$request->post('textcargo');
-        $empcar->descrip=$request->post('textdescrip');
-        $empcar->fecha = $fecha;
-        $empcar->estado='1';
-        $empcar->save();
-        return redirect()->route('empleado')->with('seccess','Se modifico correctamente');
+            //registrar con el empleado registraso el cargo de empleado;   
+            $idEmpMax = DB::table('empleado')->max('id_emp');
 
-
+            $empcar = new EmpCar();
+            $empcar->id_emp = $idEmpMax;
+            $empcar->id_car = $request->post('textcargo');
+            $empcar->descrip = $request->post('textdescrip');
+            $empcar->fecha = $fecha;
+            $empcar->estado = '1';
+            $empcar->save();
+            return redirect()->route('empleado')->with('Correcto', 'Se Registro correctamente');
+        } catch (Exception $e) {
+            return redirect()->route('empleado')->with('Error', 'Error al registrar');
+        }
     }
 
     /**
@@ -102,12 +113,12 @@ class EmpleadoController extends Controller
     {
 
         $empleado = Empleado::find($id);
-        $empleado->id_per=$request->post('textpersona');
-        $empleado->id_tip_emp=$request->post('texttipoemp');
-        $empleado->id_hor_asi=$request->post('texthoratra');
-        $empleado->observaciones=$request->post('textobservaciones');
+        $empleado->id_per = $request->post('textpersona');
+        $empleado->id_tip_emp = $request->post('texttipoemp');
+        $empleado->id_hor_asi = $request->post('texthoratra');
+        $empleado->observaciones = $request->post('textobservaciones');
         $empleado->save();
-        return redirect()->route('empleado')->with('seccess','Se modifico correctamente');
+        return redirect()->route('empleado')->with('seccess', 'Se modifico correctamente');
     }
 
     /**
@@ -117,6 +128,6 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::find($id);
         $empleado->delete();
-        return redirect()->route('empleado')->with('success','Se Elimino  correctamente el registro');
+        return redirect()->route('empleado')->with('success', 'Se Elimino  correctamente el registro');
     }
 }

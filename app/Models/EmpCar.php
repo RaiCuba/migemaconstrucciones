@@ -53,4 +53,6 @@ class EmpCar extends Model
 	{
 		return $this->belongsTo(Empleado::class, 'id_emp');
 	}
+
+
 }

@@ -35,4 +35,6 @@ class Cargo extends Model
 	{
 		return $this->hasMany(EmpCar::class, 'id_car');
 	}
+
+	
 }

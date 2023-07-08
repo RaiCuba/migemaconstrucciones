@@ -1,43 +1,41 @@
 @extends('layouts.menupricipal')
 @section('Contenido')
+    <form action="{{ route('registrar.asistencia') }}" method="post">
+        @csrf
+        <!-- otros campos del formulario -->
 
+        <input type="hidden" name="latitud" id="latitud">
+        <input type="hidden" name="longitud" id="longitud">
+        <input type="hidden" name="empleado" value="{{ auth()->user()->id }}">
 
-<form action="{{ route('registrar.asistencia') }}" method="post">
-    @csrf
-    <!-- otros campos del formulario -->
-  
-    <input type="hidden" name="latitud" id="latitud">
-    <input type="hidden" name="longitud" id="longitud">
-    <input type="hidden" name="empleado" value="{{ auth()->user()->id}}">
-  
-    <button type="button" onclick="obtenerUbicacion()">Obtener Coordenadas</button>
-  </form>
-  
-  <script>
-  function obtenerUbicacion() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var latitud = position.coords.latitude;
-        var longitud = position.coords.longitude;
-  
-        document.getElementById('latitud').value = latitud;
-        document.getElementById('longitud').value = longitud;
-  
-        // Envía el formulario
-        document.querySelector('form').submit();
-      });
-    } else {
-      alert('Tu navegador no admite la geolocalización.');
-    }
-  }
-  </script>
+        <button class="btn btn-outline-dark" type="button" onclick="obtenerUbicacion()">REGISTRO DE ASISTENCIA</button>
+    </form>
+
+    <script>
+        function obtenerUbicacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitud = position.coords.latitude;
+                    var longitud = position.coords.longitude;
+
+                    document.getElementById('latitud').value = latitud;
+                    document.getElementById('longitud').value = longitud;
+
+                    // Envía el formulario
+                    document.querySelector('form').submit();
+                });
+            } else {
+                alert('Tu navegador no admite la geolocalización.');
+            }
+        }
+    </script>
 
 
 
 
 
 
-{{-- <form method="POST" action="{{ route('guardar.coordenadas') }}" >
+    {{-- <form method="POST" action="{{ route('guardar.coordenadas') }}" >
     @csrf
     <input type="text" name="empleado" placeholder="Empleado" required>
     <input type="text" name="entradasalida" placeholder="entrada salida" required>
@@ -47,7 +45,7 @@
     
 </form>   --}}
 
-{{-- 
+    {{-- 
 <p>Latitud: <span id="latitud"></span></p>
 <p>Longitud: <span id="longitud"></span></p>
 
@@ -91,7 +89,4 @@
       }
     });
     </script> --}}
-
 @endsection
-
-

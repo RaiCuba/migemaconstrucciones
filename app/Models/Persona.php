@@ -57,4 +57,8 @@ class Persona extends Model
 	{
 		return $this->hasMany(Empleado::class, 'id_per');
 	}
+	public function imagens()
+	{
+		return $this->hasMany(Imagen::class, 'id_per');
+	}
 }

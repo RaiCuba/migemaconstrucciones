@@ -5,26 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TipoEmp;
 use App\Models\TipoUsu;
+
 class TipoEmpController extends Controller
 {
     //
     public function index()
     {
-        $datos = TipoEmp ::orderby('nombre','asc')->paginate(5);
-        return view('tipo_emp.index',compact('datos'));
-    
+        $datos = TipoEmp::orderby('nombre', 'asc')->paginate(5);
+        return view('tipo_emp.index', compact('datos'));
     }
     public function verform()
     {
-        $tipoemp = TipoEmp::all(); 
+        $tipoemp = TipoEmp::all();
         return view("tipo_emp.registrar", compact('tipoemp'));
-       
     }
     public function formmodificar($iddep)
     {
-        $tipoemp = TipoEmp ::find($iddep);
-        return view(" tipo_emp.modificar",compact('tipoemp'));
-    
+        $tipoemp = TipoEmp::find($iddep);
+        return view(" tipo_emp.modificar", compact('tipoemp'));
     }
 
     /**
@@ -32,15 +30,27 @@ class TipoEmpController extends Controller
      */
     public function create(Request $request)
     {
-        $tipoemp = new TipoEmp ();
-        $tipoemp->id_tip_emp=$request->post('textid');
-        $tipoemp->nombre=$request->post('texttipoemp');
-        $tipoemp->estado='1';
-        $tipoemp->save();
+        $request->validate(
+            [
+                'texttipoemp' => ['required', 'max:25'],
+            ],
+            [
+                'required' => 'El campo es obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres'
+            ]
+        );
+        try {
 
-        return redirect()->route('tipoemp')->with('seccess','Se modifico correctamente');
+            $tipoemp = new TipoEmp();
+            $tipoemp->id_tip_emp = $request->post('textid');
+            $tipoemp->nombre = $request->post('texttipoemp');
+            $tipoemp->estado = '1';
+            $tipoemp->save();
 
-
+            return redirect()->route('tipoemp')->with('Correcto', 'Se Registrocorrectamente');
+        } catch (\Throwable $th) {
+            return redirect()->route('tipoemp')->with('Error', 'Error al Registrar');
+        }
     }
 
     /**
@@ -73,10 +83,10 @@ class TipoEmpController extends Controller
     public function update(Request $request, $id)
     {
         $tipoemp = TipoEmp::find($id);
-        $tipoemp->id_tip_emp =$request->post('textid');
-        $tipoemp->nombre=$request->post('texttipoemp');
+        $tipoemp->id_tip_emp = $request->post('textid');
+        $tipoemp->nombre = $request->post('texttipoemp');
         $tipoemp->save();
-        return redirect()->route('tipoemp')->with('seccess','Se modifico correctamente');
+        return redirect()->route('tipoemp')->with('seccess', 'Se modifico correctamente');
     }
 
     /**
@@ -86,6 +96,6 @@ class TipoEmpController extends Controller
     {
         $tipoemp = TipoEmp::find($id);
         $tipoemp->delete();
-        return redirect()->route('tipoemp')->with('success','Se Elimino  correctamente el registro');
+        return redirect()->route('tipoemp')->with('success', 'Se Elimino  correctamente el registro');
     }
 }

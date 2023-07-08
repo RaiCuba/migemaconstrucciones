@@ -41,8 +41,6 @@ class Actividad extends Model
 		'id_tip_act',
 		'nombre',
 		'dia',
-		'mes',
-		'anio',
 		'descrip',
 		'lugar',
 		'estado'

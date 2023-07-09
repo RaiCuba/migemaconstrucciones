@@ -76,13 +76,18 @@ class LugarExtController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
 
-        $lugarext = LugarExt::find($id);
-        $lugarext->lugar = $request->post('textlugar');
-        $lugarext->descrip = $request->post('textdescrip');
-        $lugarext->save();
 
-        return redirect()->route('lugarext')->with('seccess', 'Se modifico correctamente');
+            $lugarext = LugarExt::find($id);
+            $lugarext->lugar = $request->post('textlugar');
+            $lugarext->descrip = $request->post('textdescrip');
+            $lugarext->save();
+
+            return redirect()->route('lugarext')->with('Correcto', 'Se modificó correctamente');
+        } catch (\Throwable $th) {
+            return redirect()->route('lugarext')->with('Error', 'Error al modifico ');
+        }
         // try{
         // $sql = DB::update("update pais set nombre=? where id_pai=?",[
 
@@ -110,9 +115,16 @@ class LugarExtController extends Controller
     public function delete($id)
     {
 
-        $lugarext = LugarExt::find($id);
-        $lugarext->delete();
-        return redirect()->route('lugarext')->with('success', 'Se Elimino  correctamente el registro');
+
+
+        try {
+            $lugarext = LugarExt::find($id);
+            $lugarext->delete();
+            return redirect()->route('lugarext')->with('Correcto', 'Se Elimino  correctamente el registro');
+        } catch (Exception $e) {
+            return redirect()->route('lugarext')->with('Error', 'Error al eliminar');
+        }
+
         // try{
         // $sql = DB::delete("delete from pais where id_pai=$id");           
         // }catch (\Throwable $th)

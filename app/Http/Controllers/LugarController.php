@@ -11,11 +11,12 @@ class LugarController extends Controller
     //
     public function index()
     {
-        $datos = Lugar::orderby('almacen', 'asc')->paginate(5);
+        $datos = Lugar::orderby('almacen', 'asc')->paginate(8);
         return view('lugar.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);
     }
+
     public function verform()
     {
 
@@ -77,16 +78,32 @@ class LugarController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $request->validate(
+            [
+                'textlugar1' => ['required', 'max:30'],
+                'textdireccion1' => ['required', 'max:50'],
+                'textdescrip1' => ['required', 'max:100'],
+            ],
+            [
+                'required' => 'Este campo obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres'
+            ]
+        );
+        try {
 
-        $lugar = Lugar::find($id);
-        $lugar->almacen = $request->post('textlugar');
-        $lugar->descrip = $request->post('textdescrip');
-        $lugar->direccion = $request->post('textdireccion');
-        $lugar->save();
-
-        return redirect()->route('lugar')->with('seccess', 'Se modifico correctamente');
+            $iddd = $request->post('id');
+            $lugar = Lugar::find($iddd);
+            $lugar->almacen = $request->post('textlugar1');
+            $lugar->descrip = $request->post('textdescrip1');
+            $lugar->direccion = $request->post('textdireccion1');
+            $lugar->save();
+            return redirect()->route('lugar')->with('Correcto', 'Se modificó correctamente el registro');
+        } catch (Exception $e) {
+            print('No entro al try');
+            return redirect()->route('lugar')->with('Error', 'Error al modificar');
+        }
         // try{
         // $sql = DB::update("update pais set nombre=? where id_pai=?",[
 
@@ -116,7 +133,8 @@ class LugarController extends Controller
 
         $lugar = Lugar::find($id);
         $lugar->delete();
-        return redirect()->route('lugar')->with('success', 'Se Elimino  correctamente el registro');
+
+        return redirect()->route('lugar')->with('Correcto', 'Se Elimino  correctamente el registro');
         // try{
         // $sql = DB::delete("delete from pais where id_pai=$id");           
         // }catch (\Throwable $th)

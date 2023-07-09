@@ -62,6 +62,7 @@ Route::get('/asistencia', [AsistenciaController::class, 'index'])->name('asisten
 Route::post('/registrar-asistencia', [AsistenciaController::class, 'store'])->name('registrar.asistencia');
 //ver ubicacion en map
 Route::get('/ubicacion/{id}', [AsistenciaController::class, 'verubicacion'])->name('verasistenciamap');
+Route::get('/mapprueba', [AsistenciaController::class, 'prueba'])->name('prueba');
 
 Route::post('/guardar-ubicacion', [OperacionesController::class, 'guardarUbicacion'])->name('guardar.ubicacion');
 Route::post('/registrar-ubicacion', [OperacionesController::class, 'registrarUbicacion'])->name('ubicacion1');
@@ -215,8 +216,10 @@ Route::get('/modificarhoraasi/{id}', [HoraAsigController::class, "formmodificar"
 //LUGAR DE PRODUCTO
 Route::get('/lugar', [LugarController::class, "index"])->name("lugar");
 Route::post('/registrar-lugar', [LugarController::class, "create"])->name("lugar.create");
-Route::put('/modificar-lugar/{id}', [LugarController::class, "update"])->name("lugar.update");
+Route::put('/modificar-lugar', [LugarController::class, "update"])->name("lugar.update");
 Route::get('/eliminar-lugar-{id}', [LugarController::class, "delete"])->name("lugar.delete");
+
+
 
 Route::get('/nuevolugar', [LugarController::class, "verform"])->name("formulariolugar");
 Route::get('/modificarlugar/{id}', [LugarController::class, "formmodificar"])->name("modificarlugar");

@@ -86,51 +86,25 @@ class PaisController extends Controller
     public function update(Request $request, $id)
     {
 
-        $pais = Pai::find($id);
-        $pais->nombre = $request->post('textpais');
-        $pais->save();
-        return redirect()->route('pais')->with('seccess', 'Se modifico correctamente');
-        // try{
-        // $sql = DB::update("update pais set nombre=? where id_pai=?",[
-
-        //         $request->textpais,
-        //         $request->textid,
-
-        //     ]);  
-        //      //para validar midificar cuando no tocamos los registro
-        //     if($sql ==0) {
-        //         $sql ==1;
-        //     }
-        // }catch (\Throwable $th)
-        // {
-        //     $sql =0;
-        // }
-        //     if ($sql == true) {
-        //         return back()->with("Correcto","Se Modifico el Pais correctamente");
-        //     } else {
-        //         return back()->with("Error","Error al modificar");
-
-        //     }
+        try {
+            $pais = Pai::find($id);
+            $pais->nombre = $request->post('textpais');
+            $pais->save();
+            return redirect()->route('pais')->with('Correcto', 'Se modificá correctamente');
+        } catch (\Throwable $th) {
+            return redirect()->route('pais')->with('Error', 'Error al modificar');
+        }
     }
 
 
     public function delete($id)
     {
-
-        $pais = Pai::find($id);
-        $pais->delete();
-        return redirect()->route('pais')->with('success', 'Se Elimino  correctamente el registro');
-        // try{
-        // $sql = DB::delete("delete from pais where id_pai=$id");           
-        // }catch (\Throwable $th)
-        // {
-        //     $sql =0;
-        // }
-        //     if ($sql == true) {
-        //         return back()->with("Correcto","Se elimino El pais correctamente");
-        //     } else {
-        //         return back()->with("Error","Error al eliminar");
-
-        //     }
+        try {
+            $pais = Pai::find($id);
+            $pais->delete();
+            return redirect()->route('pais')->with('Correcto', 'Se Elimino  correctamente el registro');
+        } catch (\Throwable $th) {
+            return redirect()->route('pais')->with('Error', 'Error al Eliminar el registro');
+        }
     }
 }

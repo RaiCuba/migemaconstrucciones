@@ -7,16 +7,8 @@
     @if (session('Error'))
         <div class="alert alert-danger">{{ session('Error') }}</div>
     @endif
-
-
-
-
     <a href="{{ route('formularioproveedor') }}"><button type="sudmit" class="btn btn-outline-dark">Registrar Nuevo
             Proveedor</button> </a>
-
-
-
-
     <div class="col-12 col-xl-8">
         <div class="card">
             <div class="card-header">
@@ -57,13 +49,16 @@
                                 </td>
 
                                 <div>
-                                    <td><a href="{{ route('modificarproveedor', $items->id_prov) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Modificar</button> </a> </td>
-
+                                    {{-- <td><a href="{{ route('modificarproveedor', $items->id_prov) }}"><button type="sudmit"
+                                                class="btn btn-secondary">Modificar</button> </a> </td> --}}
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditar{{ $items->id_prov }}">Modificar</button>
+                                    </td>
                                     <td><a href="{{ route('proveedor.delete', $items->id_prov) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Eliminar</button> </a> </td>
                                 </div>
                             </tr>
+                            @include('proveedor.modificar')
                         @endforeach
                     </tbody>
                 </table>

@@ -47,13 +47,16 @@
                                     <p class=" mb-0">{{ $items->estado }}</p>
                                 </td>
                                 <div>
-                                    <td><a href="{{ route('modificartipoemp', $items->id_tip_emp) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Modificar</button> </a> </td>
-
+                                    {{-- <td><a href="{{ route('modificartipoemp', $items->id_tip_emp) }}"><button type="sudmit"
+                                                class="btn btn-secondary">Modificar</button> </a> </td> --}}
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditar{{ $items->id_tip_emp }}">Modificar</button>
+                                    </td>
                                     <td><a href="{{ route('tipoemp.delete', $items->id_tip_emp) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Eliminar</button> </a> </td>
                                 </div>
                             </tr>
+                            @include('tipo_emp.modificar')
                         @endforeach
                     </tbody>
                 </table>

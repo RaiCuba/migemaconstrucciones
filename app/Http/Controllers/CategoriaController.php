@@ -79,52 +79,40 @@ class CategoriaController extends Controller
     public function update(Request $request, $id)
     {
 
-        $categoria = Categorium::find($id);
-        $categoria->nombre = $request->post('textnombre');
-        $categoria->descrip = $request->post('textdescrip');
-        $categoria->save();
-        return redirect()->route('categoria')->with('seccess', 'Se modifico correctamente');
-        // try{
-        // $sql = DB::update("update pais set nombre=? where id_pai=?",[
+        $request->validate(
+            [
+                'textnombre' => ['required', 'max:20'],
+                'textdescrip' => ['required', 'max:100'],
+            ],
+            [
+                'required' => 'Este campo obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres',
+                'alpha' => 'El campo solo acepta letras',
+                'unique' => 'El nombre y/o dato del cargo ya existe'
+            ]
+        );
+        try {
 
-        //         $request->textpais,
-        //         $request->textid,
-
-        //     ]);  
-        //      //para validar midificar cuando no tocamos los registro
-        //     if($sql ==0) {
-        //         $sql ==1;
-        //     }
-        // }catch (\Throwable $th)
-        // {
-        //     $sql =0;
-        // }
-        //     if ($sql == true) {
-        //         return back()->with("Correcto","Se Modifico el Pais correctamente");
-        //     } else {
-        //         return back()->with("Error","Error al modificar");
-
-        //     }
+            $categoria = Categorium::find($id);
+            $categoria->nombre = $request->post('textnombre');
+            $categoria->descrip = $request->post('textdescrip');
+            $categoria->save();
+            return redirect()->route('categoria')->with('Correcto', 'Se modificó correctamente');
+        } catch (Exception $e) {
+            return redirect()->route('categoria')->with('Error', 'Error al modificar');
+        }
     }
 
 
     public function delete($id)
     {
+        try {
 
-        $categoria = Categorium::find($id);
-        $categoria->delete();
-        return redirect()->route('categoria')->with('success', 'Se Elimino  correctamente el registro');
-        // try{
-        // $sql = DB::delete("delete from pais where id_pai=$id");           
-        // }catch (\Throwable $th)
-        // {
-        //     $sql =0;
-        // }
-        //     if ($sql == true) {
-        //         return back()->with("Correcto","Se elimino El pais correctamente");
-        //     } else {
-        //         return back()->with("Error","Error al eliminar");
-
-        //     }
+            $categoria = Categorium::find($id);
+            $categoria->delete();
+            return redirect()->route('categoria')->with('Correcto', 'Se Eliminó  correctamente el registro');
+        } catch (Exception $e) {
+            return redirect()->route('categoria')->with('Error', 'Error al  eliminar el registro');
+        }
     }
 }

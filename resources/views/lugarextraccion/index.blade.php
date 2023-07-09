@@ -41,13 +41,16 @@
                                 </td>
 
                                 <div>
-                                    <td><a href="{{ route('modificarlugarext', $items->id_lug_ext) }}"><button
-                                                type="sudmit" class="btn btn-secondary">Modificar</button> </a> </td>
-
+                                    {{-- <td><a href="{{ route('modificarlugarext', $items->id_lug_ext) }}"><button
+                                                type="sudmit" class="btn btn-secondary">Modificar</button> </a> </td> --}}
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditar{{ $items->id_lug_ext }}">Modificar</button>
+                                    </td>
                                     <td><a href="{{ route('lugarext.delete', $items->id_lug_ext) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Eliminar</button> </a> </td>
                                 </div>
                             </tr>
+                            @include('lugarextraccion.modificar')
                         @endforeach
                     </tbody>
                 </table>

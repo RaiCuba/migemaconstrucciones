@@ -40,9 +40,11 @@
                                 </td>
 
                                 <div>
-                                    <td><a href="{{ route('modificarrol', $items->id_rol) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Modificar</button> </a> </td>
-
+                                    {{-- <td><a href="{{ route('modificarrol', $items->id_rol) }}"><button type="sudmit"
+                                                class="btn btn-secondary">Modificar</button> </a> </td> --}}
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditar{{ $items->id_rol }}">Modificar</button>
+                                    </td>
                                     <td><a href="{{ route('rol.delete', $items->id_rol) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Eliminar</button> </a> </td>
                                 </div>

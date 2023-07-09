@@ -18,8 +18,21 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 
+    {{-- para mostrar el mapa --}}
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script type="module" src="./index.js"></script>
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
+    {{-- para mostrar el mapa --}}
 
 
     <script src="{{ asset('js/axios.min.js') }}"></script>
@@ -40,21 +53,17 @@
 
     <body>
 
-
-
-
-
         <div id="app">
             <div id="sidebar" class="active">
                 <div class="sidebar-wrapper active">
                     <div class="sidebar-header">
                         <div class="d-flex justify-content-between">
                             <div class="logo">
-                                <a href=""><img src="../public/images/logo/logo1.png" alt="Logo"
+                                <a href=""><img src="../public/images/logo/logo1.png " alt="Logo"
                                         srcset=""></a>
                             </div>
                             <div>
-                                <a>Mi Gema Construcciones</a>
+                                <a>i Gema Construcciones</a>
                             </div>
                             <div class="toggler">
                                 <a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -271,7 +280,7 @@
                                         <a href="">Login</a>
                                     </li>
                                     <li class="submenu-item ">
-                                        <a href="">Registro</a>
+                                        <a href="{{ route('register') }}">Registro</a>
                                     </li>
                                     <li class="submenu-item ">
                                         <a href="">Has olvidado tu contraseña</a>
@@ -298,12 +307,8 @@
                             <li class="sidebar-title"><a href="./logout">Logout / Cerrar Sección </a>
 
                             </li>
-
-
-
                         </ul>
                     </div>
-                    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
                 </div>
             </div>
             <div id="main">
@@ -343,7 +348,7 @@
 
                 <div>
                     <!-- footer-->
-                    <footer id="footer">
+                    {{-- <footer id="footer">
                         <div class="footer clearfix mb-0 text-muted">
                             <div class="float-start">
                                 <p>2023 &copy; Cuba</p>
@@ -353,7 +358,7 @@
                                         href="">Rai</a></p>
                             </div>
                         </div>
-                    </footer>
+                    </footer> --}}
                 </div>
 
             </div>

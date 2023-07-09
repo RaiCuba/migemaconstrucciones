@@ -33,14 +33,15 @@
                                         <p class=" mb-0">{{ $items->id_emp }}</p>
                                     </td>
                                     <td class="col-auto">
-                                        <p class=" mb-0">{{ $items->nombre }} {{ $items->ape }}</p>
+                                        <p class=" mb-0">{{ $items->Empleado->persona->nombre }}
+                                            {{ $items->Empleado->persona->ape }}</p>
                                     </td>
 
                                     <td class="col-auto">
-                                        <p class=" mb-0">{{ $items->hora_ent }}</p>
+                                        <p class=" mb-0">{{ $items->Entrada_salida->hora_ent }}</p>
                                     </td>
                                     <td class="col-auto">
-                                        <p class=" mb-0">{{ $items->hora_sal }}</p>
+                                        <p class=" mb-0">{{ $items->Entrada_salida->hora_sal }}</p>
                                     </td>
 
 
@@ -57,6 +58,8 @@
                                     <div>
                                         <td><a href="{{ route('verasistenciamap', $items->id_asi) }}"><button type="sudmit"
                                                     class="btn btn-secondary">Google Map</button> </a> </td>
+                                        {{-- <td><a href="{{ route('prueba') }}"><button type="sudmit"
+                                                    class="btn btn-secondary">Google Map</button> </a> </td> --}}
 
                                     </div>
                                 </tr>

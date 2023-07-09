@@ -56,12 +56,16 @@
                                 </td>
 
                                 <div class="modal">
-                                    <td><a href="{{ route('modificarpersona', $items->id_per) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Modificar</button> </a> </td>
+                                    {{-- <td><a href="{{ route('modificarpersona', $items->id_per) }}"><button type="sudmit"
+                                                class="btn btn-secondary">Modificar</button> </a> </td> --}}
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditar{{ $items->id_per }}">Modificar</button>
+                                    </td>
                                     <td><a href="{{ route('persona.delete', $items->id_per) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Eliminar</button> </a> </td>
                                 </div>
                             </tr>
+                            @include('persona.modificar')
                         @endforeach
                     </tbody>
                 </table>

@@ -8,12 +8,7 @@
         <div class="alert alert-danger">{{ session('Error') }}</div>
     @endif
 
-
-
-
     <a href="{{ route('formulariopais') }}"><button type="sudmit" class="btn btn-outline-dark">Nuevo país</button> </a>
-
-
 
 
     <div class="col-12 col-xl-8">
@@ -42,13 +37,16 @@
                                     <p class=" mb-0">{{ $items->nombre }}</p>
                                 </td>
                                 <div>
-                                    <td><a href="{{ route('formulariopais', $items->id_pai) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Modificar</button> </a> </td>
-
+                                    {{-- <td><a href="{{ route('formulariopais', $items->id_pai) }}"><button type="sudmit"
+                                                class="btn btn-secondary">Modificar</button> </a> </td> --}}
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditar{{ $items->id_pai }}">Modificar</button>
+                                    </td>
                                     <td><a href="{{ route('pais.delete', $items->id_pai) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Eliminar</button> </a> </td>
                                 </div>
                             </tr>
+                            @include('pais.modificar')
                         @endforeach
                     </tbody>
                 </table>

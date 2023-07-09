@@ -64,7 +64,10 @@
                                 <div>
                                     <td><a href="{{ route('modificarempleado', $items->id_emp) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Modificar</button> </a> </td>
-                                    {{-- <td><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Modificar</button></td> --}}
+
+                                    {{-- <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditar{{ $items->id_emp }}">Modificar</button>
+                                    </td> --}}
                                     <td><a href="{{ route('empleado.delete', $items->id_emp) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Eliminar</button> </a> </td>
                                 </div>
@@ -78,32 +81,6 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Título del Modal</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Contenido del Modal
-                        <div>id: {{ $items->id_emp }}</div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
-                    </div>
-                </div>
             </div>
         </div>
     @endsection

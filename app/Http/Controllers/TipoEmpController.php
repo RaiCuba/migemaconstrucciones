@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TipoEmp;
 use App\Models\TipoUsu;
+use Exception;
 
 class TipoEmpController extends Controller
 {
@@ -82,11 +83,25 @@ class TipoEmpController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tipoemp = TipoEmp::find($id);
-        $tipoemp->id_tip_emp = $request->post('textid');
-        $tipoemp->nombre = $request->post('texttipoemp');
-        $tipoemp->save();
-        return redirect()->route('tipoemp')->with('seccess', 'Se modifico correctamente');
+        $request->validate(
+            [
+                'texttipoemp' => ['required', 'max:25'],
+            ],
+            [
+                'required' => 'El campo es obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres'
+            ]
+        );
+        try {
+
+            $tipoemp = TipoEmp::find($id);
+            $tipoemp->id_tip_emp = $request->post('textid');
+            $tipoemp->nombre = $request->post('texttipoemp');
+            $tipoemp->save();
+            return redirect()->route('tipoemp')->with('Correcto', 'Se modificó correctamente');
+        } catch (Exception $e) {
+            return redirect()->route('tipoemp')->with('Error', 'Error al modificar');
+        }
     }
 
     /**
@@ -94,8 +109,13 @@ class TipoEmpController extends Controller
      */
     public function delete(string $id)
     {
-        $tipoemp = TipoEmp::find($id);
-        $tipoemp->delete();
-        return redirect()->route('tipoemp')->with('success', 'Se Elimino  correctamente el registro');
+        try {
+            $tipoemp = TipoEmp::find($id);
+            $tipoemp->delete();
+            return redirect()->route('tipoemp')->with('Correcto', 'Se Eliminó  correctamente el registro');
+            //code...
+        } catch (\Throwable $th) {
+            return redirect()->route('tipoemp')->with('Error', 'Error al elimino el registro');
+        }
     }
 }

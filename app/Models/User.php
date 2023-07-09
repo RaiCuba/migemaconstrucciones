@@ -13,9 +13,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+//para relacionar los roles y permisos
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+
+	//use HasRoles;
+
 	protected $table = 'users';
 
 	protected $casts = [
@@ -35,7 +40,8 @@ class User extends Authenticatable
 		'password',
 		'remember_token'
 	];
-	public function setPasswordAttribute($valu){
-		$this->attributes['password']=bcrypt($valu);
+	public function setPasswordAttribute($valu)
+	{
+		$this->attributes['password'] = bcrypt($valu);
 	}
 }

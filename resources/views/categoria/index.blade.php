@@ -40,13 +40,16 @@
                                     <p class=" mb-0">{{ $items->descrip }}</p>
                                 </td>
                                 <div>
-                                    <td><a href="{{ route('modificarcategoria', $items->id_cat) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Modificar</button> </a> </td>
-
+                                    {{-- <td><a href="{{ route('modificarcategoria', $items->id_cat) }}"><button type="sudmit"
+                                                class="btn btn-secondary">Modificar</button> </a> </td> --}}
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditar{{ $items->id_cat }}">Modificar</button>
+                                    </td>
                                     <td><a href="{{ route('categoria.delete', $items->id_cat) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Eliminar</button> </a> </td>
                                 </div>
                             </tr>
+                            @include('categoria.modificar')
                         @endforeach
                     </tbody>
                 </table>

@@ -85,57 +85,46 @@ class ProveedorController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate(
+            [
+                'textnombre' => ['required', 'max:20'],
+                'textorganizacion' => ['required', 'max:25'],
+                'textnit' => ['required', 'max:12'],
+                'textdescrip' => ['required', 'max:100'],
+            ],
+            [
+                'required' => 'Los campo con (*) es obligatorio',
+                'max' => 'El campo no puede tener mas de :max caracteres',
+                'alpha' => 'El campo solo acepta letras',
+                'unique' => 'El nombre y/o dato del cargo ya existe',
+                'numeric' => 'Ingrese solo números'
+            ]
+        );
+        try {
 
-        $proveedor = Proveedor::find($id);
-        $proveedor->nombre = $request->post('textnombre');
-        $proveedor->organizacion = $request->post('textorganizacion');
-        $proveedor->nit = $request->post('textnit');
-        $proveedor->descrip = $request->post('textdescrip');
+            $proveedor = Proveedor::find($id);
+            $proveedor->nombre = $request->post('textnombre');
+            $proveedor->organizacion = $request->post('textorganizacion');
+            $proveedor->nit = $request->post('textnit');
+            $proveedor->descrip = $request->post('textdescrip');
 
-        $proveedor->save();
+            $proveedor->save();
 
-        return redirect()->route('proveedor')->with('seccess', 'Se modifico correctamente');
-        // try{
-        // $sql = DB::update("update pais set nombre=? where id_pai=?",[
-
-        //         $request->textpais,
-        //         $request->textid,
-
-        //     ]);  
-        //      //para validar midificar cuando no tocamos los registro
-        //     if($sql ==0) {
-        //         $sql ==1;
-        //     }
-        // }catch (\Throwable $th)
-        // {
-        //     $sql =0;
-        // }
-        //     if ($sql == true) {
-        //         return back()->with("Correcto","Se Modifico el Pais correctamente");
-        //     } else {
-        //         return back()->with("Error","Error al modificar");
-
-        //     }
+            return redirect()->route('proveedor')->with('Correcto', 'Se modificó correctamente');
+        } catch (Exception $e) {
+            return redirect()->route('proveedor')->with('Error', 'Error al modificar');
+        }
     }
 
 
     public function delete($id)
     {
-
-        $proveedor = Proveedor::find($id);
-        $proveedor->delete();
-        return redirect()->route('proveedor')->with('success', 'Se Elimino  correctamente el registro');
-        // try{
-        // $sql = DB::delete("delete from pais where id_pai=$id");           
-        // }catch (\Throwable $th)
-        // {
-        //     $sql =0;
-        // }
-        //     if ($sql == true) {
-        //         return back()->with("Correcto","Se elimino El pais correctamente");
-        //     } else {
-        //         return back()->with("Error","Error al eliminar");
-
-        //     }
+        try {
+            $proveedor = Proveedor::find($id);
+            $proveedor->delete();
+            return redirect()->route('proveedor')->with('Correcto', 'Se Elimino  correctamente el registro');
+        } catch (Exception $e) {
+            return redirect()->route('proveedor')->with('Error', 'Error al Elimino el registro');
+        }
     }
 }

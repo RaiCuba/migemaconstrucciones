@@ -3,7 +3,7 @@
     <form action="{{ route('lugar.create') }}" method="post">
         <!--se requiere este para ralaval para que funciones-->
         @csrf
-        <h1 class="modal-title fs-5" id="modalRegistrarpais">Registrar Lugar de Almacenamiento de producto</h1>
+        <h1 class="modal-title fs-5">Registrar Lugar de Almacenamiento de producto</h1>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">lugar de almacen de producto</label>
             <input type="text" class="form-control" name="textalmacen" required>

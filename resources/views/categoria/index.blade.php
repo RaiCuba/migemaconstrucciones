@@ -33,6 +33,7 @@
                                 <td class="col-auto">
                                     <p class=" mb-0">{{ $items->id_cat }}</p>
                                 </td>
+
                                 <td class="col-auto">
                                     <p class=" mb-0">{{ $items->nombre }}</p>
                                 </td>

@@ -15,7 +15,8 @@ class RegisterController extends Controller
         if (Auth::check()) {
             return redirect('/home');
         }
-        return view('cliente.index');
+        //return view('cliente.index');
+        return view('usuario.register');
     }
     public function register(RegisterRequest $request)
     {

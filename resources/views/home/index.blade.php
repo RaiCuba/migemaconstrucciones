@@ -3,6 +3,17 @@
     {{-- @section('content') --}}
 
     @section('Contenido')
+        <div class="container">
+            <div>
+                <a href="{{ route('ver.grafico') }}">
+                    <h5>Ver grafico </h5>
+                </a>
+            </div>
+        </div>
+
+
+
+
         <div class="row">
             <div class="col-6 col-lg-3 col-md-6">
                 <div class="card">
@@ -122,6 +133,26 @@
             </div>
 
         </div>
+        @role('admin')
+            <div>
+                <p>solo para admin </p>
+            </div>
+        @endrole
+
+        @role('empleado')
+            <div>
+                <p>solo para empleados </p>
+            </div>
+        @endrole
+        @role('regente')
+            <div>
+                <p>solo para gerente </p>
+            </div>
+            <div>
+                <p>solo para gerente2 </p>
+            </div>
+        @endrole
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -135,12 +166,21 @@
                         {!! $chart->renderHtml() !!}
 
                     </div>
-                    <div class="container">
 
 
+
+                    {{-- <div class="container"> --}}
+                    {{-- contenedor para los gráficos --}}
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col">
+                                <div class="container"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="row">
 
@@ -156,6 +196,7 @@
                                     <tr>
                                         <th>Empleado</th>
                                         <th>Tipo de actividad</th>
+                                        <th>fecha</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -199,4 +240,5 @@
         {!! $chart->renderChartJsLibrary() !!}
         {!! $chart->renderJs() !!}
     @endsection
+
 @endauth

@@ -96,6 +96,7 @@ Route::get('/login', [LoginController::class, 'show']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/homevergrafico', [HomeController::class, 'grafico'])->name('ver.grafico');
 
 Route::get('/logout', [LogoutController::class, 'logout']);
 //INDEX 

@@ -9,7 +9,7 @@ use Exception;
 
 class TipoEmpController extends Controller
 {
-    //
+    protected $paginationTheme = "bootstrap";
     public function index()
     {
         $datos = TipoEmp::orderby('nombre', 'asc')->paginate(5);

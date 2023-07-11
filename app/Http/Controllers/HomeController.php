@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DetalleVentaController;
 use App\Models\ActEmp;
+use App\Models\Actividad;
 use App\Models\Asistencium;
 use App\Models\CostoPro;
 use App\Models\Producto;
@@ -27,7 +28,10 @@ class HomeController extends Controller
         $actemp = ActEmp::count();
         $asis = Asistencium::whereDate('fecha', $hoy)->count();
         $asistencias = Asistencium::all();
-        $actividades = Imagen::all();
+        $actividades = Actividad::all();
+
+        //imprimir graficos Costo_pro
+
 
         //para imprimer el grafico
         $chart_option = [
@@ -39,15 +43,27 @@ class HomeController extends Controller
 
             'relationship_name' => 'producto',
             'group_by_field' => 'id_pro',
-
-
-            // 'filter_field' => 'fecha',
-            //'filter_days' => 500,
-            // 'filter_period' => 'year',
         ];
         $chart = new LaravelChart($chart_option);
 
         return view('home.index', compact('chart', 'cantidad', 'hoy', 'cantidadproducto', 'actemp', 'asis', 'asistencias', 'actividades'));
+    }
+    public function grafico()
+    {
+        // Obtener los datos desde tu modelo o cualquier otra fuente de datos
+        $datos = CostoPro::all();
+
+
+
+        // $datos = [
+        //     'datos1' => 10,
+        //     'datos2' => 20,
+        //     'datos3' => 30,
+        // ];
+        $sel = $datos->mapWithKeys(function ($item, $key) {
+            return [$item->nombre => $item->precio];
+        });
+        return view('home.grafico', compact('sel'));
     }
 
     // public function mostrarGrafica()

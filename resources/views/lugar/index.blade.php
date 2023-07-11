@@ -59,18 +59,20 @@
                             </tr>
                         @endforeach
 
-                    </tbody>
 
-                </table>
+                    @endcan
+                </tbody>
 
-                <div class="row">
-                    <div>
-                        {{ $datos->links() }}
-                    </div>
+            </table>
+
+            <div class="row">
+                <div>
+                    {{ $datos->links() }}
                 </div>
-
             </div>
 
-
         </div>
-    @endsection
+
+
+    </div>
+@endsection

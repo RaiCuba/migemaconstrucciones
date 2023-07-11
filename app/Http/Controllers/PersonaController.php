@@ -7,12 +7,15 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 
+use Livewire\Component;
+
 class PersonaController extends Controller
 {
-    //
+    public $search;
     public function index()
     {
-        $datos = Persona::orderby('nombre', 'asc')->paginate(10);
+        $datos = Persona::where('nombre', 'LIKE', '%' . $this->search . '%')
+            ->orwhere('correo', 'LIKE', '%' . $this->search . '%')->paginate(10);
         return view('persona.index', compact('datos'));
     }
     public function verform()

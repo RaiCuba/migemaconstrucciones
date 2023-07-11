@@ -4,7 +4,7 @@
         <!--se requiere este para ralaval para que funciones-->
         @csrf
 
-        <h1 class="modal-title fs-5" id="modalRegistrarpais">Registrar Nuevo Costo de producto</h1>
+        <h1 class="modal-title fs-5" id="modalRegistrarpais">Registrar Nuevo producto</h1>
 
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Categoria</label>

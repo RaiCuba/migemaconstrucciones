@@ -19,7 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
 
-	//use HasRoles;
+	use HasRoles;
 
 	protected $table = 'users';
 

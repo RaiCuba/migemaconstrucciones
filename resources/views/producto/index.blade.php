@@ -11,10 +11,8 @@
 
 
 
-    <a href="{{ route('formularioproducto') }}"><button type="sudmit" class="btn btn-outline-dark">Nuevo Producto</button>
+    <a href="{{ route('formularioproducto') }}"><button type="sudmit" class="btn btn-outline-dark">Añadir + Producto</button>
     </a>
-
-
 
 
     <div class="col-12 col-xl-12">

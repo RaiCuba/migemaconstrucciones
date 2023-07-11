@@ -18,10 +18,17 @@ class ProductoController extends Controller
     //
     public function index()
     {
-        $datos = Producto::paginate(5);
+
+        // $datos = Producto::join('costo_pro', 'producto.id_cos_pro', '=', 'costo_pro.id_cos_pro')
+        //     ->select('producto.id_pro', 'costo_pro.nombre', 'costo_pro.precio', DB::raw('SUM(producto.cantidad)'))
+        //     ->where('producto.estado', 1)
+        //     ->groupBy('costo_pro.nombre', 'producto.id_pro', 'costo_pro.precio', 'producto.cantidad')
+        //     ->get();
+
+        $datos = Producto::paginate(10);
+
+
         return view('producto.index', compact('datos'));
-        // $datos = DB::select("select * from pais");
-        //return view("pais.index")->with("datos", $datos);
     }
     public function verform()
     {
@@ -40,6 +47,18 @@ class ProductoController extends Controller
     }
     public function create(Request $request)
     {
+
+        // $exi = CostoPro::where('id_cos_pro', $request->post('textco7stoprod'))->exists();
+        // if ($exi == null) {
+
+        //     echo 'Error 02';
+        // } else {
+        //     echo 'if2 se emcontro';
+        // }
+
+
+
+
         $request->validate(
             [
                 'textcantidad' => ['required', 'numeric'],
@@ -57,7 +76,7 @@ class ProductoController extends Controller
             //registrar la tabla de productos
             $fechas = Carbon::now();
             $producto = new Producto();
-            $producto->id_emp = $request->post('textempleado');
+            $producto->id_emp = 13; // $request->post('textempleado');
             $producto->id_cos_pro = $request->post('textcostoprod');
             $producto->cantidad = $request->post('textcantidad');
             $producto->descrip = $request->post('textdescripcion');
@@ -77,25 +96,6 @@ class ProductoController extends Controller
         } catch (Exception $e) {
             return redirect()->route('producto')->with('Error', 'Error al Registrar ');
         }
-        // try{
-        //     $sql = DB::insert("insert into pais(nombre)values(?)",[
-        //         $request->textpais,
-
-        //     ]);
-        // }catch (\Throwable $th)
-        // {
-        //     $sql =0;
-        // }
-        // if ($sql == true) {
-        //     return back()->with("Correcto","Se registro el pais correctamente");
-        // } else {
-        //     return back()->with("Error","Error de registro");
-
-        // }
-
-
-
-
     }
 
 

@@ -55,7 +55,7 @@
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Descripción</label>
 
-            <input type="text" class="form-control" name="descripcion" id="descripcion" required>
+            {{ $opcion->costo_pro->precio }}
 
             <div id="emailHelp" class="form-text"></div>
         </div>
@@ -64,6 +64,44 @@
             <button type="submit" class="btn btn-primary">Registrar</button>
         </div>
     </form>
+
+
+    {{-- <select id="miSelect">
+        <option value="">Seleccione una opción</option>
+        @foreach ($productos as $opcion)
+            <option value="{{ $opcion->id_pro }}">{{ $opcion->costo_pro->nombre }} / id_pro: {{ $opcion->id_pro }} /
+                precio: {{ $opcion->costo_pro->precio }}</option>
+        @endforeach
+    </select>
+    <label for="exampleInputEmail1" class="form-label" id="cantidad">cantidad</label>
+    <input type="text" id="input1" readonly>
+    <label for="exampleInputEmail1" class="form-label" id="precio">precio</label>
+    <input type="text" id="input2" readonly>
+    <label for="exampleInputEmail1" class="form-label" id="resultado">resultado</label>
+    <input type="text" id="resultado" readonly>
+
+    <script>
+        document.getElementById('miSelect').addEventListener('change', function() {
+            const valor1 = document.getElementById('input1');
+            const valor2 = document.getElementById('input2');
+            const resultado = document.getElementById('resultado');
+
+            var selectValue = this.value;
+
+            @foreach ($productos as $opcion)
+                if (selectValue === '{{ $opcion->id_pro }}') {
+                    valor1.value = '{{ $opcion->cantidad }}';
+                    valor2.value = '{{ $opcion->costo_pro->precio }}';
+                    resultado.value = 'hola';
+
+                }
+            @endforeach
+
+        });
+    </script> --}}
+
+
+
     <script>
         // Obtener los elementos del DOM
         const valorInput = document.getElementById('valor');

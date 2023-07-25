@@ -24,7 +24,8 @@ class User extends Authenticatable
 	protected $table = 'users';
 
 	protected $casts = [
-		'email_verified_at' => 'datetime'
+		'email_verified_at' => 'datetime',
+		'id_emp' => 'int',
 	];
 
 	protected $hidden = [
@@ -33,6 +34,7 @@ class User extends Authenticatable
 	];
 
 	protected $fillable = [
+		'id_emp',
 		'name',
 		'username',
 		'email',
@@ -43,5 +45,9 @@ class User extends Authenticatable
 	public function setPasswordAttribute($valu)
 	{
 		$this->attributes['password'] = bcrypt($valu);
+	}
+	public function empleado()
+	{
+		return $this->belongsTo(Empleado::class, 'id_emp');
 	}
 }

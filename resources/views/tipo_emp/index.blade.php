@@ -8,15 +8,8 @@
         <div class="alert alert-danger">{{ session('Error') }}</div>
     @endif
 
-
-
-
     <a href="{{ route('formulariotipoemp') }}"><button type="sudmit" class="btn btn-outline-dark">Nuevo Tipo de
             Empleado</button> </a>
-
-
-
-
     <div class="col-12 col-xl-8">
         <div class="card">
             <div class="card-header">
@@ -46,16 +39,19 @@
                                 <td class="col-auto">
                                     <p class=" mb-0">{{ $items->estado }}</p>
                                 </td>
-                                <div>
-                                    {{-- <td><a href="{{ route('modificartipoemp', $items->id_tip_emp) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Modificar</button> </a> </td> --}}
-                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#modalEditar{{ $items->id_tip_emp }}">Modificar</button>
-                                    </td>
-                                    <td><a href="{{ route('tipoemp.delete', $items->id_tip_emp) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Eliminar</button> </a> </td>
-                                </div>
+
+                                <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#modalEditar{{ $items->id_tip_emp }}">Modificar</button>
+                                </td>
+
+                                <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#danger{{ $items->id_tip_emp }}">Eliminar</button>
+                                </td>
+
                             </tr>
+                            {{-- Modal Eliminar --}}
+                            @include('tipo_emp.eliminar')
+                            {{-- Modificar --}}
                             @include('tipo_emp.modificar')
                         @endforeach
                     </tbody>

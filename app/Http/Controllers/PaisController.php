@@ -16,7 +16,7 @@ class PaisController extends Controller
     //
     public function index()
     {
-        $datos = Pai::orderby('nombre', 'asc')->paginate(5);
+        $datos = Pai::orderby('nombre', 'asc')->paginate(10);
         return view('pais.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

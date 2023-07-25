@@ -11,7 +11,7 @@ class LugarExtController extends Controller
 
     public function index()
     {
-        $datos = LugarExt::orderby('lugar', 'asc')->paginate(5);
+        $datos = LugarExt::orderby('lugar', 'asc')->paginate(10);
         return view('lugarextraccion.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

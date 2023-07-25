@@ -22,6 +22,7 @@ use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\DetalleVentaController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\EmpleadousuarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LoginController;
@@ -32,6 +33,8 @@ use App\Http\Controllers\ProveedorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Models\CostoPro;
+use App\Models\Depertamento;
+use App\Models\Pai;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +46,14 @@ use App\Models\CostoPro;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//select dependientes selected
+Route::get('/obtener-opciones/{valor}', [HomeController::class, 'obtenerOpciones'])->name('obtener.opciones');
+Route::get('/obtener-opc', [HomeController::class, 'sele'])->name('ver.opcion');
+Route::get('/tabledate', [HomeController::class, 'tablas'])->name('ver.tabladedatos');
+
+
+
 //Operaciones 
 Route::post('/calcular', [OperacionesController::class, 'calcular'])->name('calcular');
 Route::get('/formulario', [OperacionesController::class, 'formulario'])->name('formulario');
@@ -61,7 +72,7 @@ Route::get('/asistencia', [AsistenciaController::class, 'index'])->name('asisten
 //registrar asistencia con coordenadas
 Route::post('/registrar-asistencia', [AsistenciaController::class, 'store'])->name('registrar.asistencia');
 //ver ubicacion en map
-Route::get('/ubicacion/{id}', [AsistenciaController::class, 'verubicacion'])->name('verasistenciamap');
+Route::get('/ubicacion{id}', [AsistenciaController::class, 'verubicacion'])->name('verasistenciamap');
 Route::get('/mapprueba', [AsistenciaController::class, 'prueba'])->name('prueba');
 
 Route::post('/guardar-ubicacion', [OperacionesController::class, 'guardarUbicacion'])->name('guardar.ubicacion');
@@ -79,6 +90,7 @@ Route::get('/empresa', [ClienteController::class, 'empresa'])->name('cliente.emp
 Route::get('/proyectos', [ClienteController::class, 'proyecto'])->name('cliente.proyecto');
 //REGISTRAR USUARIO
 Route::get('/register', [RegisterController::class, 'show']);
+Route::get('/nuevo-usuario', [RegisterController::class, 'registroform'])->name('register.nuevo');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 //REGISTRAR CONTACTO
@@ -113,7 +125,7 @@ Route::put('/modificar-empleado/{id}', [EmpleadoController::class, "update"])->n
 Route::get('/eliminar-empleado-{id}', [EmpleadoController::class, "delete"])->name("empleado.delete");
 
 Route::get('/nuevoempleado', [EmpleadoController::class, "verform"])->name("formularioempleado");
-Route::get('/modificarempleado/{id}', [EmpleadoController::class, "formmodificar"])->name("modificarempleado");
+Route::get('/modificarempleado{id}', [EmpleadoController::class, "formmodificar"])->name("modificarempleado");
 //ACTIVIDAD
 Route::get('/act', [ActividadController::class, "index"])->name("act");
 Route::post('/registrar-act', [ActividadController::class, "create"])->name("act.create");
@@ -121,7 +133,15 @@ Route::put('/modificar-act/{id}', [ActividadController::class, "update"])->name(
 Route::get('/eliminar-act-{id}', [ActividadController::class, "delete"])->name("act.delete");
 
 Route::get('/nuevoact', [ActividadController::class, "verform"])->name("formularioact");
-Route::get('/modificaract/{id}', [ActividadController::class, "formmodificar"])->name("modificaract");
+Route::get('/modificaract{id}', [ActividadController::class, "formmodificar"])->name("modificaract");
+
+//ACITIVIDAD DE EMPLEADO (ID)
+Route::get('/actividad-empleado{id}', [EmpleadousuarioController::class, "actividadempleado"])->name("actividadad.empleado");
+Route::post('/realizar-actividad-{id}', [EmpleadousuarioController::class, "realizaractividad"])->name("realizar.actividadad");
+Route::post('/terminar-actividad-{id}', [EmpleadousuarioController::class, "terminaractividad"])->name("terminar.actividadad");
+
+Route::get('/asistencia-empleado{id}', [EmpleadousuarioController::class, "asistenciaempleado"])->name("asistencia.empleado");
+
 //ASIGNACION DE ACTIVIDADES A EMPLEADOS
 Route::get('/actemp', [ActEmpController::class, "index"])->name("actemp");
 Route::post('/registrar-actemp', [ActEmpController::class, "create"])->name("actemp.create");
@@ -147,7 +167,7 @@ Route::put('/modificar-cargo/{id}', [CargoController::class, "update"])->name("c
 Route::get('/eliminar-cargo-{id}', [CargoController::class, "delete"])->name("cargo.delete");
 
 Route::get('/nuevocargo', [CargoController::class, "verform"])->name("formulariocargo");
-Route::get('/modificarcar/{id}', [CargoController::class, "formmodificar"])->name("modificarcargo");
+Route::get('/modificarcar{id}', [CargoController::class, "formmodificar"])->name("modificarcargo");
 
 //CATEGORIA DE PRODUCTO
 Route::get('/categoria', [CategoriaController::class, "index"])->name("categoria");
@@ -175,7 +195,7 @@ Route::put('/modificar-costoprod/{id}', [CostoProdController::class, "update"])-
 Route::get('/eliminar-costoprod-{id}', [CostoProdController::class, "delete"])->name("costoprod.delete");
 
 Route::get('/nuevocostoprod', [CostoProdController::class, "verform"])->name("formulariocostoprod");
-Route::get('/modificarcostopro/{id}', [CostoProdController::class, "formmodificar"])->name("modificarcostoprod");
+Route::get('/modificarcostopro{id}', [CostoProdController::class, "formmodificar"])->name("modificarcostoprod");
 
 //OPTENER DATOSDE COSTOPRO
 Route::post('/getcostopro', [DetalleVentaController::class, 'getCostoPro'])->name("getcostopro");
@@ -204,7 +224,7 @@ Route::put('/modificar-empcar/{id}', [EmpCarController::class, "update"])->name(
 Route::get('/eliminar-empcar-{id}', [EmpCarController::class, "delete"])->name("empcar.delete");
 
 Route::get('/nuevoempcar', [EmpCarController::class, "verform"])->name("formularioempcar");
-Route::get('/modificaremp/{id}', [EmpCarController::class, "formmodificar"])->name("modificarempcar");
+Route::get('/modificaremp{id}', [EmpCarController::class, "formmodificar"])->name("modificarempcar");
 
 //HORA ASIGNACION DE EMPLEADO HORA_ASIG
 Route::get('/horaasig', [HoraAsigController::class, "index"])->name("horaasig");
@@ -241,8 +261,12 @@ Route::get('/eliminar-ventas-{id}', [DetalleVentaController::class, "delete"])->
 Route::get('/nuevoventas', [DetalleVentaController::class, "verform"])->name("formularioventas");
 Route::get('/modificarventa/{id}', [DetalleVentaController::class, "formmodificar"])->name("modificarventas");
 
+//prueva select 
+Route::get('/ventas1', [DetalleVentaController::class, "index1"])->name("ventas1");
+Route::get('/obtener-ciudad', [DetalleVentaController::class, "obtenerCiudades"])->name("obtciu");
 
-//MATERIAL
+
+//MATERIAL 
 Route::get('/material', [MaterialController::class, "index"])->name("material");
 Route::post('/registrar-material', [MaterialController::class, "create"])->name("material.create");
 Route::put('/modificar-material/{id}', [MaterialController::class, "update"])->name("material.update");
@@ -252,6 +276,9 @@ Route::get('/nuevomaterial', [MaterialController::class, "verform"])->name("form
 Route::get('/modificarmateria/{id}', [MaterialController::class, "formmodificar"])->name("modificarmaterial");
 
 //CRUD PAIS 
+
+
+
 Route::get('/pais', [PaisController::class, "index"])->name("pais");
 Route::post('/registrar-pais', [PaisController::class, "create"])->name("pais.create");
 Route::put('/modificar-pais/{id}', [PaisController::class, "update"])->name("pais.update");
@@ -261,6 +288,11 @@ Route::get('/nuevopais', [PaisController::class, "verform"])->name("formulariopa
 Route::get('/modificar/{id}', [PaisController::class, "formmodificar"])->name("modificarpais");
 //OPTENER DEPARTAMENTO A PARTIR DEL PAIS
 Route::post('/getDepartamentos', [PaisController::class, 'getDepartamento'])->name("getDepartamentos");
+Route::post('/oDepartamentos', [CiudadController::class, 'obtenerdepa']);
+//SELECTED
+
+
+
 
 Route::post('/getDatos', [OperacionesController::class, 'getDatos'])->name("getDatos");
 Route::post('/getDatos1', [OperacionesController::class, 'getDatos1'])->name("getDatos1");

@@ -11,7 +11,8 @@
 
 
 
-    <a href="{{ route('formularioproducto') }}"><button type="sudmit" class="btn btn-outline-dark">Añadir + Producto</button>
+    <a href="{{ route('formularioproducto') }}"><button type="sudmit" class="btn btn-outline-dark">Añadir + Cabtidad de
+            Producto</button>
     </a>
 
 
@@ -26,13 +27,9 @@
                     <thead>
                         <tr>
                             <th>Identificador</th>
-                            <th>Categoria</th>
-
                             <th>Nombre de producto </th>
-                            <th>Precio por M3 </th>
-                            <th>Cantidad M3 </th>
-                            <th>Descripcion del producto</th>
-                            <th>Estado</th>
+                            <th>Cantidad </th>
+                            <th>Precio X M3 </th>
                             <th>Modificar</th>
                             <th>Eliminar</th>
                         </tr>
@@ -41,43 +38,36 @@
                         @foreach ($datos as $items)
                             <tr>
                                 <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->id_pro }}</p>
+                                    <p class=" mb-0">{{ $items->id_cos_pro }}</p>
                                 </td>
                                 <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->costo_pro->categorium->nombre }} </p>
+                                    <p class=" mb-0">{{ $items->nombre }} </p>
                                 </td>
 
                                 </td>
-                                <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->costo_pro->nombre }}</p>
+                                <td class="col-auto ">
+                                    <p class=" mb-0">{{ $items->cantidad }} m3</p>
                                 </td>
                                 <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->costo_pro->precio }} </p>
+                                    <p class=" mb-0">{{ $items->precio }} </p>
                                 </td>
-                                <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->cantidad }}</p>
-                                </td>
-                                <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->descrip }}</p>
-                                </td>
-                                <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->estado }}</p>
-                                </td>
-
                                 <div>
-                                    <td><a href="{{ route('modificarproducto', $items->id_pro) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Modificar</button> </a> </td>
-
-                                    <td><a href="{{ route('producto.delete', $items->id_pro) }}"><button type="sudmit"
+                                    {{-- <td><a href="{{ route('modificarproducto', $items->id_cos_pro) }}"><button
+                                                type="sudmit" class="btn btn-secondary">Modificar</button> </a> </td> --}}
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditar{{ $items->id_cos_pro }}">Modificar</button>
+                                    </td>
+                                    <td><a href="{{ route('producto.delete', $items->id_cos_pro) }}"><button type="sudmit"
                                                 class="btn btn-secondary">Eliminar</button> </a> </td>
                                 </div>
                             </tr>
+                            @include('producto.modificar')
                         @endforeach
                     </tbody>
                 </table>
                 <div class="row">
                     <div>
-                        {{ $datos->links() }}
+                        {{-- {{ $datos->links() }} --}}
                     </div>
                 </div>
 

@@ -20,7 +20,7 @@ class CargoController extends Controller
     }
     public function index()
     {
-        $datos = Cargo::orderby('nombre', 'asc')->paginate(5);
+        $datos = Cargo::orderby('nombre', 'asc')->paginate(10);
         return view('cargo.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

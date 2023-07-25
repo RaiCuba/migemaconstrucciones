@@ -13,7 +13,7 @@ class ActividadController extends Controller
     //
     public function index()
     {
-        $datos = Actividad::orderby('id_act', 'asc')->paginate(5);
+        $datos = Actividad::orderby('id_act', 'asc')->paginate(10);
         return view('actividad.index', compact('datos'));
     }
     public function verform()
@@ -100,8 +100,6 @@ class ActividadController extends Controller
         $act->id_tip_act = $request->post('texttipoactividad1');
         $act->nombre = $request->post('textnombre');
         $act->dia = $request->post('textdia');
-        $act->mes = $request->post('textmes');
-        $act->anio = $request->post('textanio');
         $act->descrip = $request->post('textdescrip');
         $act->lugar = $request->post('textlugar');
         $act->estado = '1';

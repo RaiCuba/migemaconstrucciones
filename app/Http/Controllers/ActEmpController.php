@@ -13,7 +13,7 @@ class ActEmpController extends Controller
     //
     public function index()
     {
-        $datos = ActEmp::orderby('fecha', 'asc')->paginate(5);
+        $datos = ActEmp::orderby('fecha', 'asc')->paginate(10);
         return view('actemp.index', compact('datos'));
     }
     public function verform()

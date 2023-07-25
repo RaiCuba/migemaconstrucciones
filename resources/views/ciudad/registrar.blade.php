@@ -5,6 +5,7 @@
         @csrf
         <h1 class="modal-title fs-5" id="modalRegistrarpais">Registrar Nuevo Ciudad</h1>
 
+
         <div class="form-group">
             <label for="pais">País:</label>
             <select id="pais" name="pais_id" class="form-control">
@@ -16,8 +17,9 @@
         </div>
         <div class="form-group">
             <label for="departamento">Departamento:</label>
+
             <select id="departamento" name="ciudad_id" class="form-control">
-                <option value="">Seleccione una ciudad</option>
+
             </select>
         </div>
         <div class="mb-3">
@@ -42,7 +44,7 @@
             $('#pais').on('change', function() {
                 var paisId = $(this).val();
                 $.ajax({
-                    url: 'getDepartamentos',
+                    url: '/getDepartamentos/',
                     type: 'POST',
                     dataType: 'json',
                     data: {
@@ -56,7 +58,6 @@
                                 .id_dep + '">' + departamento.nombre + '</option>');
 
                         });
-
                     }
                 });
             });

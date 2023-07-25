@@ -11,7 +11,7 @@ class TipoActController extends Controller
     //
     public function index()
     {
-        $datos = TipoAct::orderby('nombre', 'asc')->paginate(5);
+        $datos = TipoAct::orderby('nombre', 'asc')->paginate(10);
         return view('tipo_act.index', compact('datos'));
     }
     public function verform()

@@ -12,7 +12,7 @@ class TipoEmpController extends Controller
     protected $paginationTheme = "bootstrap";
     public function index()
     {
-        $datos = TipoEmp::orderby('nombre', 'asc')->paginate(5);
+        $datos = TipoEmp::orderby('nombre', 'asc')->paginate(10);
         return view('tipo_emp.index', compact('datos'));
     }
     public function verform()

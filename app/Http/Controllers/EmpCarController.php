@@ -13,7 +13,7 @@ class EmpCarController extends Controller
 {
     public function index()
     {
-        $datos = EmpCar::orderby('id_emp_car', 'asc')->paginate(5);
+        $datos = EmpCar::orderby('id_emp_car', 'asc')->paginate(10);
         return view('emp_car.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

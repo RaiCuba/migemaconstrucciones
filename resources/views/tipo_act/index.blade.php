@@ -56,10 +56,16 @@
                                     <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                             data-bs-target="#modalEditar{{ $items->id_tip_act }}">Modificar</button>
                                     </td>
-                                    <td><a href="{{ route('tipoact.delete', $items->id_tip_act) }}"><button type="sudmit"
-                                                class="btn btn-secondary">Eliminar</button> </a> </td>
+                                    {{-- <td><a href="{{ route('tipoact.delete', $items->id_tip_act) }}"><button type="sudmit"
+                                                class="btn btn-secondary">Eliminar</button> </a> </td> --}}
+
+
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#danger{{ $items->id_tip_act }}">Eliminar</button>
+                                    </td>
                                 </div>
                             </tr>
+                            @include('tipo_act.eliminar')
                             @include('tipo_act.modificar')
                         @endforeach
                     </tbody>

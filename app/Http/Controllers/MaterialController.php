@@ -17,7 +17,7 @@ class MaterialController extends Controller
     //
     public function index()
     {
-        $datos = Material::orderby('nombre', 'asc')->paginate(5);
+        $datos = Material::orderby('nombre', 'asc')->paginate(10);
         return view('material.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

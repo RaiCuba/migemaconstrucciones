@@ -22,19 +22,10 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Dia</label>
-            <input type="text" class="form-control" id="textdia" name="textdia" required value="{{ $act->dia }}">
+            <input type="date" class="form-control" id="textdia" name="textdia" required value="{{ $act->dia }}">
             <div id="emailHelp" class="form-text"></div>
         </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Mes</label>
-            <input type="text" class="form-control" id="textmes" name="textmes" required value="{{ $act->mes }}">
-            <div id="emailHelp" class="form-text"></div>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Año</label>
-            <input type="text" class="form-control" id="textanio" name="textanio" required value="{{ $act->anio }}">
-            <div id="emailHelp" class="form-text"></div>
-        </div>
+
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Descripción</label>
             <input type="text" class="form-control" id="textdescrip" name="textdescrip" required

@@ -7,14 +7,15 @@ use App\Models\Pai;
 use App\models\Depertamento;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 
 class CiudadController extends Controller
 {
-    //
 
     public function index()
     {
-        $datos = Ciudad::orderby('nombre', 'asc')->paginate(5);
+        $datos = Ciudad::orderby('nombre', 'asc')->paginate(10);
         return view('ciudad.index', compact('datos'));
     }
     public function obtenerpais()
@@ -22,7 +23,24 @@ class CiudadController extends Controller
         $datos = Pai::all();
         return view('ciudad.registrar', compact('datos'));
     }
-
+    public function obtenerdepa(Request $request)
+    {
+        if (isset($request->texto)) {
+            $departamento = Depertamento::whereid_pai($request->texto)->get();
+            return response()->json(
+                [
+                    'lista' => $departamento,
+                    'success' => true
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'success' => false
+                ]
+            );
+        }
+    }
     public function verform()
     {
         $ciudad = Ciudad::all();

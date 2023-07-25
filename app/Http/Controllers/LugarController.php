@@ -11,7 +11,7 @@ class LugarController extends Controller
     //
     public function index()
     {
-        $datos = Lugar::orderby('almacen', 'asc')->paginate(8);
+        $datos = Lugar::orderby('almacen', 'asc')->paginate(10);
         return view('lugar.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

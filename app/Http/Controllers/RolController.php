@@ -11,7 +11,7 @@ class RolController extends Controller
     //
     public function index()
     {
-        $datos = Rol::orderby('nombre', 'asc')->paginate(5);
+        $datos = Rol::orderby('nombre', 'asc')->paginate(10);
         return view('rol.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

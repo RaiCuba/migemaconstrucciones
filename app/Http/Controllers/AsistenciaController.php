@@ -13,7 +13,7 @@ class AsistenciaController extends Controller
     public function index()
     {
 
-        $datos = Asistencium::orderby('fecha', 'asc')->paginate(10);
+        $datos = Asistencium::orderby('fecha', 'desc')->paginate(10);
 
         //para imprimir en pantalla
         //$datos = DB::table('asistencia')->select('latitud', 'longitud')->get();
@@ -40,6 +40,7 @@ class AsistenciaController extends Controller
     public function store(Request $request)
     {
 
+
         $emp = $request->input('empleado');
         $fecha = Carbon::now();
         $horaActual = now()->format('H:i:s');
@@ -59,7 +60,7 @@ class AsistenciaController extends Controller
         $longitud = $request->input('longitud');
 
         $asistencia = new Asistencium();
-        $asistencia->id_emp = 9;
+        $asistencia->id_emp = auth()->user()->id_emp;
         $asistencia->id_ent_sal = $identMax1;
         $asistencia->latitud = $latitud;
         $asistencia->longitud = $longitud;
@@ -67,9 +68,10 @@ class AsistenciaController extends Controller
 
 
         $asistencia->save();
-
-        //return response()->json(['message'=>'Coordenadas guardadas']);
         return redirect()->route('asistencia')->with('success', 'Se Registro correctamente');
+        // return redirect()->route('cargo')->with('Correcto', 'Se Registro correctamente');
+
+
     }
 
     public function guardarCoordenadas(Request $request)

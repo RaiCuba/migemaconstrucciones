@@ -10,7 +10,7 @@ class ProveedorController extends Controller
 {
     public function index()
     {
-        $datos = Proveedor::paginate(5);
+        $datos = Proveedor::paginate(10);
         return view('proveedor.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

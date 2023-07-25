@@ -10,7 +10,7 @@ class CategoriaController extends Controller
 {
     public function index()
     {
-        $datos = Categorium::orderby('nombre', 'asc')->paginate(5);
+        $datos = Categorium::orderby('nombre', 'asc')->paginate(10);
         return view('categoria.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

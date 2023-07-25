@@ -14,7 +14,7 @@ class ContactosController extends Controller
 {
     public function index()
     {
-        $datos = Contactos::orderby('fecha', 'asc')->paginate(5);
+        $datos = Contactos::orderby('fecha', 'asc')->paginate(10);
         return view('contacto.index', compact('datos'));
     }
 

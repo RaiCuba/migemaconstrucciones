@@ -1,70 +1,74 @@
 @extends('layouts.menupricipal')
 @section('Contenido')
-    <form action="{{ route('ventas.create') }}" method="post">
-        <!--se requiere este para ralaval para que funciones-->
-        @csrf
-        <h1 class="modal-title fs-5" id="modalRegistrarpais">Registrar Ventas</h1>
+    <div class="container">
 
 
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">uusario</label>
-            <select name="textusuario" id="costopro" class="form-control">
-                @foreach ($usuarios as $dato)
-                    <option value="{{ $dato->id }}">{{ $dato->name }}</option>
-                @endforeach
-            </select>
-        </div>
 
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">numero de venta</label>
-            <input type="text" class="form-control" name="textnumero" required>
-            <div id="emailHelp" class="form-text"></div>
-        </div>
 
-        <label for="opcion">Producto:</label>
-        <select name="parametro1" id="parametro1" class="form-control">
+        <form action="{{ route('ventas.create') }}" method="post" class="row g-3">
+            <!--se requiere este para ralaval para que funciones-->
+            @csrf
 
-            <option value="">seleccione un producto</option>
-            @foreach ($productos as $opcion)
-                <option value="{{ $opcion->id_cos_pro }}">{{ $opcion->costo_pro->nombre }} / id_pro: {{ $opcion->id_pro }} /
-                    precio: {{ $opcion->costo_pro->precio }}</option>
-            @endforeach
-        </select>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">id_pro</label>
-            <input type="text" class="form-control" id="id" name="id" required>
-            <div id="emailHelp" class="form-text"></div>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Precio por m3</label>
-            <input type="text" class="form-control" id="precio" name="precio" required>
-            <div id="emailHelp" class="form-text"></div>
-        </div>
+            <h1 class="modal-title fs-5" id="modalRegistrarpais">Registrar Ventas</h1>
 
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Cantidad</label>
-            <input type="text" class="form-control" id="valor" name="valor" required>
-            <div id="emailHelp" class="form-text"></div>
-        </div>
 
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">total</label>
-            <input type="text" class="form-control" id="resultado" name="resultado" required>
-            <div id="emailHelp" class="form-text"></div>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Descripción</label>
+            <div class="col-md-4">
+                <label for="exampleInputEmail1" class="form-label">Lugar de venta</label>
+                <select name="parametro1" id="parametro1" class="form-control">
+                    <option value="">seleccione almacen</option>
+                    @foreach ($lugares as $opcio)
+                        <option value="{{ $opcio->id_lug }}">{{ $opcio->almacen }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="opcion" class="form-label">Producto:</label>
+                <select name="parametro1" id="miSelect" class="form-control">
 
-            {{ $opcion->costo_pro->precio }}
+                    <option value="">seleccione un producto</option>
+                    @foreach ($productos as $opcion)
+                        <option value="{{ $opcion->id_pro }}">{{ $opcion->costo_pro->nombre }} / id_pro:
+                            {{ $opcion->id_pro }}
+                            /
+                            precio: {{ $opcion->costo_pro->precio }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-mb-4">
+                <input type="hidden" class="form-control" id="id" name="id" required>
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+            <div class="col-mb-4">
+                <label for="exampleInputEmail1" class="form-label">Precio por m3</label>
+                <input type="text" class="form-control" id="precio" name="precio" required>
+                <div id="emailHelp" class="form-text"></div>
+            </div>
 
-            <div id="emailHelp" class="form-text"></div>
-        </div>
-        <div>
-            <a href="{{ route('ventas') }}" class="btn btn-info"><span class="fas fa-indo-alt"></span>Regresar</a>
-            <button type="submit" class="btn btn-primary">Registrar</button>
-        </div>
-    </form>
+            <div class="col-mb-4">
+                <label for="exampleInputEmail1" class="form-label">Cantidad</label>
+                <input type="text" class="form-control" id="valor" name="valor" required>
+                <div id="emailHelp" class="form-text"></div>
+            </div>
 
+            <div class="col-mb-4">
+                <label for="exampleInputEmail1" class="form-label">total</label>
+                <input type="text" class="form-control" id="resultado" name="resultado" required>
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+            <div class="col-mb-4">
+                <label for="exampleInputEmail1" class="form-label">Descripción</label>
+
+                <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+
+
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+            <div>
+                <a href="{{ route('ventas') }}" class="btn btn-info"><span class="fas fa-indo-alt"></span>Regresar</a>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        </form>
+    </div>
 
     {{-- <select id="miSelect">
         <option value="">Seleccione una opción</option>
@@ -72,33 +76,27 @@
             <option value="{{ $opcion->id_pro }}">{{ $opcion->costo_pro->nombre }} / id_pro: {{ $opcion->id_pro }} /
                 precio: {{ $opcion->costo_pro->precio }}</option>
         @endforeach
-    </select>
-    <label for="exampleInputEmail1" class="form-label" id="cantidad">cantidad</label>
-    <input type="text" id="input1" readonly>
-    <label for="exampleInputEmail1" class="form-label" id="precio">precio</label>
-    <input type="text" id="input2" readonly>
-    <label for="exampleInputEmail1" class="form-label" id="resultado">resultado</label>
-    <input type="text" id="resultado" readonly>
+    </select> --}}
 
     <script>
         document.getElementById('miSelect').addEventListener('change', function() {
-            const valor1 = document.getElementById('input1');
-            const valor2 = document.getElementById('input2');
+            const valor1 = document.getElementById('id');
+            const valor2 = document.getElementById('precio');
             const resultado = document.getElementById('resultado');
+            const descrip = document.getElementById('descripcion');
 
             var selectValue = this.value;
 
             @foreach ($productos as $opcion)
                 if (selectValue === '{{ $opcion->id_pro }}') {
-                    valor1.value = '{{ $opcion->cantidad }}';
+                    valor1.value = '{{ $opcion->id_pro }}';
                     valor2.value = '{{ $opcion->costo_pro->precio }}';
-                    resultado.value = 'hola';
-
+                    descrip.value = '{{ $opcion->descrip }}';
                 }
             @endforeach
 
         });
-    </script> --}}
+    </script>
 
 
 
@@ -111,11 +109,11 @@
         // Escuchar el evento "input" en el campo valor
         valorInput.addEventListener('input', function() {
             // Obtener los valores de los campos de entrada
-            const valor = parseFloat(valorInput.value);
+            const valor1 = parseFloat(valorInput.value);
             const parametro1 = parseFloat(parametro1Input.value);
 
             // Realizar el cálculo basado en los valores ingresados
-            const resultado = valor * parametro1;
+            const resultado = valor1 * parametro1;
 
             // Actualizar el campo de resultado con el valor calculado
             resultadoInput.value = resultado;

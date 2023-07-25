@@ -27,7 +27,6 @@
                             <th>Fecha del mensaje</th>
 
                             <th>Eliminar</th>
-                            <th>Responder al mensaje?</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +48,7 @@
                                     <p class=" mb-0">{{ $items->mesaje }}</p>
                                 </td>
                                 <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->email }}</p>
+                                    <p class=" mb-0">{{ $items->fecha }}</p>
                                 </td>
 
                                 <div>

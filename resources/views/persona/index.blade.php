@@ -6,13 +6,11 @@
 
     <a href="{{ route('formulariopersona') }}"><button type="sudmit" class="btn btn-outline-dark">Nueva Persona</button> </a>
 
-    @livewire('buscar')
+    {{-- @livewire('buscar') --}}
 
     <h4>Gestionar Datos de persona</h4>
     <div class="card">
-        <div class="card-header">
-            <input id="buscar" wire:model="search" class="form-control" placeholder="Buscar (ingrese nombre de parsona)">
-        </div>
+
 
         <div class="table-responsive">
 

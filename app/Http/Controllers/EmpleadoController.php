@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Livewire\Component;
 use App\Models\Persona;
 use App\Models\HoraAsig;
 use App\Models\TipoEmp;
@@ -15,11 +16,17 @@ use Illuminate\Support\Facades\DB;
 
 class EmpleadoController extends Controller
 {
+    public $search;
     public function index()
     {
-        $datos = Empleado::orderby('id_emp', 'asc')->paginate(5);
+        $datos = Empleado::where('id_emp', 'LIKE', '%' . $this->search . '%')->paginate(10);
         return view('empleado.index', compact('datos'));
     }
+    // public function index()
+    // {
+    //     $datos = Empleado::orderby('id_emp', 'asc')->paginate(5);
+    //     return view('empleado.index', compact('datos'));
+    // }
     public function verform()
     {
         $personas = Persona::all();

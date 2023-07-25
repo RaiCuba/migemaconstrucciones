@@ -19,8 +19,8 @@ class RoleSeeder extends Seeder
         $roles2 = Role::create(['name' => 'Empleado']);
         $roles3 = Role::create(['name' => 'Gerente']);
 
-        //permisos para los nombre de lasrutas
-        Permission::create(['name' => 'admin.home']);
+        //permisos para los nombre de las rutas 
+        Permission::create(['name' => 'admin.home']); //->syncRoles([$roles1,$roles2]);
 
         Permission::create(['name' => 'admin.categoiria.index']);
         Permission::create(['name' => 'admin.categoiria.create']);

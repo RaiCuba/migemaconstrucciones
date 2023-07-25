@@ -12,7 +12,7 @@ class HoraAsigController extends Controller
     //
     public function index()
     {
-        $datos = HoraAsig::orderby('id_hor_asi', 'asc')->paginate(5);
+        $datos = HoraAsig::orderby('id_hor_asi', 'asc')->paginate(10);
         return view('hora_asig.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);

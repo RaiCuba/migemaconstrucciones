@@ -25,7 +25,14 @@ class ProductoController extends Controller
         //     ->groupBy('costo_pro.nombre', 'producto.id_pro', 'costo_pro.precio', 'producto.cantidad')
         //     ->get();
 
-        $datos = Producto::paginate(10);
+
+
+        $datos = Producto::select('costo_pro.id_cos_pro', 'costo_pro.nombre', DB::raw('SUM(producto.cantidad) as cantidad'), 'costo_pro.precio')
+            ->join('costo_pro', 'producto.id_cos_pro', '=', 'costo_pro.id_cos_pro')
+            ->groupBy('costo_pro.id_cos_pro', 'costo_pro.nombre', 'costo_pro.precio')
+            ->get();
+
+        //$datos = Producto::paginate(10);
 
 
         return view('producto.index', compact('datos'));
@@ -40,10 +47,7 @@ class ProductoController extends Controller
     public function formmodificar($id)
     {
         $producto = Producto::find($id);
-        $lugares = Lugar::all();
-        $costoprod = CostoPro::all();
-        $empleados = Empleado::all();
-        return view("producto.modificar", compact('costoprod', 'empleados', 'lugares', 'producto'));
+        return view("producto.modificar", compact('producto'));
     }
     public function create(Request $request)
     {
@@ -76,7 +80,7 @@ class ProductoController extends Controller
             //registrar la tabla de productos
             $fechas = Carbon::now();
             $producto = new Producto();
-            $producto->id_emp = 13; // $request->post('textempleado');
+            $producto->id_emp = auth()->user()->id_emp; // $request->post('textempleado');
             $producto->id_cos_pro = $request->post('textcostoprod');
             $producto->cantidad = $request->post('textcantidad');
             $producto->descrip = $request->post('textdescripcion');
@@ -103,10 +107,7 @@ class ProductoController extends Controller
     {
 
         $producto = Producto::find($id);
-        $producto->id_emp = $request->post('textempleado');
-        $producto->id_cos_pro = $request->post('textcostoprod');
-        $producto->cantidad = $request->post('textcantidad');
-        $producto->descrip = $request->post('textdescripcion');
+        $producto->cantidad = $request->post('textcantidad2');
         $producto->save();
 
         return redirect()->route('producto')->with('seccess', 'Se modifico correctamente');
@@ -137,7 +138,7 @@ class ProductoController extends Controller
     public function delete($id)
     {
 
-        $producto = Producto::find($id);
+        $producto = CostoPro::find($id);
         $producto->delete();
         return redirect()->route('producto')->with('success', 'Se Elimino  correctamente el registro');
         // try{

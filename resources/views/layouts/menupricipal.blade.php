@@ -3,9 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mi Gema</title>
     <link rel="shortcut icon" href="../public/images/logo/logo1.png">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -18,6 +21,7 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 
+    @livewireStyles
     {{-- para mostrar el mapa --}}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
@@ -105,18 +109,14 @@
                                     <li class="submenu-item ">
                                         <a href="{{ route('cargo') }}">Cargo</a>
                                     </li>
-                                    <li class="submenu-item ">
-                                        <a href="">Horario de Trabajo</a>
-                                    </li>
+
                                     <li class="submenu-item ">
                                         <a href="{{ route('horaasig') }}">Horario Asignado</a>
                                     </li>
                                     <li class="submenu-item ">
                                         <a href="{{ route('persona') }}">Registrar datos de empleado</a>
                                     </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('imagen.nuevo') }}">Ver fotos de empleados</a>
-                                    </li>
+
                                 </ul>
                             </li>
                             <li class="sidebar-item  has-sub">
@@ -171,9 +171,6 @@
                                         <a href="{{ route('asistencia') }}">Ver Asistencia</a>
                                     </li>
 
-                                    <li class="submenu-item ">
-                                        <a href="">Asistencia en Map</a>
-                                    </li>
                                 </ul>
                             </li>
 
@@ -199,29 +196,7 @@
 
                                 </ul>
                             </li>
-                            <li class="sidebar-title">Datos Informe</li>
 
-                            <li class="sidebar-item  has-sub">
-                                <a href="#" class='sidebar-link'>
-                                    <i class="bi bi-bar-chart-fill"></i>
-                                    <span>Reportes</span>
-                                </a>
-                                <ul class="submenu ">
-                                    <li class="submenu-item ">
-                                        <a href="./home">Asitencia</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="./home">Actividades</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="./home">Productos</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="./home">Ventas</a>
-                                    </li>
-
-                                </ul>
-                            </li>
                             <li class="sidebar-item  has-sub">
                                 <a href="#" class='sidebar-link'>
                                     <i class="bi bi-grid-1x2-fill"></i>
@@ -243,23 +218,7 @@
                                 </ul>
                             </li>
 
-                            <li class="sidebar-title">Registros &amp; admin</li>
 
-
-                            <li class="sidebar-item  has-sub">
-                                <a href="#" class='sidebar-link'>
-                                    <i class="bi bi-map-fill"></i>
-                                    <span>Ver Ubicacion de Empleados</span>
-                                </a>
-                                <ul class="submenu ">
-                                    <li class="submenu-item ">
-                                        <a href="ui-map-google-map.html">Google Map</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="ui-map-jsvectormap.html">Ver Asistencia</a>
-                                    </li>
-                                </ul>
-                            </li>
 
                             <li class="sidebar-title">Pages</li>
 
@@ -270,39 +229,19 @@
                                     <span>Usuario</span>
                                 </a>
                                 <ul class="submenu ">
+
+
                                     <li class="submenu-item ">
-                                        <a href="">Tipo de Usuario</a>
+                                        <a href="{{ route('register.nuevo') }}">Registro</a>
                                     </li>
-                                    <li class="submenu-item ">
-                                        <a href="">Roles</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="">Login</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('register') }}">Registro</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="">Has olvidado tu contraseña</a>
-                                    </li>
+
                                     <li class="submenu-item ">
                                         <a href="{{ route('contacto.mostrar') }}">Ver mensajes de la Web</a>
                                     </li>
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item  has-sub">
-                                <a href="#" class='sidebar-link'>
-                                    <i class="bi bi-x-octagon-fill"></i>
-                                    <span>Empleado Retirado</span>
-                                </a>
-                                <ul class="submenu ">
-                                    <li class="submenu-item ">
-                                        <a href="error-403.html">Reporte</a>
-                                    </li>
 
-                                </ul>
-                            </li>
 
                             <li class="sidebar-title"><a href="./logout">Logout / Cerrar Sección </a>
 
@@ -312,32 +251,41 @@
                 </div>
             </div>
             <div id="main">
-                <header class="mb-3">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light text-rigth ">
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav position-absolute top-50 end-0 translate-middle-y">
 
-                    <div class="col-12 col-lg-12">
-                        <div class="card">
-                            <div class="card-body py-4 px-5">
-                                <div class="d-flex align-items-center">
-                                    <div class="">
-                                        <img src="" alt="">
-                                    </div>
-                                    <div class="ms-3 name">
-                                        <h5 class="font-bold">Bienvenido</h5>
-                                        <h6 class="text-muted mb-0">{{ auth()->user()->name ?? auth()->user()->username }}
-                                        </h6>
-                                        <h6 class="font-bold"><a href="./logout">Cerrar sección</a></h6>
-                                    </div>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                </div>
-                            </div>
-                        </div>
+                                    <h5 class="font-bold">
+                                        {{ auth()->user()->name ?? auth()->user()->username }}
+                                    </h5>
+
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('asistencia.empleado', auth()->user()->id_emp) }}">Mi
+                                            asistencia</a></li>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('actividadad.empleado', auth()->user()->id_emp) }}">Mis
+                                            Actividades</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="./logout">
+                                            Cerrar
+                                            sección</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-
-                </header>
-
-                <div class="page-content">
+                </nav>
+                <div class="page-content p-5">
 
                     <section class="row col-12 col-lg-12">
+
                         <div class="col-12  col-lg-12">
                             @yield('Contenido')
 
@@ -375,10 +323,10 @@
         <script src="assets/js/pages/dashboard.js"></script>
 
         <script src="assets/js/main.js"></script>
-        <div>
-            @yield('scripts')
-        </div>
 
+        @yield('scripts')
+
+        @livewireScripts
     </body>
 @endauth
 @guest

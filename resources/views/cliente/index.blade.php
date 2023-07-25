@@ -3,6 +3,7 @@
     <!-- SLIDER -->
     <div class="owl-carousel owl-theme hero-slider">
         <div class="slide slide1">
+            <img src="images/misicuni1.jpg" alt="">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center text-white">
@@ -15,6 +16,7 @@
             </div>
         </div>
         <div class="slide slide2">
+            <img src="images/misicuni.jpg" alt="">
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-lg-10 offset-lg-1 text-white">

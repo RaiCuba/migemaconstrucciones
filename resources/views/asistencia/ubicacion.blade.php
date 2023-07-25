@@ -1,21 +1,24 @@
 @extends('layouts.menupricipal')
 @section('Contenido')
     <div class="container">
-        <input type="text" id="latitud" name="latitud" value="{{ $asis->latitud }}">
-        <input type="text" id="longitud" name="longitud" value="{{ $asis->longitud }}">
 
+
+        <h1>Ubicación de asistencia de empleado: </h1>
     </div>
     <div>
-        <h5>Empleado: </h5>
-        <p>{{ $asis->Empleado->persona->nombre }}</p>
-        <p>{{ $asis->Empleado->persona->ape }}</p>
+        <label for="exampleInputEmail1" class="form-label">Empleado: </label>
+        <h5> {{ $asis->Empleado->persona->nombre }} {{ $asis->Empleado->persona->ape }}</h5>
+
     </div>
 
 
     {{-- <div id="map" style="height: 400px; width: 100%;  margin: 0; padding: 0;"></div> --}}
 
 
-    <h3>My Google Maps Demo</h3>
+
+    <label for="exampleInputEmail1" class="form-label">Latitud: {{ $asis->latitud }}</label>
+    <label for="exampleInputEmail1" class="form-label">Latitud: {{ $asis->longitud }}</label>
+
     <!--The div element for the map -->
     <div id="map"></div>
 

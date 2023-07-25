@@ -18,12 +18,7 @@
     <h4>Gestionar Empleados</h4>
     <div class="card">
 
-        <div class="card-header">
 
-            <div class="card-header">
-                <input wire:model="search" class="form-control" placeholder="Ingrese un nombre">
-            </div>
-        </div>
 
         <div class="table-responsive">
 
@@ -68,13 +63,16 @@
                                 <td><a href="{{ route('modificarempleado', $items->id_emp) }}"><button type="sudmit"
                                             class="btn btn-secondary">Modificar</button> </a> </td>
 
-                                {{-- <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#modalEditar{{ $items->id_emp }}">Modificar</button>
-                                    </td> --}}
+                                {{-- <td><button type="button" class="btn btn-secondary" id="moBoton"
+                                        onclick="cargarDatosModificar('{{ $items->id_emp }}')" data-bs-toggle="modal"
+                                        data-bs-target="#modalEditar{{ $items->id_emp }}">Modificar</button>
+                                </td> --}}
+
                                 <td><a href="{{ route('empleado.delete', $items->id_emp) }}"><button type="sudmit"
                                             class="btn btn-secondary">Eliminar</button> </a> </td>
                             </div>
                         </tr>
+                        {{-- @include('empleado.modificar') --}}
                     @endforeach
                 </tbody>
             </table>
@@ -86,3 +84,11 @@
 
         </div>
     @endsection
+    <script>
+        const boton = document.querySelector("#miBoton");
+        console.log();
+        boton.addEventListener("click", function(evento) {
+            // Aquí todo el código que se ejecuta cuando se da click al botón
+            alert("Le has dado click");
+        });
+    </script>

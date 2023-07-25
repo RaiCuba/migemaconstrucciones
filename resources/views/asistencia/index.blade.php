@@ -20,7 +20,6 @@
                                 <th>Fecha</th>
                                 <th>Lat</th>
                                 <th>Lon</th>
-                                <th>Ver Ubicación de Asistencia</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,8 +57,7 @@
                                     <div>
                                         <td><a href="{{ route('verasistenciamap', $items->id_asi) }}"><button type="sudmit"
                                                     class="btn btn-secondary">Google Map</button> </a> </td>
-                                        {{-- <td><a href="{{ route('prueba') }}"><button type="sudmit"
-                                                    class="btn btn-secondary">Google Map</button> </a> </td> --}}
+
 
                                     </div>
                                 </tr>

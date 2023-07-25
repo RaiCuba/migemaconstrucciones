@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <!--
  @license
  Copyright 2019 Google LLC. All Rights Reserved.
@@ -26,7 +26,7 @@
 
 <body>
 
-    <h3>My Google Maps Demo</h3>
+    <h3>Ubicación de asistencia de empleado </h3>
     <!--The div element for the map -->
     <div id="map"></div>
 
@@ -73,4 +73,4 @@
     </script>
 </body>
 
-</html>
+</html> --}}

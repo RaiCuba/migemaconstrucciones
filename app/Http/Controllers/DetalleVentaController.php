@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\CostoPro;
+use App\Models\Depertamento;
 use Illuminate\Support\Facades\DB;
 use App\Models\DetalleVentum;
+use App\Models\Lugar;
+use App\Models\Pai;
 use App\Models\Producto;
 use App\Models\User;
 use App\Models\Ventum;
@@ -16,7 +19,7 @@ class DetalleVentaController extends Controller
 {
     public function index()
     {
-        $datos = DetalleVentum::paginate(5);
+        $datos = DetalleVentum::paginate(10);
         return view('ventas.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);
@@ -36,9 +39,9 @@ class DetalleVentaController extends Controller
     }
     public function verform()
     {
-        $usuarios = User::all();
+        $lugares = Lugar::all();
         $productos = Producto::all();
-        return view("ventas.registrar", compact('usuarios', 'productos'));
+        return view("ventas.registrar", compact('productos', 'lugares'));
     }
     public function formmodificar($id)
     {
@@ -51,7 +54,6 @@ class DetalleVentaController extends Controller
     {
         $request->validate(
             [
-                'textnumero' => ['required', 'numeric'],
                 'valor' => ['required', 'numeric'],
                 'precio' => ['required', 'numeric'],
                 'descripcion' => ['max:50'],
@@ -61,18 +63,21 @@ class DetalleVentaController extends Controller
                 'required' => 'El Nombre del Cago es obligatorio', 'Llene.',
                 'max' => ':El campo no puede tener mas de :max caracteres.',
                 'numeric' => 'Engrese solo números.'
+
             ]
         );
         try {
+
+            $nroventa = DB::table('venta')->max('nro');
             //registrar la tabla de productos
             $fechas = Carbon::now();
             $venta = new Ventum();
-            $venta->id_usu = $request->post('textusuario');
-            $venta->nro = $request->post('textnumero');
+            $venta->id_usu = auth()->user()->id;
+            $venta->nro = $nroventa + 1;
             $venta->estado = '1';
             $venta->fecha = $fechas;
             $venta->save();
-
+            $nroventa = 0;
             //registrar pro_lug;   
             $idProMax = DB::table('venta')->max('id_ven');
 
@@ -85,6 +90,13 @@ class DetalleVentaController extends Controller
             $ventas->descrip = $request->post('descripcion');
             $ventas->total = $request->post('resultado');
             $ventas->save();
+
+            //restar cantidad de producto vendido
+            $proven = Producto::find($request->post('id'));
+            $cantidad = $proven->cantidad;
+
+            $proven->cantidad = $cantidad - $request->post('valor');
+            $proven->save();
 
             return redirect()->route('ventas')->with('Correcto', 'Se Registro correctamente');
         } catch (Exception $e) {
@@ -147,5 +159,16 @@ class DetalleVentaController extends Controller
         //         return back()->with("Error","Error al eliminar");
 
         //     }
+    }
+    public function index1()
+    {
+        $paises = Pai::all();
+        return view('ventas.select', compact('paises'));
+    }
+
+    public function obtenerCiudades($paisId)
+    {
+        $ciudades = Depertamento::where('id_pai', $paisId)->get();
+        return response()->json($ciudades);
     }
 }

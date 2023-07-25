@@ -95,4 +95,8 @@ class Empleado extends Model
 	{
 		return $this->hasMany(Usuario::class, 'id_emp');
 	}
+	public function users()
+	{
+		return $this->hasMany(User::class, 'id_emp');
+	}
 }

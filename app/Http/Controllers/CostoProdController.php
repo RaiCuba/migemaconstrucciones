@@ -12,7 +12,7 @@ class CostoProdController extends Controller
 {
     public function index()
     {
-        $datos = CostoPro::orderby('nombre', 'asc')->paginate(5);
+        $datos = CostoPro::orderby('nombre', 'asc')->paginate(10);
         return view('costo_prod.index', compact('datos'));
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);
@@ -50,7 +50,7 @@ class CostoProdController extends Controller
             $fechas = Carbon::now();
             $costoprod = new CostoPro();
             $costoprod->id_cat = $request->post('textcategoria');
-            $costoprod->nombre = $request->post('textcategoria');
+            $costoprod->nombre = $request->post('textnombre');
             $costoprod->precio = $request->post('textcostoprod');
             $costoprod->fecha = $fechas;
             $costoprod->estado = '1';

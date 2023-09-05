@@ -15,32 +15,33 @@
 
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('formularioactemp') }}"><button type="sudmit" class="btn btn-outline-dark">Asignar
-                        activiades a empleado</button> </a>
-
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{{ route('formularioactemp') }}"><button type="sudmit" class="btn btn-outline-dark">Asignar
+                            activiades a empleado</button> </a>
+                </div>
             </div>
             <div class="table-responsive">
 
-                <table class="table table-dark table-hover">
+                <table class="table table-success table-striped">
                     <thead>
                         <tr>
-                            <th>Id Actemp</th>
-                            <th>id acttividad </th>
-                            <th>id emp</th>
+                            <th class="ocultar">id</th>
+                            <th>Actividada </th>
+                            <th>Empleado</th>
                             <th>nombre de la actividad</th>
                             <th>descripcion de actividad</th>
                             <th>fecha inicio</th>
                             <th>fecha fin</th>
                             <th>fecha</th>
-                            <th>estado</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <th class="ocultar">estado</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($datos as $items)
                             <tr>
-                                <td class="col-auto">
+                                <td class="col-auto ocultar">
                                     <p class=" mb-0">{{ $items->id_act_emp }}</p>
                                 </td>
                                 <td class="col-auto">
@@ -57,15 +58,15 @@
                                     <p class=" mb-0">{{ $items->actividad->descrip }}</p>
                                 </td>
                                 <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->fecha_ini }}</p>
+                                    <p class=" mb-0">{{ $items->fecha_ini->format('d/m/Y') }}</p>
                                 </td>
                                 <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->fecha_fin }}</p>
+                                    <p class=" mb-0">{{ $items->fecha_fin->format('d/m/Y') }}</p>
                                 </td>
                                 <td class="col-auto">
-                                    <p class=" mb-0">{{ $items->fecha }}</p>
+                                    <p class=" mb-0">{{ $items->fecha->format('d/m/Y') }}</p>
                                 </td>
-                                <td class="col-auto">
+                                <td class="col-auto ocultar">
                                     <p class=" mb-0">{{ $items->estado }}</p>
                                 </td>
                                 <div>
@@ -81,7 +82,7 @@
                 </table>
                 <div class="row">
                     <div>
-                        {{ $datos->links() }}
+                        {{-- {{ $datos->links() }} --}}
                     </div>
                 </div>
 

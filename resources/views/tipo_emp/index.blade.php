@@ -8,35 +8,38 @@
         <div class="alert alert-danger">{{ session('Error') }}</div>
     @endif
 
-    <a href="{{ route('formulariotipoemp') }}"><button type="sudmit" class="btn btn-outline-dark">Nuevo Tipo de
-            Empleado</button> </a>
-    <div class="col-12 col-xl-8">
-        <div class="card">
-            <div class="card-header">
-                <h4>Gestionar Tipo de Empleado</h4>
-            </div>
-            <div class="table-responsive">
 
-                <table class="table table-dark table-hover">
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{{ route('formulariotipoemp') }}"><button type="sudmit" class="btn btn-outline-dark">Nuevo Tipo
+                            de
+                            Empleado</button> </a>
+                </div>
+                <div class="card-header">
+                    <h4>Gestionar Tipo de Empleado</h4>
+                </div>
+                <table class="table table-success table-striped">
                     <thead>
                         <tr>
-                            <th>Id tipo emp</th>
+                            <th class="ocultar">Id tipo emp</th>
                             <th>Nombre</th>
-                            <th>Estado</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <th class="ocultar">Estado</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($datos as $items)
                             <tr>
-                                <td class="col-auto">
+                                <td class="col-auto ocultar">
                                     <p class=" mb-0">{{ $items->id_tip_emp }}</p>
                                 </td>
                                 <td class="col-auto">
                                     <p class=" mb-0">{{ $items->nombre }}</p>
                                 </td>
-                                <td class="col-auto">
+                                <td class="col-auto ocultar">
                                     <p class=" mb-0">{{ $items->estado }}</p>
                                 </td>
 
@@ -61,8 +64,7 @@
                         {{ $datos->links() }}
                     </div>
                 </div>
-
             </div>
-
         </div>
-    @endsection
+    </div>
+@endsection

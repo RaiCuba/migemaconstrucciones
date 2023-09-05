@@ -33,7 +33,10 @@ class MaterialController extends Controller
     public function formmodificar($id)
     {
         $material = Material::find($id);
-        return view("material.modificar", compact('material'));
+        $proveedores = Proveedor::all();
+        $usuarios = User::all();
+        $extraccion = LugarExt::all();
+        return view("material.modificar", compact('material', 'proveedores', 'usuarios', 'extraccion'));
     }
     public function create(Request $request)
     {
@@ -109,7 +112,7 @@ class MaterialController extends Controller
         $material->descrip = $request->post('textdescrip');
         $material->save();
 
-        return redirect()->route('material')->with('seccess', 'Se modifico correctamente');
+        return redirect()->route('material')->with('Correcto', 'Se modifico correctamente');
         // try{
         // $sql = DB::update("update pais set nombre=? where id_pai=?",[
 

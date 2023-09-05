@@ -9,21 +9,21 @@
     @endif
 
 
-    <div class="col-12 col-xl-8">
+    <div class="">
         <div class="card">
             <div class="card-header">
                 <h4>Contacto de clientes del sitio Web</h4>
             </div>
             <div class="table-responsive">
 
-                <table class="table table-dark table-hover">
+                <table class="table table-success table-striped">
                     <thead>
                         <tr>
-                            <th>Id contacto</th>
+                            <th class="ocultar">Id contacto</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>E-mail</th>
-                            <th>Mensaje</th>ç
+                            <th>Mensaje</th>
                             <th>Fecha del mensaje</th>
 
                             <th>Eliminar</th>
@@ -32,7 +32,7 @@
                     <tbody>
                         @foreach ($datos as $items)
                             <tr>
-                                <td class="col-auto">
+                                <td class="col-auto ocultar">
                                     <p class=" mb-0">{{ $items->id_con }}</p>
                                 </td>
                                 <td class="col-auto">

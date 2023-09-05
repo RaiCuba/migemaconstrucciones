@@ -1,74 +1,266 @@
 @extends('layouts.menunavbar')
+@section('estilos')
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI',
+        }
+
+        ::selection {
+            color: #000;
+            background: #1b1b1b;
+
+        }
+
+        nav {
+            position: fixed;
+            background: #f1e1dd;
+            width: 100%;
+            padding: 10px 0;
+            z-index: 12;
+
+        }
+
+        nav .menu {
+            max-width: 1250%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-items: space-between;
+            padding: 0 20px;
+
+        }
+
+        .menu .logo a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 35px;
+            font-weight: 600;
+
+        }
+
+        .menu ul {
+            display: inline-flex;
+
+        }
+
+        .menu ul li {
+            list-style: none;
+            margin-left: 7px;
+
+        }
+
+        .menu ul li:first-child {
+            margin-left: 0;
+
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+
+        }
+
+        .menu ul li a:hover {
+            background: #ffffff;
+            color: black;
+
+        }
+
+        .img {
+            background: url(./images/galeria/misicuni1.jpg)no-repeat;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .img::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+
+        }
+
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            padding: 0 20px;
+            text-align: center;
+
+        }
+
+        .center .title {
+            color: #ffff;
+            font-size: 55px;
+            font-weight: 600;
+
+        }
+
+        .center .sub_title {
+            color: #ffff;
+            font-size: 30px;
+            font-weight: 600;
+
+        }
+
+        .center .btns {
+            margin-top: 20px;
+
+        }
+
+        .center .btns button {
+            height: 55px;
+            width: 170px;
+            border-radius: 5px;
+            border: none;
+            margin: 0 10px;
+            border: 2px solid #ffff;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 0 10px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .center .btns button:first-child {
+            color: #fff;
+            background: none;
+
+        }
+
+        .btns button:first-child:hover {
+            background: #fff;
+            color: #000;
+
+
+        }
+
+        .center .btns button:last-child {
+            background: white;
+            color: rgb(22, 22, 22);
+        }
+    </style>
+    <script>
+        src = "https://kit.fontawesome.com/a076d05399.js"
+    </script>
+@endsection
 @section('clientes')
+    {{-- <nav>
+        <div class="menu">
+            <div class="logo">
+                <a href="#">MiGema</a>
+
+            </div>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Inicio1</a></li>
+                <li><a href="#">Inicio2</a></li>
+                <li><a href="#">Inicio3</a></li>
+                <li><a href="#">Inicio4</a></li>
+                <li><a href="#">Inicio5</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container"></div>
+    <div class="img">
+        <div class="center">
+            <div class="title">MiGema construcciones Bolivia.</div>
+            <div class="sub_title">Expertos en construcciones</div>
+            <div class="btns">
+                <button>Ver más</button>
+                <button>Contactos</button>
+            </div>
+        </div>
+    </div> --}}
     <!-- SLIDER -->
-    <div class="owl-carousel owl-theme hero-slider">
-        <div class="slide slide1">
-            <img src="images/misicuni1.jpg" alt="">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center text-white">
-                        <h6 class="text-white text-uppercase">Expertos en Construcciín Civil</h6>
-                        <h1 class="display-3 my-4">Ingeniería <br /> & <br />Construcción</h1>
-                        <a href="#" class="btn btn-brand">Agregados</a>
-                        <a href="#" class="btn btn-outline-light ms-3">Servicios</a>
+    <div class="container">
+        <div class="owl-carousel owl-theme hero-slider">
+            <div class="slide slide1">
+                <img src="images/misicuni1.jpg" alt="">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center text-white">
+                            <h6 class="text-white text-uppercase">Expertos en Construcción Civil</h6>
+                            <h1 class="display-3 my-4">Ingeniería <br /> & <br />Construcción</h1>
+                            <a href="#" class="btn btn-brand">Agregados</a>
+                            <a href="#" class="btn btn-outline-light ms-3">Servicios</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="slide slide2">
-            <img src="images/misicuni.jpg" alt="">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-lg-10 offset-lg-1 text-white">
-                        <h6 class="text-white text-uppercase">Material de Construcción Seleccionada </h6>
-                        <h1 class="display-3 my-4">Material <br />Para <br /> Puentes, Carreterias, Edificios</h1>
-                        <a href="#" class="btn btn-brand">Ver Productos</a>
-                        <a href="#" class="btn btn-outline-light ms-3">Contactanos</a>
+            <div class="slide slide2">
+                <img src="images/misicuni.jpg" alt="">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-10 offset-lg-1 text-white">
+                            <h6 class="text-white text-uppercase">Material de Construcción Seleccionada </h6>
+                            <h1 class="display-3 my-4">Material <br />Para <br /> Puentes, Carreteras, Edificios</h1>
+                            <a href="#" class="btn btn-brand">Ver Productos</a>
+                            <a href="#" class="btn btn-outline-light ms-3">Contáctanos</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- card de 4-->
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">CONSULTORIA</h5>
-                    <p class="card-text">Brindemos soluciones. realizamos un análisis integral de las estructuras para
-                        determinar que tecnologías en métodos constructivos a emplear, para optimizar técnicas y económicas
-                        del proyecto.</p>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">CONSULTORÍA</h5>
+                        <p class="card-text">Brindamos soluciones. realizamos un análisis integral de las estructuras para
+                            determinar que tecnologías en métodos constructivos a emplear, para optimizar técnicas
+                            económicas
+                            del proyecto.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">CONSTRUCCIÓN CIVIL</h5>
-                    <p class="card-text">Mi gema, se especializa en construcciones civiles y sistemas de riegos.</p>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">CONSTRUCCIÓN CIVIL</h5>
+                        <p class="card-text">Migema, se especializa en construcciones civiles y sistemas de riegos.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">DESARROLLO DE PROYECTOS</h5>
-                    <p class="card-text">Desarrollamos perfiles de diseño de proyectos, implementación y puesta en marcha..
-                    </p>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">DESARROLLO DE PROYECTOS</h5>
+                        <p class="card-text">Desarrollamos perfiles de diseño de proyectos, implementación y puesta en
+                            marcha..
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">OBRAS HIDRÁULICAS</h5>
-                    <p class="card-text">En nuestro haber, contamos con trabajos de amplia envergadura y optimizada .</p>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">OBRAS HIDRÁULICAS</h5>
+                        <p class="card-text">En nuestro haber, contamos con trabajos de amplia envergadura y optimizada .
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- ABOUT -->
     <section id="about">
@@ -245,35 +437,5 @@
         </div>
     </section>
 
-    <footer>
-        <div class="footer-top text-center">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6 text-center">
-                        <h4 class="navbar-brand">MiGema Construcciones<span class="dot"></span></h4>
-                        <p>
-                            Servicio de áridos y agregados a nivel nacional e internacinal
-                        </p>
-                        <div class="col-auto social-icons">
-                            <a href="#"><i class='bx bxl-facebook'></i></a>
-                            <a href="#"><i class='bx bxl-instagram'></i></a>
-                        </div>
-                        <div class="col-auto conditions-section">
-                            <a href="#">Política</a>
-                            <a href="#">Términos</i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom text-center">
-            <p class="mb-0">Copyright 2023. Todos los derechos reservados</p> Publicado por<a hrefs="/">MiGema</a>
-        </div>
-    </footer>
-
-
-    <!-- Modal -->
-    <!-- Rgistro de contacto desde el sitio del cliente -->
-
-    @include('contacto.registrar')
+    @include('cliente.footer')
 @endsection

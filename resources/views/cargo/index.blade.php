@@ -10,10 +10,12 @@
 
 
 
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
-    <a href="{{ route('formulariocargo') }}"><button type="sudmit" class="btn btn-outline-dark">Nuevo Cargo de
-            empleado</button> </a>
 
+        <a href="{{ route('formulariocargo') }}"><button type="sudmit" class="btn btn-outline-dark">Nuevo Cargo de
+                empleado</button> </a>
+    </div>
 
 
 
@@ -23,20 +25,20 @@
         </div>
         <div class="table-responsive">
 
-            <table class="table table-dark table-hover">
+            <table class="table table-success table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th class="ocultar">Id</th>
                         <th>nombre</th>
                         <th>descrip</th>
-                        <th>Modificar</th>
-                        <th>Eliminar</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($datos as $items)
                         <tr>
-                            <td class="col-auto">
+                            <td class="col-auto ocultar">
                                 <p class=" mb-0">{{ $items->id_car }}</p>
                             </td>
                             <td class="col-auto">

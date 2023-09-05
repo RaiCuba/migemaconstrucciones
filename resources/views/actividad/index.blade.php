@@ -16,35 +16,37 @@
 
 
 
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{{ route('formularioact') }}"><button type="sudmit" class="btn btn-outline-dark">Nueva
+                Actividad</button> </a>
 
+    </div>
     <div class="col-12 col-xl-12">
 
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('formularioact') }}"><button type="sudmit" class="btn btn-outline-dark">Nueva
-                        Actividad</button> </a>
 
             </div>
             <div class="table-responsive">
 
-                <table class="table table-dark table-hover">
+                <table class="table table-success table-striped">
                     <thead>
                         <tr>
-                            <th>Id Act</th>
-                            <th>id tipo act </th>
+                            <th class="ocultar">Id Act</th>
+                            <th>tipo de actividad </th>
                             <th>nombre de la actividad</th>
                             <th>Dia</th>
                             <th>Descripción</th>
                             <th>Lugar</th>
                             <th>Estado</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($datos as $items)
                             <tr>
-                                <td class="col-auto">
+                                <td class="col-auto ocultar">
                                     <p class=" mb-0">{{ $items->id_act }}</p>
                                 </td>
                                 <td class="col-auto">

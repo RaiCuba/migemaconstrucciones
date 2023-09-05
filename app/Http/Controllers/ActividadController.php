@@ -7,13 +7,21 @@ use App\Models\Actividad;
 use App\Models\TipoAct;
 use PhpParser\Node\Stmt\TryCatch;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ActividadController extends Controller
 {
     //
     public function index()
     {
-        $datos = Actividad::orderby('id_act', 'asc')->paginate(10);
+        $datos = Actividad::join('tipo_act', 'tipo_act.id_tip_act', '=', 'actividad.id_tip_act')
+            ->select('actividad.id_act', 'tipo_act.id_tip_act', 'actividad.nombre', 'actividad.dia', 'actividad.descrip', 'actividad.lugar', DB::raw('(CASE WHEN actividad.estado = "1" THEN "Activo" WHEN actividad.estado = "2" THEN "En proceso" ELSE "Terminados" END) as estado'))
+            ->where('actividad.estado', '1')
+            ->orwhere('actividad.estado', '2')
+            ->orwhere('actividad.estado', '3')
+            ->paginate(10);
+
+        //$datos = Actividad::orderby('id_act', 'asc')->paginate(10);
         return view('actividad.index', compact('datos'));
     }
     public function verform()
@@ -104,7 +112,7 @@ class ActividadController extends Controller
         $act->lugar = $request->post('textlugar');
         $act->estado = '1';
         $act->save();
-        return redirect()->route('act')->with('seccess', 'Se modifico correctamente');
+        return redirect()->route('act')->with('Correcto', 'Se modifico correctamente');
     }
 
     /**
@@ -113,7 +121,8 @@ class ActividadController extends Controller
     public function delete(string $id)
     {
         $act = Actividad::find($id);
-        $act->delete();
-        return redirect()->route('act')->with('success', 'Se Elimino  correctamente el registro');
+        $act->estado = '0';
+        $act->save();
+        return redirect()->route('act')->with('Correcto', 'Se Elimino  correctamente el registro');
     }
 }

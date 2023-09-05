@@ -13,13 +13,19 @@ class ActEmpController extends Controller
     //
     public function index()
     {
-        $datos = ActEmp::orderby('fecha', 'asc')->paginate(10);
+        $datos = ActEmp::where('estado', '1')
+            ->orwhere('estado', '2')
+            ->orwhere('estado', '3')
+            ->get();
+        //$datos = ActEmp::orderby('fecha', 'asc')->paginate(10);
         return view('actemp.index', compact('datos'));
     }
     public function verform()
     {
-        $actividad = Actividad::all();
-        $empleado = Empleado::all();
+        $actividad = Actividad::where('estado', '1')->get();
+        //$actividad = Actividad::all();
+        $empleado = Empleado::where('estado', '1')->get();
+
         return view("actemp.registrar", compact('actividad', 'empleado'));
     }
     public function formmodificar($iddep)
@@ -53,12 +59,13 @@ class ActEmpController extends Controller
         $actemp->fecha_fin = $request->post('fechafin');
         $actemp->save();
 
-        return redirect()->route('actemp')->with('seccess', 'Se modifico correctamente');
+        return redirect()->route('actemp')->with('Correcto', 'Se modifico correctamente');
     }
     public function delete(string $id)
     {
         $actemp = ActEmp::find($id);
-        $actemp->delete();
-        return redirect()->route('actemp')->with('success', 'Se Elimino  correctamente el registro');
+        $actemp->estado = '0';
+        $actemp->update();
+        return redirect()->route('actemp')->with('Correcto', 'Se Elimino  correctamente el registro');
     }
 }

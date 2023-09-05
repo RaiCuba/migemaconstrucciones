@@ -25,8 +25,8 @@
     {{-- para mostrar el mapa --}}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script type="module" src="./index.js"></script>
+    {{-- <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script type="module" src="./index.js"></script> --}}
     <style>
         /* Set the size of the div element that contains the map */
         #map {
@@ -50,24 +50,28 @@
             background: #999;
         }
     </style>
-
+    <style>
+        .ocultar {
+            visibility: collapse;
+            display: none;
+        }
+    </style>
 
 </head>
 @auth
 
     <body>
-
+        {{-- table table-success table-striped (cambiar de estilo) --}}
         <div id="app">
             <div id="sidebar" class="active">
-                <div class="sidebar-wrapper active">
+                <div class="sidebar-wrapper active ">
                     <div class="sidebar-header">
                         <div class="d-flex justify-content-between">
                             <div class="logo">
-                                <a href=""><img src="../public/images/logo/logo1.png " alt="Logo"
-                                        srcset=""></a>
+                                <a href=""></a>
                             </div>
                             <div>
-                                <a>i Gema Construcciones</a>
+                                <a>MiGema Construcciones</a>
                             </div>
                             <div class="toggler">
                                 <a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -76,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="sidebar-menu">
+                    <div class="sidebar-menu ">
                         <ul class="menu">
                             <li class="sidebar-title">Menu</li>
 
@@ -93,30 +97,36 @@
                                     <span>Empleados</span>
                                 </a>
                                 <ul class="submenu ">
-                                    <li class="submenu-item ">
-                                        <a href="./empleado">Empleados</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('empcar') }}">Asignar Cargo de Empleado</a>
-                                    </li>
+                                    @role('admin')
+                                        <li class="submenu-item ">
+                                            <a href="./empleado">Empleados</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('empcar') }}">Asignar Cargo de Empleado</a>
+                                        </li>
 
 
 
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('tipoemp') }}">Tipo de Empleado</a>
-                                    </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('tipoemp') }}">Tipo de Empleado</a>
+                                        </li>
 
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('cargo') }}">Cargo</a>
-                                    </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('cargo') }}">Cargo</a>
+                                        </li>
 
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('horaasig') }}">Horario Asignado</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('persona') }}">Registrar datos de empleado</a>
-                                    </li>
-
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('horaasig') }}">Horario Asignado</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('persona') }}">Registrar datos de empleado</a>
+                                        </li>
+                                    @endrole
+                                    @role('empleado')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('datos.empleado', auth()->user()->id_emp) }}">Mis Datos</a>
+                                        </li>
+                                    @endrole
                                 </ul>
                             </li>
                             <li class="sidebar-item  has-sub">
@@ -125,15 +135,23 @@
                                     <span>Actividades</span>
                                 </a>
                                 <ul class="submenu ">
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('act') }}">Actividades</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('actemp') }}">Asignar Actividad a Empleado</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('tipoact') }}">Tipo de Actividades</a>
-                                    </li>
+                                    @role('admin')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('act') }}">Actividades</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('actemp') }}">Asignar Actividad a Empleado</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('tipoact') }}">Tipo de Actividades</a>
+                                        </li>
+                                    @endrole
+                                    @role('empleado')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('actividadad.empleado', auth()->user()->id_emp) }}">Mis
+                                                Actividades</a>
+                                        </li>
+                                    @endrole
                                 </ul>
                             </li>
                             <li class="sidebar-item  has-sub">
@@ -142,19 +160,26 @@
                                     <span>Producto</span>
                                 </a>
                                 <ul class="submenu ">
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('producto') }}">Producto</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('categoria') }}">Categoria de producto</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('costoprod') }}">Costo de Producto</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('lugar') }}">Almacen de Producto</a>
-                                    </li>
-
+                                    @role('empleado')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('producto') }}">Producto</a>
+                                        </li>
+                                    @endrole
+                                    @role('admin')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('categoria') }}">Categoria de producto</a>
+                                        </li>
+                                    @endrole
+                                    @role('empleado')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('costoprod') }}"> Registrar Nuevo Producto</a>
+                                        </li>
+                                    @endrole
+                                    @role('admin')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('lugar') }}">Almacen de Producto</a>
+                                        </li>
+                                    @endrole
                                 </ul>
                             </li>
                             <li class="sidebar-item  has-sub">
@@ -163,14 +188,22 @@
                                     <span>Asistencia</span>
                                 </a>
                                 <ul class="submenu ">
-
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('asistencia.formulario') }}">Registrar Asistencia</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('asistencia') }}">Ver Asistencia</a>
-                                    </li>
-
+                                    @role('empleado')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('asistencia.formulario') }}">Registrar Asistencia</a>
+                                        </li>
+                                    @endrole
+                                    @role('admin')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('asistencia') }}">Ver Asistencia</a>
+                                        </li>
+                                    @endrole
+                                    @role('empleado')
+                                        <li class="submenu-item">
+                                            <a href="{{ route('asistencia.empleado', auth()->user()->id_emp) }}">Mis
+                                                Asistencias</a>
+                                        </li>
+                                    @endrole
                                 </ul>
                             </li>
 
@@ -180,20 +213,21 @@
                                     <span>Material </span>
                                 </a>
                                 <ul class="submenu ">
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('material') }}">Material</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('lugarext') }}">Lugar de Extración</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('proveedor') }}">Proveedor</a>
-                                    </li>
+                                    @role('empleado')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('material') }}">Material</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('lugarext') }}">Lugar de Extración</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('proveedor') }}">Proveedor</a>
+                                        </li>
 
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('ventas') }}">ventas</a>
-                                    </li>
-
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('ventas') }}">ventas</a>
+                                        </li>
+                                    @endrole
                                 </ul>
                             </li>
 
@@ -203,45 +237,67 @@
                                     <span>Lugar</span>
                                 </a>
                                 <ul class="submenu ">
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('pais') }}">País</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('departamento') }}">Departamento</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('ciudad') }}">Ciudad</a>
-                                    </li>
-                                    <li class="submenu-item ">
-                                        <a href="">Dirección</a>
-                                    </li>
+                                    @role('empleado')
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('pais') }}">País</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('departamento') }}">Departamento</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('ciudad') }}">Ciudad</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="">Dirección</a>
+                                        </li>
+                                    @endrole
                                 </ul>
                             </li>
 
 
-
-                            <li class="sidebar-title">Pages</li>
-
-
-                            <li class="sidebar-item  has-sub">
-                                <a href="#" class='sidebar-link'>
-                                    <i class="bi bi-person-badge-fill"></i>
-                                    <span>Usuario</span>
-                                </a>
-                                <ul class="submenu ">
+                            @role('admin')
+                                <li class="sidebar-title">Usuario</li>
 
 
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('register.nuevo') }}">Registro</a>
-                                    </li>
-
-                                    <li class="submenu-item ">
-                                        <a href="{{ route('contacto.mostrar') }}">Ver mensajes de la Web</a>
-                                    </li>
-                                </ul>
-                            </li>
+                                <li class="sidebar-item  has-sub">
+                                    <a href="#" class='sidebar-link'>
+                                        <i class="bi bi-person-badge-fill"></i>
+                                        <span>Ajustes de usuario</span>
+                                    </a>
+                                    <ul class="submenu ">
 
 
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('register.nuevo') }}">Registro</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('usuario.index') }}">Asignar Rol a empleado</a>
+                                        </li>
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('contacto.mostrar') }}">Ver mensajes de la Web</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endrole
+                            @role('admin')
+                                <li class="sidebar-title">Backup</li>
+
+
+                                <li class="sidebar-item  has-sub">
+                                    <a href="#" class='sidebar-link'>
+                                        <i class="bi bi-person-badge-fill"></i>
+                                        <span>Backup</span>
+                                    </a>
+                                    <ul class="submenu ">
+
+
+                                        <li class="submenu-item ">
+                                            <a href="{{ route('realizar.backup.form') }}">Respaldo</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            @endrole
 
                             <li class="sidebar-title"><a href="./logout">Logout / Cerrar Sección </a>
 
@@ -252,8 +308,8 @@
             </div>
             <div id="main">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light text-rigth ">
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav position-absolute top-50 end-0 translate-middle-y">
+                    <div class="collapse navbar-collapse table table-success table-striped" id="navbarNavDropdown">
+                        <ul class="navbar-nav  ">
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink"
@@ -265,15 +321,17 @@
 
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('asistencia.empleado', auth()->user()->id_emp) }}">Mi
-                                            asistencia</a></li>
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('actividadad.empleado', auth()->user()->id_emp) }}">Mis
-                                            Actividades</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
+                                    @role('empleado')
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('asistencia.empleado', auth()->user()->id_emp) }}">Mi
+                                                asistencia</a></li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('actividadad.empleado', auth()->user()->id_emp) }}">Mis
+                                                Actividades</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                    @endrole
                                     <li><a class="dropdown-item" href="./logout">
                                             Cerrar
                                             sección</a></li>

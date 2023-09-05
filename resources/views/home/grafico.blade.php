@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laravel 9 Chart JS Example Tutorial - Pie Chart - Tutsmake.com</title>
+
     <!-- Latest CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
@@ -11,6 +11,7 @@
 
 <body>
     <div class="card-header">
+        <h1>Productos disponibles</h1>
         <div class="chart-container">
             <div class="pie-chart-container">
                 <canvas id="pie-chart"></canvas>
@@ -73,12 +74,7 @@
                 }
             };
 
-            //create Pie Chart class object
-            // var chart1 = new Chart(ctx, {
-            //     type: "bar",
-            //     data: data,
-            //     options: options
-            // });
+
 
             const stackedBar = new Chart(ctx, {
                 type: 'bar',

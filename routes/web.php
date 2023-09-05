@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BackupController;
+
+
 use App\Http\Controllers\ActEmpController;
 use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\CostoProdController;
@@ -16,6 +19,7 @@ use App\Http\Controllers\TipoEmpController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\AsignarRol;
 use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ContactosController;
@@ -34,7 +38,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Models\CostoPro;
 use App\Models\Depertamento;
+use App\Models\Lugar;
 use App\Models\Pai;
+use App\Models\Producto;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +57,8 @@ use App\Models\Pai;
 Route::get('/obtener-opciones/{valor}', [HomeController::class, 'obtenerOpciones'])->name('obtener.opciones');
 Route::get('/obtener-opc', [HomeController::class, 'sele'])->name('ver.opcion');
 Route::get('/tabledate', [HomeController::class, 'tablas'])->name('ver.tabladedatos');
-
+//ver grafico de ventas
+Route::get('/vergrafico/ventas', [HomeController::class, 'Vergrafico'])->name('ver.grafico.ventas');
 
 
 //Operaciones 
@@ -88,10 +95,19 @@ Route::get('/index', [ClienteController::class, 'index'])->name('cliente.index')
 Route::get('/empresa', [ClienteController::class, 'empresa'])->name('cliente.empresa');
 //VER PAGINA  PROYECTOS
 Route::get('/proyectos', [ClienteController::class, 'proyecto'])->name('cliente.proyecto');
+//VER PAGINA  PRODUCTOS
+Route::get('/productos', [ClienteController::class, 'producto'])->name('cliente.poducto');
+//VER PAGINA  PRODUCTOS
+Route::get('/galeria', [ClienteController::class, 'galeria'])->name('cliente.galeria');
 //REGISTRAR USUARIO
 Route::get('/register', [RegisterController::class, 'show']);
 Route::get('/nuevo-usuario', [RegisterController::class, 'registroform'])->name('register.nuevo');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
+//ASIGNAR ROL A USUARIO
+Route::post('/asignarrol/{id}', [RegisterController::class, 'registrarrol'])->name('asignarrol');
+Route::get('/verrol/{id}', [AsignarRol::class, 'verrol'])->name('verrol');
+Route::get('/usuario-index', [AsignarRol::class, 'index'])->name('usuario.index');
+
 
 //REGISTRAR CONTACTO
 Route::post('/contactos', [ContactosController::class, 'create'])->name('contacto.create');
@@ -122,15 +138,28 @@ Route::get('/nuevaimages', [ImagenController::class, 'verformimg'])->name('image
 Route::get('/empleado', [EmpleadoController::class, "index"])->name("empleado");
 Route::post('/registrar-empleado', [EmpleadoController::class, "create"])->name("empleado.create");
 Route::put('/modificar-empleado/{id}', [EmpleadoController::class, "update"])->name("empleado.update");
-Route::get('/eliminar-empleado-{id}', [EmpleadoController::class, "delete"])->name("empleado.delete");
+Route::put('/eliminar-empleado-{id}', [EmpleadoController::class, "delete"])->name("empleado.delete");
 
 Route::get('/nuevoempleado', [EmpleadoController::class, "verform"])->name("formularioempleado");
 Route::get('/modificarempleado{id}', [EmpleadoController::class, "formmodificar"])->name("modificarempleado");
+//ASIGNAR ROLES
+Route::get('/asignarrol{id}', [EmpleadoController::class, "asignarrol"])->name("empleado.rol");
+
+Route::get('/pais/{id}/depa', function ($id) {
+    $pais = Pai::find($id);
+    return  Depertamento::where('id_pai', $id)->get();
+});
+
+
+
 //ACTIVIDAD
 Route::get('/act', [ActividadController::class, "index"])->name("act");
 Route::post('/registrar-act', [ActividadController::class, "create"])->name("act.create");
 Route::put('/modificar-act/{id}', [ActividadController::class, "update"])->name("act.update");
 Route::get('/eliminar-act-{id}', [ActividadController::class, "delete"])->name("act.delete");
+//BACKUP RESPALDO
+Route::get('/realizar-backup', [BackupController::class, "realizarBackup"])->name('realizar.backup');
+Route::get('/form-backup-app', [BackupController::class, "index"])->name('realizar.backup.form');
 
 Route::get('/nuevoact', [ActividadController::class, "verform"])->name("formularioact");
 Route::get('/modificaract{id}', [ActividadController::class, "formmodificar"])->name("modificaract");
@@ -139,8 +168,8 @@ Route::get('/modificaract{id}', [ActividadController::class, "formmodificar"])->
 Route::get('/actividad-empleado{id}', [EmpleadousuarioController::class, "actividadempleado"])->name("actividadad.empleado");
 Route::post('/realizar-actividad-{id}', [EmpleadousuarioController::class, "realizaractividad"])->name("realizar.actividadad");
 Route::post('/terminar-actividad-{id}', [EmpleadousuarioController::class, "terminaractividad"])->name("terminar.actividadad");
-
 Route::get('/asistencia-empleado{id}', [EmpleadousuarioController::class, "asistenciaempleado"])->name("asistencia.empleado");
+Route::get('/datos-empleado{id}', [EmpleadousuarioController::class, "datosempleado"])->name("datos.empleado");
 
 //ASIGNACION DE ACTIVIDADES A EMPLEADOS
 Route::get('/actemp', [ActEmpController::class, "index"])->name("actemp");
@@ -261,6 +290,23 @@ Route::get('/eliminar-ventas-{id}', [DetalleVentaController::class, "delete"])->
 Route::get('/nuevoventas', [DetalleVentaController::class, "verform"])->name("formularioventas");
 Route::get('/modificarventa/{id}', [DetalleVentaController::class, "formmodificar"])->name("modificarventas");
 
+Route::get('/lugar/{id}/producto', function ($id) {
+    $lugar = Lugar::find($id);
+    return Producto::join('costo_pro', 'costo_pro.id_cos_pro', '=', 'producto.id_cos_pro')
+        ->join('pro_lug', 'producto.id_pro', '=', 'pro_lug.id_pro')
+        ->join('lugar', 'pro_lug.id_lug', '=', 'lugar.id_lug')
+        ->select('costo_pro.id_cos_pro', 'costo_pro.nombre')
+        ->where('lugar.id_lug', $id)->get();
+});
+Route::get('/producto/{id}/detalle', function ($id) {
+    $lugar = Lugar::find($id);
+    return Producto::join('costo_pro', 'costo_pro.id_cos_pro', '=', 'producto.id_cos_pro')
+        ->join('pro_lug', 'producto.id_pro', '=', 'pro_lug.id_pro')
+        ->join('lugar', 'pro_lug.id_lug', '=', 'lugar.id_lug')
+        ->select('costo_pro.id_cos_pro', 'costo_pro.nombre')
+        ->where('lugar.id_lug', $id)->get();
+});
+
 //prueva select 
 Route::get('/ventas1', [DetalleVentaController::class, "index1"])->name("ventas1");
 Route::get('/obtener-ciudad', [DetalleVentaController::class, "obtenerCiudades"])->name("obtciu");
@@ -273,7 +319,7 @@ Route::put('/modificar-material/{id}', [MaterialController::class, "update"])->n
 Route::get('/eliminar-material-{id}', [MaterialController::class, "delete"])->name("material.delete");
 
 Route::get('/nuevomaterial', [MaterialController::class, "verform"])->name("formulariomaterial");
-Route::get('/modificarmateria/{id}', [MaterialController::class, "formmodificar"])->name("modificarmaterial");
+Route::get('/modificarmateria-{id}', [MaterialController::class, "formmodificar"])->name("modificarmaterial");
 
 //CRUD PAIS 
 

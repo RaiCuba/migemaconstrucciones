@@ -20,7 +20,7 @@
             <label for="exampleInputEmail1" class="form-label">Usuario que compra</label>
             <select name="textusuario" class="form-control">
                 @foreach ($usuarios as $dato)
-                    <option value="{{ $dato->id_usu }}">{{ $dato->id_usu }}</option>
+                    <option value="{{ $dato->id_usu }}">{{ $dato->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -58,7 +58,7 @@
 
         <div>
             <a href="{{ route('material') }}" class="btn btn-info"><span class="fas fa-indo-alt"></span>Regresar</a>
-            <button type="submit" class="btn btn-primary">Registrar</button>
+            <button type="submit" class="btn btn-primary">Modificar</button>
         </div>
     </form>
 @endsection

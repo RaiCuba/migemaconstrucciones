@@ -17,7 +17,7 @@ return new class extends Migration
     {
         $role1 = Role::create(['name' => 'admin']);
         $role2 = Role::create(['name' => 'empleado']);
-        $role3 = Role::create(['name' => 'regente']);
+        $role3 = Role::create(['name' => 'gerente']);
         //para varios roles syncRoles
         Permission::create(['name' => 'home'])->syncRole([$role1, $role2, $role3]);
         Permission::create(['name' => 'empleado.index']);

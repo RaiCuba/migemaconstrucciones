@@ -1,23 +1,25 @@
 @extends('layouts.menupricipal')
 @section('Contenido')
     <div class="container-fluid">
-        <table class="table table-light">
+        <table class="table table-success table-striped">
             <thead class="thead-light">
                 <tr>
-                    <th>id emp</th>
-                    <th>id act</th>
+                    <th class="ocultar">id emp</th>
+                    <th class="ocultar">id act</th>
                     <th>empleado</th>
                     <th>actividad</th>
                     <th>lugar de act</th>
                     <th>descripcion</th>
                     <th>estado</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($actividad as $act)
                     <tr>
-                        <td>{{ $act->id_emp }}</td>
-                        <td>{{ $act->id_act }}</td>
+                        <td class="ocultar">{{ $act->id_emp }}</td>
+                        <td class="ocultar">{{ $act->id_act }}</td>
                         <td>{{ $act->nombre }} {{ $act->ape }}</td>
                         <td>{{ $act->nombrea }}</td>
                         <td>{{ $act->lugar }}</td>
@@ -39,11 +41,7 @@
                     </tr>
                 @endforeach
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Mis actividades</th>
-                </tr>
-            </tfoot>
+
         </table>
 
     </div>

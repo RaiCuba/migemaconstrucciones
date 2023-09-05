@@ -68,9 +68,8 @@ class AsistenciaController extends Controller
 
 
         $asistencia->save();
-        return redirect()->route('asistencia')->with('success', 'Se Registro correctamente');
+        return redirect()->route('asistencia.empleado', auth()->user()->id_emp)->with('success', 'Se Registro correctamente');
         // return redirect()->route('cargo')->with('Correcto', 'Se Registro correctamente');
-
 
     }
 

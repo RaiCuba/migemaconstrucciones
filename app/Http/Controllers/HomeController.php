@@ -35,6 +35,31 @@ class HomeController extends Controller
     {
         return view('home.tabledate');
     }
+    public function Vergrafico()
+    {
+
+        //imprimir graficos VENTAS
+        $record = DB::select("select sum(dv.total) as 'total', sum(dv.cantidad) as 'cantidad', cp.nombre as 'nombre' FROM detalle_venta dv, producto p, costo_pro cp WHERE dv.id_pro = p.id_pro and p.id_cos_pro= cp.id_cos_pro GROUP by cp.nombre");
+        $data = [];
+        foreach ($record as $row) {
+            $data['label'][] = $row->nombre;
+            $data['data'][] = (int) $row->cantidad;
+            $data['data'][] = (int) $row->total;
+        }
+        $data['chart_data'] = json_encode($data);
+        //para imprimer el grafico
+        $chart_option = [
+            'chart_title' => 'Ventas',
+            'chart_type' => 'bar',
+            'report_type' => 'group_by_relationship',
+            'model' => 'App\Models\DetalleVentum',
+            'relationship_name' => 'producto',
+            'group_by_field' => 'id_pro',
+        ];
+        $chart = new LaravelChart($chart_option);
+
+        return view('home.graficoVentas', $data, compact('chart'));
+    }
     public function index()
     {
         $hoy = Carbon::now();

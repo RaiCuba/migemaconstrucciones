@@ -70,7 +70,7 @@ class CiudadController extends Controller
         try {
 
             $ciudad = new Ciudad();
-            $ciudad->id_dep = $request->post('ciudad_id');
+            $ciudad->id_dep = $request->post('depa');
             $ciudad->nombre = $request->post('textciudad');
             $ciudad->save();
 

@@ -10,11 +10,11 @@
 
 
 
-
-    <a href="{{ route('formularioproducto') }}"><button type="sudmit" class="btn btn-outline-dark">Añadir + Cabtidad de
-            Producto</button>
-    </a>
-
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{{ route('formularioproducto') }}"><button type="sudmit" class="btn btn-outline-dark">Añadir + Cantidad de
+                Producto</button>
+        </a>
+    </div>
 
     <div class="col-12 col-xl-12">
         <div class="card">
@@ -23,21 +23,21 @@
             </div>
             <div class="table-responsive">
 
-                <table class="table table-dark table-hover">
+                <table class="table table-success table-striped">
                     <thead>
                         <tr>
-                            <th>Identificador</th>
+                            <th class="ocultar">Identificador</th>
                             <th>Nombre de producto </th>
                             <th>Cantidad </th>
                             <th>Precio X M3 </th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($datos as $items)
                             <tr>
-                                <td class="col-auto">
+                                <td class="col-auto ocultar">
                                     <p class=" mb-0">{{ $items->id_cos_pro }}</p>
                                 </td>
                                 <td class="col-auto">

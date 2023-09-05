@@ -32,7 +32,7 @@
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Ventas</h6>
                                 <h6 class="font-extrabold mb-0">Cantidad: {{ $cantidad }}</h6>
-                                <h6 class="font-extrabold mb-0">Hoy: {{ $hoy }} </h6>
+                                <h6 class="font-extrabold mb-0">{{ $hoy }} </h6>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Productos</h6>
                                 <h6 class="font-extrabold mb-0">Nro.: {{ $cantidadproducto }}</h6>
-                                <h6 class="font-extrabold mb-0">Hoy: {{ $hoy }} </h6>
+                                <h6 class="font-extrabold mb-0">{{ $hoy }} </h6>
                             </div>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                             </div>
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Asistencia</h6>
-                                <h6 class="font-extrabold mb-0">Cant. Trabajando: {{ $asis }}</h6>
-                                <h6 class="font-extrabold mb-0">Asistencias de: {{ $hoy }}</h6>
+                                <h6 class="font-extrabold mb-0">Cant. Trab.: {{ $asis }}</h6>
+                                <h6 class="font-extrabold mb-0">{{ $hoy }}</h6>
                             </div>
                         </div>
                     </div>
@@ -89,144 +89,137 @@
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Actividades</h6>
                                 <h6 class="font-extrabold mb-0">Cant.: {{ $actemp }} </h6>
-                                <h6 class="font-extrabold mb-0">Hoy.: {{ $hoy }}</h6>
+                                <h6 class="font-extrabold mb-0">{{ $hoy }}</h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            @role('admin')
-                <div>
-                    <p>solo para admin </p>
-                </div>
-            @endrole
-
             @role('empleado')
-                <div>
-                    <p>solo para empleados </p>
+                <div class="card">
+                    <div>
+                        @include('home.grafico')
+                    </div>
                 </div>
             @endrole
-            @role('regente')
-                <div>
-                    <p>solo para gerente </p>
-                </div>
-                <div>
-                    <p>solo para gerente2 </p>
-                </div>
-            @endrole
-
-            <h4>Stock de productos</h4>
-            @include('home.grafico')
-
+            {{-- 
+            <a href="{{ route('ver.grafico.ventas') }}">ver ventas</a>
+            <div class="row">
+                @include('home.graficoVentas')
+            </div> --}}
             <div class="row p-5">
 
                 <div class="col-8 col-xl-8">
                     <div class="card">
-                        <div class="card-header">
-                            <h4>Actividades Asignadas a Empleados del día</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>Empleado</th>
-                                            <th>Tipo de actividad</th>
-                                            <th>fecha</th>
-                                            <th>Lugar</th>
-                                            <th>Estado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($actividades as $actividad)
+                        @role('admin')
+                            <div class="card-header">
+                                <h4>Actividades Asignadas a Empleados</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-success table-striped">
+                                        <thead>
                                             <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        {{-- <div class="avatar avatar-md">
+                                                <th>Empleado</th>
+                                                <th>Tipo de actividad</th>
+                                                <th>fecha</th>
+                                                <th>Lugar</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($actividades as $actividad)
+                                                <tr>
+                                                    <td class="col-3">
+                                                        <div class="d-flex align-items-center">
+                                                            {{-- <div class="avatar avatar-md">
                                                             <img src="{{ asset('images/fotos/' . $actividad->empleado->persona->imagenn) }}"
                                                                 alt="Imagen">
                                                             {{ $actividad->imagenn }}
                                                         </div> --}}
 
-                                                        <p class="font-bold ms-3 mb-0">
-                                                            {{ $actividad->nombre }}
-                                                            {{ $actividad->ape }}
-                                                            {{-- {{ $actividad->empleado->persona->nombre }}  --}}
+                                                            <p class="font-bold ms-3 mb-0">
+                                                                {{ $actividad->nombre }}
+                                                                {{ $actividad->ape }}
+                                                                {{-- {{ $actividad->empleado->persona->nombre }}  --}}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-auto">
+                                                        <p class=" mb-0">
+                                                            {{-- {{ $actividad->actividad->nombre }} --}}
+                                                            {{ $actividad->nombrea }}
                                                         </p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">
-                                                        {{-- {{ $actividad->actividad->nombre }} --}}
-                                                        {{ $actividad->nombrea }}
-                                                    </p>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">
-                                                        {{ $actividad->fecha }}
-                                                    </p>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">
-                                                        {{ $actividad->lugar }}
-                                                    </p>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">
-                                                        {{ $actividad->estado }}
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                    </td>
+                                                    <td class="col-auto">
+                                                        <p class=" mb-0">
+                                                            {{ $actividad->fecha }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="col-auto">
+                                                        <p class=" mb-0">
+                                                            {{ $actividad->lugar }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="col-auto">
+                                                        <p class=" mb-0">
+                                                            {{ $actividad->estado }}
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        @endrole
                     </div>
 
                 </div>
                 <div class="card  col-xl-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Asistencias de Hoy: {{ $hoy }}</h5>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Empleado</th>
-                                    <th>hora de entrada</th>
-                                    <th>hora de salida</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($asistencias as $asistencia)
+                    @role('admin')
+                        <div class="card-body">
+                            <h5 class="card-title">Asistencias de Hoy: {{ $hoy }}</h5>
+                            <table class="table table-success table-striped">
+                                <thead>
                                     <tr>
-                                        <td class="col-3">
-                                            <div class="d-flex align-items-center">
-                                                {{ $asistencia->empleado->persona->nombre }}
-                                                {{ $asistencia->empleado->persona->ape }}
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                {{ $asistencia->entrada_salida->hora_ent }}
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                {{ $asistencia->entrada_salida->hora_sal }}
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{ route('asistencia') }}"><i class="bi bi-eye-fill"></i></a>
-                                            </div>
-                                        </td>
+                                        <th>Empleado</th>
+                                        <th>hora de entrada</th>
+                                        <th>hora de salida</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                            <tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    @foreach ($asistencias as $asistencia)
+                                        <tr>
+                                            <td class="col-3">
+                                                <div class="d-flex align-items-center">
+                                                    {{ $asistencia->empleado->persona->nombre }}
+                                                    {{ $asistencia->empleado->persona->ape }}
+                                                </div>
+                                            </td>
+                                            <td class="col-auto">
+                                                <div class="d-flex align-items-center">
+                                                    {{ $asistencia->entrada_salida->hora_ent->format('H:i:s') }}
+                                                </div>
+                                            </td>
+                                            <td class="col-auto">
+                                                <div class="d-flex align-items-center">
+                                                    {{ $asistencia->entrada_salida->hora_sal->format('H:i:s') }}
+                                                </div>
+                                            </td>
+                                            <td class="col-auto">
+                                                <div class="d-flex align-items-center">
+                                                    <a href="{{ route('asistencia') }}"><i class="bi bi-eye-fill"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tbody>
+                            </table>
+                        </div>
+                    @endrole
                 </div>
             </div>
         @endsection

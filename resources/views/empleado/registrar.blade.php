@@ -37,8 +37,9 @@
             <label for="exampleInputEmail1" class="form-label">Hora de trabajo asignado</label>
             <select name="texthoratra" class="form-control">
                 @foreach ($horatra as $dato)
-                    <option value="{{ $dato->id_hor_asi }}">H. mañana: {{ $dato->hora_ent_m }} - {{ $dato->hora_sal_m }} /
-                        H. Tarde: {{ $dato->hora_ent_t }} - {{ $dato->hora_sal_t }}</option>
+                    <option value="{{ $dato->id_hor_asi }}">H. {{ $dato->hora_ent_m->format('H:i') }} -
+                        {{ $dato->hora_sal_m->format('H:i') }} /
+                        H. {{ $dato->hora_ent_t->format('H:i') }} - {{ $dato->hora_sal_t->format('H:i') }}</option>
                 @endforeach
             </select>
         </div>

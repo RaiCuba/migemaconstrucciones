@@ -19,8 +19,14 @@ class DetalleVentaController extends Controller
 {
     public function index()
     {
-        $datos = DetalleVentum::paginate(10);
+        // $datos = DetalleVentum::paginate(10);
+        // return view('ventas.index', compact('datos'));
+        $datos = DetalleVentum::join('producto', 'producto.id_pro', '=', 'detalle_venta.id_pro')
+            ->join('costo_pro', 'costo_pro.id_cos_pro', '=', 'producto.id_cos_pro')
+            ->select('detalle_venta.id_det_ven', 'costo_pro.nombre', 'detalle_venta.cantidad', 'detalle_venta.precio', 'detalle_venta.total', 'detalle_venta.fecha')
+            ->get();
         return view('ventas.index', compact('datos'));
+
         // $datos = DB::select("select * from pais");
         //return view("pais.index")->with("datos", $datos);
     }
@@ -39,9 +45,10 @@ class DetalleVentaController extends Controller
     }
     public function verform()
     {
+        $paises = Pai::all();
         $lugares = Lugar::all();
         $productos = Producto::all();
-        return view("ventas.registrar", compact('productos', 'lugares'));
+        return view("ventas.registrar", compact('productos', 'lugares', 'paises'));
     }
     public function formmodificar($id)
     {

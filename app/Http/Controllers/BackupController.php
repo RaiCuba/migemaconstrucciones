@@ -23,7 +23,7 @@ class BackupController extends Controller
         //return view('backup.index');
 
         return redirect()->route('realizar.backup.form')->with('Correcto', 'Copia de seguridad creada exitosamente.');
-        //return view('backup.index');
+        //return view('backup.index')
     }
     public function index()
     {

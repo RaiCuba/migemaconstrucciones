@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: white;
+
+}
+button{
+    font-family: "Rubit", sans-serif;
+    background-color: transparent;
+    border: 1px solid white;
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    height: 50px;
+    transition: 0.5s ease;
+}
+button:hover{
+    cursor: pointer;
+    background-color: rgb(255,255,255, 0.4);
+}
+.container{
+    position: relative;
+    width: 1820px;
+    height: 720px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #767676;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #ffffff;
+}
+.container .content{
+    width: 100%;
+    display: flex;
+
+}
+.container .introduce{
+    position: relative;
+    width: 40%;
+    height: 100%;
+    z-index: 20;
+}

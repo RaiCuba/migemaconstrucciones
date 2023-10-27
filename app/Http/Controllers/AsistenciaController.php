@@ -45,7 +45,6 @@ class AsistenciaController extends Controller
         $fecha = Carbon::now();
         $horaActual = now()->format('H:i:s');
 
-
         $entrasali = new EntradaSalida();
         $entrasali->hora_ent = $horaActual;
         $entrasali->hora_sal = 0;
@@ -69,8 +68,6 @@ class AsistenciaController extends Controller
 
         $asistencia->save();
         return redirect()->route('asistencia.empleado', auth()->user()->id_emp)->with('success', 'Se Registro correctamente');
-        // return redirect()->route('cargo')->with('Correcto', 'Se Registro correctamente');
-
     }
 
     public function guardarCoordenadas(Request $request)

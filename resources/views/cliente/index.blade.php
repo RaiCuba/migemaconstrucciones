@@ -1,194 +1,62 @@
 @extends('layouts.menunavbar')
-@section('estilos')
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI',
-        }
 
-        ::selection {
-            color: #000;
-            background: #1b1b1b;
-
-        }
-
-        nav {
-            position: fixed;
-            background: #f1e1dd;
-            width: 100%;
-            padding: 10px 0;
-            z-index: 12;
-
-        }
-
-        nav .menu {
-            max-width: 1250%;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-items: space-between;
-            padding: 0 20px;
-
-        }
-
-        .menu .logo a {
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 35px;
-            font-weight: 600;
-
-        }
-
-        .menu ul {
-            display: inline-flex;
-
-        }
-
-        .menu ul li {
-            list-style: none;
-            margin-left: 7px;
-
-        }
-
-        .menu ul li:first-child {
-            margin-left: 0;
-
-        }
-
-        .menu ul li a {
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 500;
-            padding: 8px 15px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-
-        }
-
-        .menu ul li a:hover {
-            background: #ffffff;
-            color: black;
-
-        }
-
-        .img {
-            background: url(./images/galeria/misicuni1.jpg)no-repeat;
-            width: 100%;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .img::before {
-            content: '';
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-
-        }
-
-        .center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            padding: 0 20px;
-            text-align: center;
-
-        }
-
-        .center .title {
-            color: #ffff;
-            font-size: 55px;
-            font-weight: 600;
-
-        }
-
-        .center .sub_title {
-            color: #ffff;
-            font-size: 30px;
-            font-weight: 600;
-
-        }
-
-        .center .btns {
-            margin-top: 20px;
-
-        }
-
-        .center .btns button {
-            height: 55px;
-            width: 170px;
-            border-radius: 5px;
-            border: none;
-            margin: 0 10px;
-            border: 2px solid #ffff;
-            font-size: 20px;
-            font-weight: 500;
-            padding: 0 10px;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .center .btns button:first-child {
-            color: #fff;
-            background: none;
-
-        }
-
-        .btns button:first-child:hover {
-            background: #fff;
-            color: #000;
-
-
-        }
-
-        .center .btns button:last-child {
-            background: white;
-            color: rgb(22, 22, 22);
-        }
-    </style>
-    <script>
-        src = "https://kit.fontawesome.com/a076d05399.js"
-    </script>
-@endsection
 @section('clientes')
-    {{-- <nav>
-        <div class="menu">
-            <div class="logo">
-                <a href="#">MiGema</a>
-
-            </div>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Inicio1</a></li>
-                <li><a href="#">Inicio2</a></li>
-                <li><a href="#">Inicio3</a></li>
-                <li><a href="#">Inicio4</a></li>
-                <li><a href="#">Inicio5</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container"></div>
-    <div class="img">
-        <div class="center">
-            <div class="title">MiGema construcciones Bolivia.</div>
-            <div class="sub_title">Expertos en construcciones</div>
-            <div class="btns">
-                <button>Ver más</button>
-                <button>Contactos</button>
-            </div>
-        </div>
-    </div> --}}
     <!-- SLIDER -->
     <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="./images/galeria/misicuni1.jpg" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Expertos en construccion civil</h5>
+                        <h1>Ingeniería y construcción</h1>
+
+                        <p>Alplia experiencia en obras civiles y construccion de sistemas de riego</p>
+                        <span><a href="" class="btn btn-brand ms-lg-3 ">Mas información</a> </span>
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>CONSULTORÍA</h5>
+                                    <p>Brindamos soluciones. realizamos un análisis integral de las
+                                    estructuras para
+                                        determinar que tecnologías en métodos constructivos a emplear, para optimizar
+                                        técnicas
+                                        económicas
+                                        del proyecto.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="..." alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="..." alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <!-- SLIDER -->
+    {{-- <div class="container">
         <div class="owl-carousel owl-theme hero-slider">
             <div class="slide slide1">
                 <img src="images/misicuni1.jpg" alt="">
@@ -217,7 +85,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- card de 4-->
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -345,7 +213,8 @@
                     <div class="intro">
                         <h6>Nuestros servicos</h6>
                         <h1>Empresa construcctora</h1>
-                        <p class="mx-auto">Cada obra es diferente y queremos brindarle la mejor solución para tus proyectos,
+                        <p class="mx-auto">Cada obra es diferente y queremos brindarle la mejor solución para tus
+                            proyectos,
                             en asesoría y materiales de construcción</p>
                         <p class="mx-auto">Mano de obra calificada</p>
                         <a href="#" class="btn btn-brand">Contáctanos</a>

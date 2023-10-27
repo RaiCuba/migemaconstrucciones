@@ -20,7 +20,7 @@
             <table class="table table-success table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th class="ocultar">Id</th>
+                        <th class="ocultar">Identidad</th>
                         <th>Almacen</th>
                         <th>descripción</th>
                         <th>Dirección</th>
